@@ -3,7 +3,7 @@
 /** Check if environment is development and display errors **/
 
 function setReporting() {
-    if (DEBUG == true) {
+    if (defined('DEBUG')) {
 	    error_reporting(E_ALL);
 	    ini_set('display_errors','On');
     } else {
@@ -51,6 +51,7 @@ unregisterGlobals();
 function __autoload_data_types($classname) {
 
     $datatype = explode('_', $classname);
+    if ($datatype[0]!='Data') return;
     $file = Data::$types . strtolower($datatype[1]) . '.data.php';
     if (file_exists($file)){
         require_once($file);
@@ -61,6 +62,17 @@ function __autoload_data_types($classname) {
     }
 }
 spl_autoload_register('__autoload_data_types');
+
+function __autoload_controllers($classname) {
+
+    $controller = explode('_', $classname);
+    if ($controller[0]!='Controller') return;
+    $file = Data::$controllers . strtolower($controller[1]) . '.controller.php';
+    if (file_exists($file)){
+        require_once($file);
+    }
+}
+spl_autoload_register('__autoload_controllers');
 ## note that this is now defined _BEFORE_ the Data::$types directory is defined.
 
 /** Require some system files **/
@@ -75,3 +87,4 @@ User::$timeout = 30;
 User::$dir = dirname(__FILE__).'/../users/';
 Data::$types = dirname(__FILE__).'/../types/';
 Data::$configs = dirname(__FILE__).'/../configs/';
+Data::$controllers = dirname(__FILE__).'/../controllers/';

@@ -13,6 +13,7 @@ class Data {
     // options
     static $types;
     static $configs;
+    static $controllers;
     
     function __construct() {
     
@@ -28,6 +29,12 @@ class Data {
     function _check_build() {
     
         // an important method to be utilised as desired
+    }
+    
+    static function Controller($controller) {
+    
+        $class = 'Controller_'.$controller;
+        $X = new $class;
     }
 }
 
