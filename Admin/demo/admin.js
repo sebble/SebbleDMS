@@ -34,7 +34,6 @@ function doLogin() {
     // prepare login form anyway
     $('#form-login input').first().focus();
     ajaxifyForm('form-login', function(data) {
-		console.log(data);
         $('#form-login input').val('');
         if(!data) doAlert('error','<b>Error</b>: Login failed.', 3000);
         else {
@@ -114,7 +113,7 @@ function buildControlPanel() {
 
 function buildSidebar() {
 
-    console.log("Building Sidebar");
+    //console.log("Building Sidebar");
     ajaxPost('Admin/userPages',null,function(data){
         
         $('#ui-side').jqotesub($('#tpl-side'), data);
@@ -175,7 +174,7 @@ function loadData(url, params) {
     if (params===undefined) params={}
     ajaxPost(url, params, function(r) {
         varName = url.replace("/", "_");
-        console.log(r)
+        //console.log(r)
         window.data[varName] = r;
     }, false);
 }
