@@ -1,0 +1,8 @@
+   = Sebble Data Management
+
+This is currently two separate software packages:
+
+  * 'Data', the secure data architecture
+  * 'Admin', the AJAX front end
+
+There is also an example controller/router for both packages.
