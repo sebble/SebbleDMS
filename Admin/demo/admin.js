@@ -34,6 +34,7 @@ function doLogin() {
     // prepare login form anyway
     $('#form-login input').first().focus();
     ajaxifyForm('form-login', function(data) {
+		console.log(data);
         $('#form-login input').val('');
         if(!data) doAlert('error','<b>Error</b>: Login failed.', 3000);
         else {
