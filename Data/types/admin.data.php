@@ -46,6 +46,7 @@ class Data_Admin extends Data {
             $files = scandir(self::$dir.$grp);
             if (file_exists(self::$dir.$grp.'/'.$grp.'.json')) {
                 $js = json_decode(file_get_contents(self::$dir.$grp.'/'.$grp.'.json'), true);
+                #if ($js===NULL) exit("Error: Invalid Page Config ($grp)");
                 foreach ($js['pages'] as $k=>$pg) {
                     $has = true;
                     if (!$this->user->hasRoles($pg['roles'])) $has = false;
