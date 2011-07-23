@@ -1,0 +1,207 @@
+/* Admin.js */
+
+/**
+  Login --fade--> Dashboard --slide--> Page
+  +-appear-> Alert
+**/
+
+$(function() {
+    // catch hashchange
+    $(window).bind('hashchange', function() {
+        updateState(location.hash);
+    })
+    //updateState(location.hash);
+    // do login
+    doLogin();
+
+});
+
+var user = {};
+var data = {};
+
+function doLogin() {
+
+    // check if already logged in
+    ajaxPost('Auth/info',null,function(data){
+        if(!data.loggedIn) return;
+        
+        user = data;
+        // load page
+        $('#ui-overbox').fadeOut();
+        if(data) doAlert('success','<b>Logged In</b>: Loading control panel.', 3000);
+        buildControlPanel();
+    });
+    // prepare login form anyway
+    $('#form-login input').first().focus();
+    ajaxifyForm('form-login', function(data) {
+        $('#form-login input').val('');
+        if(!data) doAlert('error','<b>Error</b>: Login failed.', 3000);
+        else {
+          doAlert('success','<b>Success</b>: Loading control panel.', 3000);
+          doLogin();
+        }
+    })
+}
+
+function doLogout() {
+    
+    window.data = {};
+    ajaxPost('Auth/logout',null,function(data){
+        
+        if(data) doAlert('notice','<b>Logged Out</b>: You are now logged out.', 3000);
+        $('#ui-overlay').fadeIn();
+        $('#ui-head').fadeOut();
+        $('#ui-overbox').fadeIn();
+    });
+}
+
+function ajaxifyForm(formId, callback) {
+
+    $('form#'+formId).unbind('submit.forms').bind('submit.forms', function(e) {
+        e.preventDefault();
+        doSubmit();
+    });
+
+    $('form#'+formId+' .submit').unbind('click.forms').bind('click.forms', doSubmit);
+    
+    $('form#'+formId+' input').unbind('keypress.forms').bind('keypress.forms', function(e) {
+        if (e.which == 13) doSubmit();
+    });
+    
+    function doSubmit() {
+    
+        var formAction = $('#'+formId).attr('action');
+        var formData = $('#'+formId).serializeArray();
+        ajaxPost(formAction, formData, callback);
+    }
+}
+
+function doAlert(className, msg, timeout) {
+    
+    $('#ui-alert').removeClass('error').removeClass('success')
+    .removeClass('notice').addClass(className).html('<p>'+msg+'</p>').show();
+    setTimeout(function() {
+        $('#ui-alert').fadeOut();
+    }, timeout);
+}
+
+function ajaxPost(action, data, callback, async) {
+
+    //$.post("index.php/"+action, data, function(r){ callback(jQuery.parseJSON(r)) });
+    
+    if (async===undefined) async=false;
+    
+    $.ajax({
+      type: 'POST',
+      url: "index.php/"+action,
+      data: data,
+      success: callback,
+      dataType: 'json',
+      async: async,
+      cache: false
+    });
+}
+
+function buildControlPanel() {
+
+    // load header, generate side-bar, determine page, load page
+    $('#ui-head').jqotesub($('#tpl-head'), {});
+    
+    buildSidebar();
+    updateState();
+}
+
+function buildSidebar() {
+
+    console.log("Building Sidebar");
+    ajaxPost('Admin/userPages',null,function(data){
+        
+        $('#ui-side').jqotesub($('#tpl-side'), data);
+        
+        $('#ui-overlay').fadeOut(2000);
+        $('#ui-head').fadeIn(2000);
+        
+        animateSidebar();
+    });
+}
+
+function animateSidebar() {
+    
+ //   $('a').die('click.catch').live('click.catch', function(e) {
+ //       //e.preventDefault(); // no need, this will change the ancor for us
+ //       console.log("Caught");
+ //   });
+}
+
+function updateState() {
+    
+    var re_hash = /#\!\/([a-z0-9-_]+)\/([a-z0-9-_]+)/i;
+    var m = location.hash.match(re_hash);
+    if (m!==null && m.length == 3) {
+        var group = m[1];
+        var page = m[2];
+        
+        loadPage(group, page);
+    }
+}
+
+function loadPage(group, page) {
+
+    //$('#ui-main').slideUp();
+    $('#ui-main').hide();
+    
+    ajaxPost('Admin/fetchPage/'+group+'/'+page,null,function(data){
+      
+      //console.log(data)
+      if (!data) {
+          doAlert('error','<b>Error</b>: Error loading page.', 3000);
+      } else {
+          app.curPage = data.group+' :: '+data.title;
+          $('#ui-head').jqotesub($('#tpl-head'), {});
+          $('title').jqotesub($('#tpl-title'), {});
+          $('#ui-main').jqotesub(data.html, {});
+          $('#ui-main').fadeIn();
+          // and scrollTo top
+          $.scrollTo(0, 0);
+          // grab all forms..
+          captureForms();
+      }
+    });
+}
+
+function loadData(url, params) {
+
+    if (params===undefined) params={}
+    ajaxPost(url, params, function(r) {
+        varName = url.replace("/", "_");
+        console.log(r)
+        window.data[varName] = r;
+    }, false);
+}
+
+function captureForms() {
+
+    $('form').bind('submit.grab', function(e) {
+        e.preventDefault();
+        // see ajaxifyForm above, change both, leave open for file uploads..
+    });
+    
+    /*
+    $('#form-login input').first().focus();
+    ajaxifyForm('form-login', function(data) {
+        $('#form-login input').val('');
+        if(!data) doAlert('error','<b>Error</b>: Login failed.', 3000);
+        else {
+          doAlert('success','<b>Success</b>: Loading control panel.', 3000);
+          doLogin();
+        }
+    })
+    */
+}
+
+
+
+
+
+
+

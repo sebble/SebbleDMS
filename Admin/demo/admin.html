@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign In</title>
+
+  <link rel="stylesheet" href="admin.css" type="text/css" media="all" />
+  <script type="text/javascript" src="lib/jquery.js"></script>
+  <script type="text/javascript" src="lib/jquery.jqote2.js"></script>
+  <script type="text/javascript" src="lib/jquery.scrollTo.js"></script>
+  <script type="text/javascript" src="lib/jquery.ba-hashchange.js"></script>
+  <script type="text/javascript" src="admin.js"></script>
+  
+  <!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <!--[if lt IE 9]>
+  <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+  <![endif]-->
+  
+  <!-- Some app specific values -->
+  <script type="text/javascript">
+    var app = {"appName": "NCL MathSoc", "homePage": "http://www.nclmathsoc.com", "curPage": ""}
+  </script>
+  
+  <!-- jQote2 Template [Title] -->
+  <script type="text/x-jqote-template" id="tpl-title">
+    <![CDATA[
+      <%= app.curPage %> - [<%= app.appName %>]
+    ]]>
+  </script>
+  
+  <!-- jQote2 Template [Head] -->
+  <script type="text/x-jqote-template" id="tpl-head">
+    <![CDATA[
+      <h1>[<em><a href="<%= app.homePage %>"><%= app.appName %></a></em>] - <%= app.curPage %><span><%= user.details.username %> - [<a href="javascript:doLogout()">Sign out</a>]</span></h1>
+    ]]>
+  </script>
+  
+  <!-- jQote2 Template [Side] -->
+  <script type="text/x-jqote-template" id="tpl-side">
+    <![CDATA[
+      <div class="ui-sidebox">
+        <h3>Dashboard</h3>
+        <ul>
+          <% for (key in this._dashboard.pages) { %>
+          <li><a href="#!/_dashboard/<%= key %>"><%= this._dashboard.pages[key].name %></a></li>
+          <% } %>
+        </ul>
+      </div>
+      <hr />
+      <% for (group in this) { 
+           if (group.substr(0,1)=='_') continue; %>
+        <div class="ui-sidebox">
+          <h3><%= this[group].name %></h3>
+          <ul>
+            <% for (key in this[group].pages) { %>
+            <li><a href="#!/<%= group %>/<%= key %>"><%= this[group].pages[key].name %></a></li>
+            <% } %>
+          </ul>
+        </div>
+      <% } %>
+      <hr />
+      <div class="ui-sidebox">
+      <h3>Help</h3>
+      <ul>
+        <% for (key in this._help.pages) { %>
+        <li><a href="#!/_help/<%= key %>"><%= this._help.pages[key].name %></a></li>
+        <% } %>
+      </ul>
+      </div>
+    ]]>
+  </script>
+  
+</head>
+<body>
+  <div id="ui-overlay"></div>
+  <div id="ui-overbox">
+    <div id="ui-login">
+      <h3>Sign In - [NCL MathSoc]</h3>
+      <form action="Auth/login" method="post" id="form-login">
+      <p><em>Please enter your username and password</em></p>
+      <p class="right"><label for="username">Username</label>
+      <input type="text" id="username" name="username" /></p>
+      <p class="right"><label for="password">Password</label>
+      <input type="password" id="password" name="password" /></p>
+      <p><a href="#" class="submit">Login</a></p>
+      </form>
+    </div>
+    <!--<div id="ui-prompt"></div>-->
+  </div>
+  <div id="ui-head"></div>
+  <div id="ui-alert"></div>
+  <div id="ui-side"></div>
+  <div id="ui-main"></div>
+  <div id="ui-sub"></div>
+</body>
+</html>

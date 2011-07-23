@@ -1,0 +1,10 @@
+{
+  "name": "Dashboard",
+  "pages": {
+    "profile" : {
+      "name" : "Profile",
+      "roles" : [],
+      "perms" : []
+    }
+  }
+}

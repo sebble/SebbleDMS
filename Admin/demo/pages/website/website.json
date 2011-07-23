@@ -1,0 +1,10 @@
+{
+  "name": "Website",
+  "pages": {
+    "basic" : {
+      "name" : "Basic Details",
+      "roles" : [],
+      "perms" : []
+    }
+  }
+}
