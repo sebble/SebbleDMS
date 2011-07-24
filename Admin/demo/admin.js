@@ -152,14 +152,24 @@ function loadPage(group, page) {
     
     ajaxPost('Admin/fetchPage/'+group+'/'+page,null,function(data){
       
-      //console.log(data)
+      //console.log(data);
       if (!data) {
           doAlert('error','<b>Error</b>: Error loading page.', 3000);
       } else {
           app.curPage = data.group+' :: '+data.title;
           $('#ui-head').jqotesub($('#tpl-head'), {});
-          $('title').jqotesub($('#tpl-title'), {});
-          $('#ui-main').jqotesub(data.html, {});
+		  // Line 164 is the original line from the code.  As you would expect, removing it means Chrome and Firefox
+		  // no longer change the title of the page when a new section is loaded.  For some reason, removing it means
+		  // IE8 (and even IE7) will start to load the content as intended, and Chrome and Firefox still work.
+		  //$('title').jqotesub($('#tpl-title'), {});
+		  //
+		  // --------------------------------------------------------------------------------------------------------
+		  // IE8 does not object to the following line existing:
+		  //$('#ui-title').jqotesub($('#tpl-title'), {});
+		  // But this may not be much use as <title> doesn't support classes according to W3C.  The whole IE issue
+		  // could actually stem from <title> not supporting standard event attributes according to W3C.
+		  // --------------------------------------------------------------------------------------------------------
+		  $('#ui-main').jqotesub(data.html, {});
           $('#ui-main').fadeIn();
           // and scrollTo top
           $.scrollTo(0, 0);
