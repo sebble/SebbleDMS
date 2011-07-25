@@ -1,11 +1,26 @@
-/* Admin.js */
+/* -- Admin.js -- */
 
-/**
-  Login --fade--> Dashboard --slide--> Page
-  +-appear-> Alert
-**/
+/* Global Vars (hopefully) */
 
+var user = {};
+var data = {};
+var app  = {};
+var ui   = {};
+
+/* Load Config  */
+app.curPage = "";
+
+function loadConfig (config) {
+  
+  app.appName = config.appName;
+  app.homePage = config.homePage;
+  app.loginMsg = config.loginMsg;
+}
+
+/* On Load */
 $(function() {
+    buildTemplate('login');
+    // cleanup this mess
     // catch hashchange
     $(window).bind('hashchange', function() {
         updateState(location.hash);
@@ -13,11 +28,115 @@ $(function() {
     //updateState(location.hash);
     // do login
     doLogin();
-
 });
 
-var user = {};
-var data = {};
+/*-----------------*/
+/* -- Templates -- */
+/*-----------------*/
+function buildTemplate (tpName) {
+
+    $('#ui-'+tpName).jqotesub($('#tpl-'+tpName), {});
+    // maybe we could work out how to control the scope here?
+}
+function fetchTemplate (tpName) {
+
+    // this is incase we later load tpls from external sources
+    // we would also add templates to the DOM to allow caching
+}
+
+/*-------------------*/
+/* -- Bind Events -- */
+/*-------------------*/
+
+
+/*------------------*/
+/* -- Animations -- */
+/*------------------*/
+
+/*----------------------*/
+/* -- AJAX Functions -- */
+/*----------------------*/
+
+
+/*------------------*/
+/* -- UI Dialogs -- */
+/*------------------*/
+function myAlert (myMessage, callback, delay) {
+
+    if (delay===undefined) delay = 300;
+    
+    ui.alert = myMessage;
+    buildTemplate('alert');
+    $('#ui-alert').show();
+    $('#ui-overlay').css('opacity', 0.7).fadeIn('slow');
+    $('#ui-overbox').fadeIn('slow');
+    
+    // delay before bind to avoid accidental keypress
+    function bind() {
+        $('#ui-okay').bind('click', function (e) {
+            myUnbind();
+            callback();
+        });
+        $(window).bind('keyup.myMsg', function (e) {
+            if (e.which==27 || e.which==13) {
+                myUnbind();
+                callback();
+            }
+        });
+    }
+    setTimeout(bind, delay);
+}
+
+function myConfirm (myMessage, callback, delay) {
+
+    if (delay===undefined) delay = 300;
+    
+    ui.confirm = myMessage;
+    buildTemplate('confirm');
+    $('#ui-confirm').show();
+    $('#ui-overlay').css('opacity', 0.7).fadeIn('slow');
+    $('#ui-overbox').fadeIn('slow');
+    
+    // delay before bind to avoid accidental keypress
+    function bind() {
+        $('#ui-yes').bind('click', function (e) {
+            myUnbind();
+            callback();
+        });
+        $('#ui-no').bind('click', function (e) {
+            myUnbind();
+        });
+        $(window).bind('keyup.myMsg', function (e) {
+            if (e.which==13) {
+                myUnbind();
+                callback();
+            }
+            if (e.which==27) {
+                myUnbind();
+            }
+        });
+    }
+    setTimeout(bind, delay);
+}
+
+function myUnbind() {
+
+    $('#ui-okay').unbind('click');
+    $('#ui-yes').unbind('click');
+    $('#ui-no').unbind('click');
+    $(window).unbind('keyup.myMsg');
+    
+    // animation too
+    $('#ui-overlay').hide();
+    $('#ui-overbox').hide();
+    $('#ui-confirm').hide();
+    $('#ui-alert').hide();
+}
+
+
+/*----------------------*/
+/* -- AJAX Functions -- */
+/*----------------------*/
 
 function doLogin() {
 

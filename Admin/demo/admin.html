@@ -19,8 +19,21 @@
   <![endif]-->
   
   <!-- Some app specific values -->
-  <script type="text/javascript">
-    var app = {"appName": "NCL MathSoc", "homePage": "http://www.nclmathsoc.com", "curPage": ""}
+  <script type="text/javascript" src="config.js"></script>
+  
+  <!-- jQote2 Template [Login] -->
+  <script type="text/x-jqote-template" id="tpl-login">
+    <![CDATA[
+      <h3>Sign In - [<%= app.appName %>]</h3><!-- would like to have a link here, but the CSS makes all links in this become buttons-->
+      <form action="Auth/login" method="post" id="form-login">
+      <p><em><%= app.loginMsg %></em></p>
+      <p class="right"><label for="username">Username</label>
+      <input type="text" id="username" name="username" /></p>
+      <p class="right"><label for="password">Password</label>
+      <input type="password" id="password" name="password" /></p>
+      <p><a href="#" class="submit">Login</a></p>
+      </form>
+    ]]>
   </script>
   
   <!-- jQote2 Template [Title] -->
@@ -72,22 +85,34 @@
     ]]>
   </script>
   
+  <!-- jQote2 Template [Confirm] -->
+  <script type="text/x-jqote-template" id="tpl-confirm">
+    <![CDATA[
+      <h3>Confirm - [<%= app.appName %>]</h3>
+      <p><%= ui.confirm %></p>
+      <p><a id="ui-yes" class="button">Yes</a></p>
+      <p><a id="ui-no" class="button">No</a></p>
+      </form>
+    ]]>
+  </script>
+  
+  <!-- jQote2 Template [Confirm] -->
+  <script type="text/x-jqote-template" id="tpl-alert">
+    <![CDATA[
+      <h3>Alert - [<%= app.appName %>]</h3>
+      <p><%= ui.alert %></p>
+      <p><a id="ui-okay" class="button">Okay</a></p>
+      </form>
+    ]]>
+  </script>
+  
 </head>
 <body>
   <div id="ui-overlay"></div>
   <div id="ui-overbox">
-    <div id="ui-login">
-      <h3>Sign In - [NCL MathSoc]</h3>
-      <form action="Auth/login" method="post" id="form-login">
-      <p><em>Please enter your username and password</em></p>
-      <p class="right"><label for="username">Username</label>
-      <input type="text" id="username" name="username" /></p>
-      <p class="right"><label for="password">Password</label>
-      <input type="password" id="password" name="password" /></p>
-      <p><a href="#" class="submit">Login</a></p>
-      </form>
-    </div>
-    <!--<div id="ui-prompt"></div>-->
+    <div id="ui-login"></div>
+    <div id="ui-confirm"></div><!-- custom yes/no -->
+    <div id="ui-alert"></div><!-- custom ok -->
   </div>
   <div id="ui-head"></div>
   <div id="ui-alert"></div>
