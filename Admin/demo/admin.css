@@ -245,7 +245,7 @@ h4 span:before {
 }
 
 /* Feedback */
-#ui-alert {
+#ui-notify {
     position: fixed;
     top: 1em;
     left: 0;
@@ -254,7 +254,7 @@ h4 span:before {
     display: none;
     z-index: 5;
 }
-#ui-alert p {
+#ui-notify p {
     width: 30em;
     margin: 0 auto;
     border: solid 2px #000;
@@ -262,17 +262,17 @@ h4 span:before {
     background-color: #eee;
     color: #000;
 }
-#ui-alert.error p {
+#ui-notify.error p {
     border-color: #f00;
     background-color: #fee;
     color: #900;
 }
-#ui-alert.success p {
+#ui-notify.success p {
     border-color: #0f0;
     background-color: #efe;
     color: #090;
 }
-#ui-alert.notice p {
+#ui-notify.notice p {
     border-color: #00f;
     background-color: #eef;
     color: #009;

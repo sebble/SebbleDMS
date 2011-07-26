@@ -19,7 +19,7 @@ function loadConfig (config) {
 
 /* On Load */
 $(function() {
-    buildTemplate('login');
+    buildTemplate('dialog','login');
     // cleanup this mess
     // catch hashchange
     $(window).bind('hashchange', function() {
@@ -33,9 +33,10 @@ $(function() {
 /*-----------------*/
 /* -- Templates -- */
 /*-----------------*/
-function buildTemplate (tpName) {
-
-    $('#ui-'+tpName).jqotesub($('#tpl-'+tpName), {});
+function buildTemplate (uiName, tpName) {
+    
+    if (tpName===undefined) tpName = uiName;
+    $('#ui-'+uiName).jqotesub($('#tpl-'+tpName), {});
     // maybe we could work out how to control the scope here?
 }
 function fetchTemplate (tpName) {
@@ -47,16 +48,22 @@ function fetchTemplate (tpName) {
 /*-------------------*/
 /* -- Bind Events -- */
 /*-------------------*/
-
+// not sure..
 
 /*------------------*/
 /* -- Animations -- */
 /*------------------*/
+// aesthetic things like folding goups and sections
 
 /*----------------------*/
 /* -- AJAX Functions -- */
 /*----------------------*/
+// maybe also form functions
 
+/*-------------------------*/
+/* -- Forms and Actions -- */
+/*-------------------------*/
+// 
 
 /*------------------*/
 /* -- UI Dialogs -- */
@@ -66,8 +73,7 @@ function myAlert (myMessage, callback, delay) {
     if (delay===undefined) delay = 300;
     
     ui.alert = myMessage;
-    buildTemplate('alert');
-    $('#ui-alert').show();
+    buildTemplate('dialog','alert');
     $('#ui-overlay').css('opacity', 0.7).fadeIn('slow');
     $('#ui-overbox').fadeIn('slow');
     
@@ -75,12 +81,12 @@ function myAlert (myMessage, callback, delay) {
     function bind() {
         $('#ui-okay').bind('click', function (e) {
             myUnbind();
-            callback();
+            if (callback!==undefined) callback();
         });
         $(window).bind('keyup.myMsg', function (e) {
             if (e.which==27 || e.which==13) {
                 myUnbind();
-                callback();
+                if (callback!==undefined) callback();
             }
         });
     }
@@ -92,8 +98,7 @@ function myConfirm (myMessage, callback, delay) {
     if (delay===undefined) delay = 300;
     
     ui.confirm = myMessage;
-    buildTemplate('confirm');
-    $('#ui-confirm').show();
+    buildTemplate('dialog','confirm');
     $('#ui-overlay').css('opacity', 0.7).fadeIn('slow');
     $('#ui-overbox').fadeIn('slow');
     
@@ -129,10 +134,40 @@ function myUnbind() {
     // animation too
     $('#ui-overlay').hide();
     $('#ui-overbox').hide();
-    $('#ui-confirm').hide();
-    $('#ui-alert').hide();
 }
 
+/*---------------------*/
+/* -- Notifications -- */
+/*---------------------*/
+// back-compat function, remove soon
+function doAlert(className, msg, timeout) {
+    
+    notify(className, msg, timeout);
+}
+
+function notify (className, msg, timeout) {
+    
+    if (timeout===undefined) timeout = 3000;
+    
+    // pseudo-queue
+    if ($('#ui-notify').is(":visible")) {
+        setTimeout(function() {notify(className, msg, timeout)}, 500);
+    } else {
+        $('#ui-notify').removeClass('error').removeClass('success')
+        .removeClass('notice').addClass(className).html('<p>'+msg+'</p>').show();
+        setTimeout(function() {
+            $('#ui-notify').fadeOut();
+        }, timeout);
+    }
+}
+/*
+$(function() {
+    // example notification queue with custom timeout
+    notify('success', 'You have reached the demo!');
+    notify('notice', 'You are still here.', 5000);
+    notify('error', 'You are still here.');
+});
+*/
 
 /*----------------------*/
 /* -- AJAX Functions -- */
@@ -193,15 +228,6 @@ function ajaxifyForm(formId, callback) {
         var formData = $('#'+formId).serializeArray();
         ajaxPost(formAction, formData, callback);
     }
-}
-
-function doAlert(className, msg, timeout) {
-    
-    $('#ui-alert').removeClass('error').removeClass('success')
-    .removeClass('notice').addClass(className).html('<p>'+msg+'</p>').show();
-    setTimeout(function() {
-        $('#ui-alert').fadeOut();
-    }, timeout);
 }
 
 function ajaxPost(action, data, callback, async) {
@@ -309,6 +335,13 @@ function loadData(url, params) {
 }
 
 function captureForms() {
+    // note many differnet forms/actions
+    // some buttons may do simple things (activate/deactivate)
+    // some actions may go via a confirm dialog (delete)
+    // some forms may update an input on change (text input, select/option)
+    // some forms may wait until submit/enter is pressed
+    // some forms may also have files
+    // some inputs may just be for files
 
     $('form').bind('submit.grab', function(e) {
         e.preventDefault();
