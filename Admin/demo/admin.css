@@ -223,7 +223,7 @@ h4 span:before {
     width: 100%;
     text-align: center;
 }
-#ui-login {
+#ui-dialog {
     border: solid 1px #999;
     width: 30em;
     margin: 0 auto;
@@ -233,7 +233,7 @@ h4 span:before {
     background: -moz-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
 	background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
 }
-#ui-login h3 {
+#ui-dialog h3 {
     /*background-color: #eef;
     background: -webkit-linear-gradient(top, #eef 0%,#dde 100%);
     border-radius: 15px 0 0 0;*/
@@ -241,22 +241,22 @@ h4 span:before {
     text-align: right;
     color: #666;
 }
-#ui-login .right {
+#ui-dialog .right {
      text-align: right;
      padding-right: 8em;
 }
-#ui-login a {
+#ui-dialog a.button {
     border: solid 1px #999;
     padding: 0.3em 0.5em;
     border-radius: 7px;
 	background: -moz-linear-gradient(top, #eef 0%,#dde 100%);
     background: -webkit-linear-gradient(top, #eef 0%,#dde 100%);
 }
-#ui-login a:hover {
+#ui-dialog a.button:hover {
     background: -moz-linear-gradient(top, #eef 0%,#ccf 100%);
 	background: -webkit-linear-gradient(top, #eef 0%,#ccf 100%);
 }
-#ui-login em {
+#ui-dialog em {
     color: #666;
 }
 
@@ -266,6 +266,8 @@ Had to use !important which didn't want to and wasn't expecting to need. Doesn't
 	border: none !important;
 	background: none !important;
 }
+/* Silly Keith, there was no need to style all 'a' as buttons (like I did), do
+ it the other way around.. see I added a button class above..*/
 
 /* Feedback */
 #ui-notify {
