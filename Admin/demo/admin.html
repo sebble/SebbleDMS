@@ -24,7 +24,7 @@
   <!-- jQote2 Template [Login] -->
   <script type="text/x-jqote-template" id="tpl-login">
     <![CDATA[
-      <h3>Sign In - [<%= app.appName %>]</h3><!-- would like to have a link here, but the CSS makes all links in this become buttons-->
+      <h3>Sign In - <a href="<%= app.homePage %>" id="login-non-button-link">[<%= app.appName %>]</a></h3><!-- would like to have a link here, but the CSS makes all links in this become buttons.  [Keith]: Given the <a> tag an id. See admin.css, line 263. -->
       <form action="Auth/login" method="post" id="form-login">
       <p><em><%= app.loginMsg %></em></p>
       <p class="right"><label for="username">Username</label>

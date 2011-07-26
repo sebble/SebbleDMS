@@ -42,10 +42,18 @@ html {
 
 h1 {
     line-height: 2em;
-    background: -webkit-linear-gradient(top, #eee 0%,#ddd 100%);
+	background-color: #FFF; /* Plain white background For IE and anything not supporting linear-gradient. */
+/*  background: -webkit-linear-gradient(top, #eee 0%,#ddd 100%);
     background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
-    background: -webkit-linear-gradient(top, #fff 0%,#fcfcfc 100%);
-    border-bottom: solid 2px #999;
+    background: -webkit-linear-gradient(top, #fff 0%,#ddd 100%);   last three lines are original code */
+	background: -ms-linear-gradient(top, #EEE 0, #FFF 16%, #FFF 87%, #EEE 93%, #D6D6D6 100%); /* For IE10+ */
+    background: -o-linear-gradient(top, #EEE 0, #FFF 16%, #FFF 87%, #EEE 93%, #D6D6D6 100%); /* For Opera 11.10+ */
+    background: -moz-linear-gradient(top, #EEE 0, #FFF 16%, #FFF 87%, #EEE 93%, #D6D6D6 100%); /* For Mozilla */
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#EEE), color-stop(0.16,#FFF), color-stop(0.87,#FFF), color-stop(0.93,#EEE), to(#D6D6D6)); /* old webkit */
+    background: -webkit-linear-gradient(top, #EEE 0, #FFF 16%, #FFF 87%, #EEE 93%, #D6D6D6 100%); /* For Webkit */
+/*	background: -webkit-linear-gradient(top,#EDF5F8 0%, #FFF 20%, #FFF 80%, #EDF5F8 93%, #C8E6F3 100%); /* Alternative blue version but may look too strong. */
+	background: linear-gradient(top, #EEE 0, #FFF 16%, #FFF 87%, #EEE 93%, #D6D6D6 100%); /* W3C */
+	border-bottom: solid 2px #999;
     border-bottom: solid 2px #999;
     padding: 0 1em;
     color: #666;
@@ -71,7 +79,10 @@ h1 span {
     border: solid 1px #999;
     margin: 1em;
     border-radius: 7px 0;
-    background: -webkit-linear-gradient(top, #fff 0%,#fcfcfc 100%);
+    background-color: #FFF;
+/*	background: -webkit-linear-gradient(top, #fff 0, #f6f6f6 100%);  Original code */
+	background: -moz-linear-gradient(top, #EEE 0, #FFF 8%, #FFF 94%, #D6D6D6 100%);
+	background: -webkit-linear-gradient(top, #EEE 0, #FFF 8%, #FFF 94%, #D6D6D6 100%);
     padding: 1em;
 }
 .ui-sidebox.selected {
@@ -81,7 +92,9 @@ h1 span {
     color: #333;
 }
 body {
-    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+    background-color: #FCFCFC;
+	background: -moz-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+	background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
 }
 
 #ui-side h3 {
@@ -217,7 +230,8 @@ h4 span:before {
     padding: 0 1em;
     border-radius: 15px 0;
     box-shadow: 0 0 10px #666;
-    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+    background: -moz-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+	background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
 }
 #ui-login h3 {
     /*background-color: #eef;
@@ -235,13 +249,22 @@ h4 span:before {
     border: solid 1px #999;
     padding: 0.3em 0.5em;
     border-radius: 7px;
+	background: -moz-linear-gradient(top, #eef 0%,#dde 100%);
     background: -webkit-linear-gradient(top, #eef 0%,#dde 100%);
 }
 #ui-login a:hover {
-    background: -webkit-linear-gradient(top, #eef 0%,#ccf 100%);
+    background: -moz-linear-gradient(top, #eef 0%,#ccf 100%);
+	background: -webkit-linear-gradient(top, #eef 0%,#ccf 100%);
 }
 #ui-login em {
     color: #666;
+}
+
+/* Created new <a> tag id here for the login box that clears all button styling from ui-login above.
+Had to use !important which didn't want to and wasn't expecting to need. Doesn't appear to affect anything else on website. */
+#login-non-button-link {
+	border: none !important;
+	background: none !important;
 }
 
 /* Feedback */
