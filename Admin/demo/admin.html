@@ -119,6 +119,21 @@
     ]]>
   </script>
   
+  <!-- jQote2 Template [Edit Article (custom)] -->
+  <script type="text/x-jqote-template" id="tpl-edit-article">
+    <![CDATA[
+      <h3>Edit Article - [<%= app.appName %>]</h3>
+      <p><label style="padding:0 0.3em 0 1em;">Title</label>
+      <input value="Article Title" style="width:150px;" />
+      <label style="padding:0 0.3em 0 1em;">Author</label>
+      <input readonly value="Article Title" /></p>
+      <p><textarea style="width:480px;height:200px;font-family:verdana;"></textarea></p>
+      <p><a id="ui-okay" class="button">Save Changes</a>
+      <a id="ui-cancel" class="button">Cancel</a></p>
+      </form>
+    ]]>
+  </script>
+  
 </head>
 <body>
   <div id="ui-overlay"></div>

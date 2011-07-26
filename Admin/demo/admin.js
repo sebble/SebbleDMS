@@ -75,6 +75,14 @@ function showDialog() {
 /*------------------*/
 /* -- UI Dialogs -- */
 /*------------------*/
+/* Change all dialogs to always execute callback? 
+   We would then return true/false/'input'   */
+/* I have started playing with more complex popups,
+   for these it is not good to 'callback/unbind' on
+   <ENTER> as some may have a textarea.. */
+/* On that last note I think submit should close
+   dialogs if open, so, it's time to get back to ajax
+   forms, then embed in custom dialogs*/
 function myAlert (myMessage, callback, delay) {
 
     if (delay===undefined) delay = 300;
@@ -336,16 +344,21 @@ function loadPage(group, page) {
       } else {
           app.curPage = data.group+' :: '+data.title;
           $('#ui-head').jqotesub($('#tpl-head'), {});
-		  // Line 164 is the original line from the code.  As you would expect, removing it means Chrome and Firefox
-		  // no longer change the title of the page when a new section is loaded.  For some reason, removing it means
-		  // IE8 (and even IE7) will start to load the content as intended, and Chrome and Firefox still work.
+		  // Line 164 is the original line from the code.  As you would
+		  // expect, removing it means Chrome and Firefox
+		  // no longer change the title of the page when a new section is 
+		  // loaded.  For some reason, removing it means
+		  // IE8 (and even IE7) will start to load the content as intended,
+		  // and Chrome and Firefox still work.
 		  //$('title').jqotesub($('#tpl-title'), {});
 		  //
 		  // --------------------------------------------------------------------------------------------------------
 		  // IE8 does not object to the following line existing:
 		  //$('#ui-title').jqotesub($('#tpl-title'), {});
-		  // But this may not be much use as <title> doesn't support classes according to W3C.  The whole IE issue
-		  // could actually stem from <title> not supporting standard event attributes according to W3C.
+		  // But this may not be much use as <title> doesn't support classes
+		  // according to W3C.  The whole IE issue
+		  // could actually stem from <title> not supporting standard event
+		  // attributes according to W3C.
 		  // --------------------------------------------------------------------------------------------------------
 		  $('#ui-main').jqotesub(data.html, {});
           $('#ui-main').fadeIn();
