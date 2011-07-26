@@ -54,6 +54,13 @@ function fetchTemplate (tpName) {
 /* -- Animations -- */
 /*------------------*/
 // aesthetic things like folding goups and sections
+function showDialog() {
+    
+    //$('#ui-overlay').css('opacity', 0.7).fadeIn('slow');
+    //$('#ui-overbox').fadeIn('slow');
+    $('#ui-overlay').css('opacity', 0.7).show();
+    $('#ui-overbox').show();
+}
 
 /*----------------------*/
 /* -- AJAX Functions -- */
@@ -74,8 +81,7 @@ function myAlert (myMessage, callback, delay) {
     
     ui.alert = myMessage;
     buildTemplate('dialog','alert');
-    $('#ui-overlay').css('opacity', 0.7).fadeIn('slow');
-    $('#ui-overbox').fadeIn('slow');
+    showDialog();
     
     // delay before bind to avoid accidental keypress
     function bind() {
@@ -99,8 +105,7 @@ function myConfirm (myMessage, callback, delay) {
     
     ui.confirm = myMessage;
     buildTemplate('dialog','confirm');
-    $('#ui-overlay').css('opacity', 0.7).fadeIn('slow');
-    $('#ui-overbox').fadeIn('slow');
+    showDialog();
     
     // delay before bind to avoid accidental keypress
     function bind() {
@@ -115,6 +120,37 @@ function myConfirm (myMessage, callback, delay) {
             if (e.which==13) {
                 myUnbind();
                 callback();
+            }
+            if (e.which==27) {
+                myUnbind();
+            }
+        });
+    }
+    setTimeout(bind, delay);
+}
+
+function myInput (myMessage, callback, delay) {
+
+    if (delay===undefined) delay = 300;
+    
+    ui.input = myMessage;
+    buildTemplate('dialog','input');
+    showDialog();
+    $('input#input').focus();
+    
+    // delay before bind to avoid accidental keypress
+    function bind() {
+        $('#ui-okay').bind('click', function (e) {
+            myUnbind();
+            callback($('input#input').val());
+        });
+        $('#ui-cancel').bind('click', function (e) {
+            myUnbind();
+        });
+        $(window).bind('keyup.myMsg', function (e) {
+            if (e.which==13) {
+                myUnbind();
+                callback($('input#input').val());
             }
             if (e.which==27) {
                 myUnbind();
@@ -139,11 +175,8 @@ function myUnbind() {
 /*---------------------*/
 /* -- Notifications -- */
 /*---------------------*/
-// back-compat function, remove soon
-function doAlert(className, msg, timeout) {
-    
-    notify(className, msg, timeout);
-}
+// back-compat function, removed
+// may still rename notify like myNotify or something
 
 function notify (className, msg, timeout) {
     
@@ -182,16 +215,16 @@ function doLogin() {
         user = data;
         // load page
         $('#ui-overbox').fadeOut();
-        if(data) doAlert('success','<b>Logged In</b>: Loading control panel.', 3000);
+        if(data) notify('success','<b>Logged In</b>: Loading control panel.', 3000);
         buildControlPanel();
     });
     // prepare login form anyway
     $('#form-login input').first().focus();
     ajaxifyForm('form-login', function(data) {
         $('#form-login input').val('');
-        if(!data) doAlert('error','<b>Error</b>: Login failed.', 3000);
+        if(!data) notify('error','<b>Error</b>: Login failed.', 3000);
         else {
-          doAlert('success','<b>Success</b>: Loading control panel.', 3000);
+          notify('success','<b>Success</b>: Loading control panel.', 3000);
           doLogin();
         }
     })
@@ -202,7 +235,7 @@ function doLogout() {
     window.data = {};
     ajaxPost('Auth/logout',null,function(data){
         
-        if(data) doAlert('notice','<b>Logged Out</b>: You are now logged out.', 3000);
+        if(data) notify('notice','<b>Logged Out</b>: You are now logged out.', 3000);
         $('#ui-overlay').fadeIn();
         $('#ui-head').fadeOut();
         $('#ui-overbox').fadeIn();
@@ -299,7 +332,7 @@ function loadPage(group, page) {
       
       //console.log(data);
       if (!data) {
-          doAlert('error','<b>Error</b>: Error loading page.', 3000);
+          notify('error','<b>Error</b>: Error loading page.', 3000);
       } else {
           app.curPage = data.group+' :: '+data.title;
           $('#ui-head').jqotesub($('#tpl-head'), {});

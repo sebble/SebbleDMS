@@ -245,14 +245,15 @@ h4 span:before {
      text-align: right;
      padding-right: 8em;
 }
-#ui-dialog a.button {
+a.button {
     border: solid 1px #999;
     padding: 0.3em 0.5em;
     border-radius: 7px;
 	background: -moz-linear-gradient(top, #eef 0%,#dde 100%);
     background: -webkit-linear-gradient(top, #eef 0%,#dde 100%);
+    cursor: pointer;
 }
-#ui-dialog a.button:hover {
+a.button:hover {
     background: -moz-linear-gradient(top, #eef 0%,#ccf 100%);
 	background: -webkit-linear-gradient(top, #eef 0%,#ccf 100%);
 }
