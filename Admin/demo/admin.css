@@ -42,7 +42,7 @@ html {
 
 h1 {
     line-height: 2em;
-	background-color: #FFF; /* Plain white background For IE and anything not supporting linear-gradient. */
+	background-color: #fff; /* Plain white background For IE and anything not supporting linear-gradient. */
 /*  background: -webkit-linear-gradient(top, #eee 0%,#ddd 100%);
     background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
     background: -webkit-linear-gradient(top, #fff 0%,#ddd 100%);   last three lines are original code */
