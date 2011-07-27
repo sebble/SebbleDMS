@@ -5,6 +5,11 @@
       "name" : "About",
       "roles" : [],
       "perms" : []
+    },
+    "tests" : {
+      "name" : "Tests",
+      "roles" : [],
+      "perms" : []
     }
   }
 }

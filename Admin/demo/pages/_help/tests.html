@@ -1,0 +1,19 @@
+<h2>Help :: Tests</h2>
+
+<h3>Dialog Tests</h3>
+
+<style>
+#buttonlist li {
+  margin: 1em 0;
+}
+</style>
+
+<h4>Standard Dialogs</h4>
+
+<ul id="buttonlist">
+  <li><a class="button" onclick="myAlert('This is an alert box.')">Alert</a></li>
+  <li><a class="button" onclick="myConfirm('Are you sure you want this?',function(){myAlert('Confirmed!')})">Confirm</a></li>
+  <li><a class="button" onclick="myInput('Type something below:',function(d){myAlert('You typed: '+d)})">Input</a></li>
+</ul>
+
+<h4>Custom Dialogs</h4>

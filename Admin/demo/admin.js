@@ -168,6 +168,33 @@ function myInput (myMessage, callback, delay) {
     setTimeout(bind, delay);
 }
 
+function myModal (template, delay) {
+
+    if (delay===undefined) delay = 300;
+    
+    ui.input = myMessage;
+    buildTemplate('dialog', template);
+    showDialog();
+    $('#ui-dialog .focus').focus(); // optional focus element
+    
+    // delay before bind to avoid accidental keypress
+    function bind() {
+        /*$('#ui-okay').bind('click', function (e) {
+            myUnbind();
+        });
+        $('#ui-cancel').bind('click', function (e) {
+            myUnbind();
+        });*/
+        // must let user decide when to unbind.. unfortunately
+        $(window).bind('keyup.myMsg', function (e) {
+            if (e.which==13 || e.which==27) {
+                myUnbind();
+            }
+        });
+    }
+    setTimeout(bind, delay);
+}
+
 function myUnbind() {
 
     $('#ui-okay').unbind('click');
