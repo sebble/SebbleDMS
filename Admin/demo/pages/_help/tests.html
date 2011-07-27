@@ -21,4 +21,66 @@
 <ul id="buttonlist">
   <li><a class="button" onclick="myModal('edit-article')">Custom 1</a></li>
   <li><a class="button" onclick="myModal('wiki-preview')">Custom 2</a> (shifted + preview)</li>
+  <li><a class="button" onclick="myModal('pre2')">Custom 3</a></li>
 </ul>
+
+<!-- New Preview Test -->
+<script type="text/x-jqote-template" id="tpl-pre2">
+  <![CDATA[
+    <div id="test-preview" style="width:448px;background-color:#eef;float:right;display:none;max-height:400px;overflow:auto;margin:1em 0;border:solid 1px #ccc;text-align:left;padding:1em;"></div>
+    <div id="test-inner" style="width:480px;">
+    <h3>Sample Heading</h3>
+    <p>This is some sample text.</p>
+    <p><textarea id="test-textarea" style="width:480px;height:200px;" onfocus="showPreview()" onkeyup="updatePreview()" onblur="hidePreview()">
+<!-- Sample --><h3>Hello World!</h3><p>Sed risus orci, semper a pharetra in, tempor id felis. Donec sem lorem, pellentesque quis vestibulum quis, bibendum sed leo. Etiam massa urna, lobortis nec tempor at, ullamcorper vel lectus. Fusce consectetur turpis eu risus placerat eget condimentum sem semper. Nam sit amet elit ac nibh vulputate fermentum sed vitae magna. Sed placerat tristique hendrerit. Ut vulputate purus at lacus lacinia faucibus. Sed mi lectus, blandit ut facilisis in, commodo et felis. Pellentesque porttitor eros mauris, sit amet placerat mi. Phasellus sollicitudin sagittis neque, id luctus leo tincidunt a. Duis sed est enim, vel ultricies nisi. Sed feugiat dictum est quis convallis. Pellentesque eleifend ullamcorper sodales.</p><p>Nam ut aliquam orci. Nam eget ante sed tortor viverra pretium suscipit vel velit. Ut imperdiet est ac arcu aliquet eu lacinia odio dictum. Nulla mi lectus, gravida quis viverra vitae, tincidunt ac erat. Curabitur semper leo eget velit posuere porta. In facilisis fringilla dui at tempus. Donec ac lorem id augue pharetra blandit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed nec mi neque, id consectetur felis. Aliquam ultricies porttitor augue et ullamcorper. Etiam mauris sapien, adipiscing id egestas non, rutrum nec mauris.</p><!-- END -->
+    </textarea></p>
+    <p><a class="button">Done</a></p>
+    </div>
+    <div style="clear:both;"></div>
+  ]]>
+</script>
+
+<!--
+<div id="test-fixed" style="position:absolute;top:5em;left:0;text-align:center;width:100%;">
+  <div id="test-centre" style="width:480px;margin:0 auto;background-color:#fff;border:solid 1px #999;padding:1em;text-align:left;">
+    <div id="test-preview" style="width:480px;background-color:#eef;float:right;display:none;max-height:400px;overflow:auto;"></div>
+    <div id="test-inner" style="width:480px;">
+    <h3 style="text-align:right;margin-top:0;padding-top:0;">Sample Heading</h3>
+    <p>This is some sample text.</p>
+    <p><textarea id="test-textarea" style="width:480px;height:200px;" onfocus="showPreview()" onkeyup="updatePreview()" onblur="hidePreview()"></textarea></p>
+    <p style="text-align:center;margin-bottom:0;"><a class="button">Done</a></p>
+    </div>
+    <div style="clear:both;"></div>
+  </div>
+</div>
+-->
+
+<script>
+function showPreview() {
+
+    updatePreview();
+    $('#test-centre').animate({width: '976px'}, function(){
+        $('#test-preview').fadeIn(200);
+    });
+    $('#ui-dialog').animate({width: '976px'}, function(){
+        $('#test-preview').fadeIn(200);
+    });
+}
+function updatePreview() {
+
+    $('#test-preview').html($('#test-textarea').val());
+}
+function hidePreview() {
+
+    $('#test-preview').hide();
+    $('#test-centre').animate({width: '480px'});
+    $('#ui-dialog').animate({width: '480px'});
+}
+</script>
+
+<script>
+$(function showPreview() {
+
+    $('#test-textarea').val("<h3>Heading</h3>");
+});
+</script>
