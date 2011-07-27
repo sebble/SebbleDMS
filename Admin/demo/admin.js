@@ -172,7 +172,6 @@ function myModal (template, delay) {
 
     if (delay===undefined) delay = 300;
     
-    ui.input = myMessage;
     buildTemplate('dialog', template);
     showDialog();
     $('#ui-dialog .focus').focus(); // optional focus element
@@ -186,11 +185,12 @@ function myModal (template, delay) {
             myUnbind();
         });*/
         // must let user decide when to unbind.. unfortunately
-        $(window).bind('keyup.myMsg', function (e) {
+        /*$(window).bind('keyup.myMsg', function (e) {
             if (e.which==13 || e.which==27) {
                 myUnbind();
             }
-        });
+        });*/
+        // This also messses up textareas
     }
     setTimeout(bind, delay);
 }
@@ -205,6 +205,11 @@ function myUnbind() {
     // animation too
     $('#ui-overlay').hide();
     $('#ui-overbox').hide();
+}
+
+function myModalClose() {
+
+    myUnbind();
 }
 
 /*---------------------*/

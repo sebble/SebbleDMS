@@ -128,8 +128,32 @@
       <label style="padding:0 0.3em 0 1em;">Author</label>
       <input readonly value="Article Title" /></p>
       <p><textarea style="width:480px;height:200px;font-family:verdana;"></textarea></p>
+      <style>#ui-dialog{margin-righdt:0;}</style>
+      <p><a id="ui-okay" class="button" onclick="$('#ui-dialog').animate({paddingRight: '480px'});console.log('animate?')">Save Changes</a>
+      <a id="ui-cancel" class="button" onclick="myModalClose();$('#ui-dialog').css({paddingRight: '16px'});">Cancel</a></p>
+      </form>
+    ]]>
+  </script>
+  
+  <!-- jQote2 Template [Wiki Preview (custom)] -->
+  <script type="text/x-jqote-template" id="tpl-wiki-preview">
+    <![CDATA[
+      <h3>Edit Article - [<%= app.appName %>]</h3>
+      <p><label style="padding:0 0.3em 0 1em;">Title</label>
+      <input value="Article Title" style="width:150px;" />
+      <label style="padding:0 0.3em 0 1em;">Author</label>
+      <input readonly value="Article Title" /></p>
+      <div id="preview" style="position: absolute;width:480px;background-color:#fcfcfc;padding:1em;border:solid 1px #999;text-align: left;display:none;max-height:400px;overflow:auto;"></div><style>#ui-dialog{position:absolute;right:50%;top:0;}di{font-weight:bold;}</style>
+      <p><textarea style="width:480px;height:200px;font-family:verdana;" id="ta" onfocus="$('#preview').show().html($('#ta').val()).css({top: $('#ta').position().top, left: $('#ta').position().left+$('#ta').width()});" onkeyup="$('#preview').show().html($('#ta').val()).css({top: $('#ta').position().top, left: $('#ta').position().left+$('#ta').width()});" onblur="$('#preview').hide()">
+<!-- Sample HTML --><h3>My First Article</h3><dl><di>Why is that heading right aligned?</di><dd>Because the preview on the right is also within this modal box</dd><dd><b>Solution:</b> We must either create a CSS reset for this preview, or keep the preview from being within this overbox.</dd></dl>
+
+<h4>My First Article</h4><dl><di>Why is that heading right aligned?</di><dd>Because the preview on the right is also within this modal box</dd><dd><b>Solution:</b> We must either create a CSS reset for this preview, or keep the preview from being within this overbox.</dd></dl>
+
+<h4>My First Article</h4><dl><di>Why is that heading right aligned?</di><dd>Because the preview on the right is also within this modal box</dd><dd><b>Solution:</b> We must either create a CSS reset for this preview, or keep the preview from being within this overbox.</dd></dl>
+
+<h4>My First Article</h4><dl><di>Why is that heading right aligned?</di><dd>Because the preview on the right is also within this modal box</dd><dd><b>Solution:</b> We must either create a CSS reset for this preview, or keep the preview from being within this overbox.</dd></dl><!-- /END Sample HTML --></textarea></p>
       <p><a id="ui-okay" class="button">Save Changes</a>
-      <a id="ui-cancel" class="button">Cancel</a></p>
+      <a id="ui-cancel" class="button" onclick="myModalClose()">Cancel</a></p>
       </form>
     ]]>
   </script>
