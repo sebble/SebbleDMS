@@ -7,7 +7,7 @@ class Controller_Admin {
     
     function __construct() {
     
-        if(isset($_SERVER['PATH_INFO'])) {
+        if (isset($_SERVER['PATH_INFO'])) {
             
             // remove leading & trailing slash
             $url = trim($_SERVER['PATH_INFO'], '/');
@@ -16,6 +16,13 @@ class Controller_Admin {
             // get class and method
             $class = 'Data_' . array_shift($url);
             $method = array_shift($url);
+            
+            // extract JSON options
+            $textarea = false;
+            if (isset($_REQUEST['wraptextarea'])) {
+                $textarea = true;
+                unset($_REQUEST['wraptextarea']);
+            }
             
             // gather params (path_info, post, _files)
             $params = $url;
@@ -27,7 +34,11 @@ class Controller_Admin {
             $X = new $class;
             $result = call_user_func_array(array($X, $method), $params);
             
-            echo json_encode($result);
+            if ($textarea) {
+                echo '<textarea>'.json_encode($result).'</textarea>';
+            } else {
+                echo json_encode($result);
+            }
             
         } else {
             echo file_get_contents(self::$template);
