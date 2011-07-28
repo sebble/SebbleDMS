@@ -397,7 +397,13 @@ function loadPage(group, page) {
           // SM: does this fix it?
           document.title = $.jqote($('#tpl-title'), {});
           
-		  $('#ui-main').jqotesub(data.html, {});
+          // SM: changing this to load html as plain so that tpls can be embedded within
+          $('#ui-main').html(data.html);
+          $('#ui-main [id|="ui"]').each(function(i) {
+            buildTemplate($(this).attr('id').substr(3));
+          });
+          // ^^ see http://api.jquery.com/attribute-contains-prefix-selector/ for more info
+		  //$('#ui-main').jqotesub(data.html, {});
           $('#ui-main').fadeIn();
           // and scrollTo top
           $.scrollTo(0, 0);

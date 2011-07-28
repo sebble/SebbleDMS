@@ -1,12 +1,17 @@
 <h2>Help :: Tests</h2>
 
+
+<!-- This is the first test -->
+<!-- All elements [id|="ui"] should be detected and matched with their 
+ template on page load. -->
 <p id="ui-tptest">This is a simple test area</p>
 
 <script type="text/x-jqote-template" id="tpl-tptest">
   <![CDATA[
-    The test was a success
+    The first test was a success.
   ]]>
 </script>
+<!-- /END first test -->
 
 
 
@@ -29,7 +34,6 @@
 <h4>Advanced Dialogs</h4>
 
 <ul id="buttonlist">
-  <li><a class="button" onclick="myModal('files', loadF)">File Select</a> (custom)</li>
   <li><a class="button" data-onclick="myFile('/',function(f){myAlert('You selected: '+f)})">File Select</a> (not yet implemented)</li>
 </ul>
 
