@@ -16,12 +16,20 @@
   <li><a class="button" onclick="myInput('Type something below:',function(d){myAlert('You typed: '+d)})">Input</a></li>
 </ul>
 
+<h4>Advanced Dialogs</h4>
+
+<ul id="buttonlist">
+  <li><a class="button" onclick="myModal('files', loadF)">File Select</a> (custom)</li>
+  <li><a class="button" data-onclick="myFile('/',function(f){myAlert('You selected: '+f)})">File Select</a> (not yet implemented)</li>
+</ul>
+
 <h4>Custom Dialogs</h4>
 
 <ul id="buttonlist">
   <li><a class="button" onclick="myModal('edit-article')">Custom 1</a></li>
   <li><a class="button" onclick="myModal('wiki-preview')">Custom 2</a> (shifted + preview)</li>
-  <li><a class="button" onclick="myModal('pre2')">Custom 3</a></li>
+  <li><a class="button" onclick="myModal('pre2')">Custom 3</a> (best preview)</li>
+  <li><a class="button" onclick="myModal('files', loadF)">Custom 4</a> (file selector)</li>
 </ul>
 
 <!-- New Preview Test -->
@@ -31,10 +39,10 @@
     <div id="test-inner" style="width:480px;">
     <h3>Sample Heading</h3>
     <p>This is some sample text.</p>
-    <p><textarea id="test-area1" style="width:480px;height:150px;" onfocus="showPreview('test-area1')" onkeyup="updatePreview('test-area1')" onblur="hidePreview()">
+    <p><textarea id="test-area1" style="width:480px;height:150px;" onfocus="showPreview('test-area1')" onkeyup="delayPreview('test-area1')" onblur="hidePreview()">
 <!-- Sample --><h3>Hello World!</h3><p>Sed risus orci, semper a pharetra in, tempor id felis. Donec sem lorem, pellentesque quis vestibulum quis, bibendum sed leo. Etiam massa urna, lobortis nec tempor at, ullamcorper vel lectus. Fusce consectetur turpis eu risus placerat eget condimentum sem semper. Nam sit amet elit ac nibh vulputate fermentum sed vitae magna. Sed placerat tristique hendrerit. Ut vulputate purus at lacus lacinia faucibus. Sed mi lectus, blandit ut facilisis in, commodo et felis. Pellentesque porttitor eros mauris, sit amet placerat mi. Phasellus sollicitudin sagittis neque, id luctus leo tincidunt a. Duis sed est enim, vel ultricies nisi. Sed feugiat dictum est quis convallis. Pellentesque eleifend ullamcorper sodales.</p><p>Nam ut aliquam orci. Nam eget ante sed tortor viverra pretium suscipit vel velit. Ut imperdiet est ac arcu aliquet eu lacinia odio dictum. Nulla mi lectus, gravida quis viverra vitae, tincidunt ac erat. Curabitur semper leo eget velit posuere porta. In facilisis fringilla dui at tempus. Donec ac lorem id augue pharetra blandit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed nec mi neque, id consectetur felis. Aliquam ultricies porttitor augue et ullamcorper. Etiam mauris sapien, adipiscing id egestas non, rutrum nec mauris.</p><!-- END -->
     </textarea></p>
-    <p><textarea id="test-area2" style="width:480px;height:100px;" onfocus="showPreview('test-area2')" onkeyup="updatePreview('test-area2')" onblur="hidePreview()">
+    <p><textarea id="test-area2" style="width:480px;height:100px;" onfocus="showPreview('test-area2')" onkeyup="delayPreview('test-area2')" onblur="hidePreview()">
 <!-- Sample --><h3>Another Preview</h3><p>Nam ut alim orci. Nam eget ante sed tortor viverra pretium suscipit vel <b>veingilla dui at tempus. Donec ac lorem id augue pharetra blandit. Class aptent taciti sociosqu ad litora torquent per conubia</b> nostra, per inceptos himenaeos. Sed nec mi neque, id consectetur felis. Aliquam ultricies porttitor augue et ullamcorper. Etiam mauris sapien, adipiscing id egestas non, rutrum nec mauris.</p><p>Sed risus orci, semper a pharetra in, tempor id felis. Donec sem lorem, pellentesque quis vestibulum quis, bibendum sed leo. Etiam massa urna, lobortis nec tempor at, ullamcorper vel lectus. Fusce consectetur turpis eu risus placerat eget condimentum sem semper. Nam sit amet elit ac nibh vulputate fermentum sed vitae magna. Sed placerat tristique hendrerit. Ut vulputate purus at lacus lacinia faucibus. Sed mi lectus, blandit ut facilisis in, commodo et felis. Pellentesque porttitor<em> eros mauris, sit amet placerat mi. Phasellus sollicitudin sagittis </em>neque, id luctus leo tincidunt a. Duis sed est enim, vel ultricies nisi. Sed feugiat dictum est quis convallis. Pellentesque eleifend ullamcorper sodales.</p><!-- END -->    
     </textarea></p>
     <p><a class="button" onclick="myModalClose()">Done</a></p>
@@ -69,8 +77,16 @@ function showPreview(ta) {
         $('#test-preview').fadeIn(200);
     });
 }
+var preview_timeout;
+function delayPreview(ta) {
+    
+    /*console.log(preview_timeout);*/
+    clearTimeout(preview_timeout);
+    preview_timeout = setTimeout("updatePreview('"+ta+"')", 500);
+}
 function updatePreview(ta) {
 
+    /*console.log("update");*/
     $('#test-preview').html($('#'+ta).val());
 }
 function hidePreview() {
@@ -81,9 +97,83 @@ function hidePreview() {
 }
 </script>
 
-<script>
-$(function showPreview() {
 
-    $('#test-textarea').val("<h3>Heading</h3>");
-});
+<style>
+@import url('lib/jqueryFileTree/jqueryFileTree.css');
+#ff {
+    text-align: left;
+    border: solid 1px #999;
+    background-color: #fff;
+    padding: 0.3em;
+}
+#ft {
+    border-right: solid 1px #ccc;
+    width: 200px;
+    float: left;
+    padding-right: 0.3em;
+    max-height: 200px;
+    overflow: auto;
+}
+#ft2 {
+    border-left: solid 1px #ccc;
+    margin-left: -1px;
+    width: 260px;
+    float: left;
+    display: none;
+    padding-left: 0.3em;
+    max-height: 200px;
+    overflow: auto;
+}
+#ft li.file {
+    display: none;
+}
+#ft2 li.directory {
+    display: none;
+}
+</style>
+<script>
+function loadF() {
+  $('#ft').fileTree({ multiFolder: false, script: 'lib/jqueryFileTree/connectors/jqueryFileTree.php' },
+    function(file) {
+      /*console.log('File: '+file);*/
+    },
+    function(dir) {
+      /*console.log('Dir: '+dir);*/
+      /*$('#ft-dir').text('Current folder: '+dir);*/
+      $('#ft2').hide();
+      $('#ft2').fileTree({ root: dir, script: 'lib/jqueryFileTree/connectors/jqueryFileTree.php' },
+        function(file) {
+          /*console.log('File: '+file);*/
+          $('#ft-sel').text('File: '+file).data('file', file);
+        });
+      $('#ft2').fadeIn();
+  });
+}
 </script>
+
+
+<script type="text/x-jqote-template" id="tpl-files">
+  <![CDATA[
+    <h3>File Select</h3>
+    <p>Choose a file.</p>
+    <div id="ff">
+      <div id="ft"></div>
+      <div id="ft2"></div>
+      <div style="clear:both;"></div>
+    </div>
+    <p style="text-align:left;" id="ft-sel">Selected</p>
+    <p><a class="button" onclick="myModalClose();myAlert('You chose: '+$('#ft-sel').data('file'));">Select</a></p>
+  ]]>
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -168,11 +168,12 @@ function myInput (myMessage, callback, delay) {
     setTimeout(bind, delay);
 }
 
-function myModal (template, delay) {
+function myModal (template, callback, delay) { // this callback is for fancy templates that need scripts to run once built
 
     if (delay===undefined) delay = 300;
     
     buildTemplate('dialog', template);
+    if (callback!==undefined) callback();
     showDialog();
     $('#ui-dialog .focus').focus(); // optional focus element
     
