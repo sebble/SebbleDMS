@@ -44,7 +44,29 @@
   <li><a class="button" onclick="myModal('wiki-preview')">Custom 2</a> (shifted + preview)</li>
   <li><a class="button" onclick="myModal('pre2')">Custom 3</a> (best preview)</li>
   <li><a class="button" onclick="myModal('files', loadF)">Custom 4</a> (file selector)</li>
+  <li><a class="button" onclick="myModal('files2', loadF2)">Custom 5</a> (file selector2)</li>
 </ul>
+
+<p>Some buttons: <a class="button">Click me!</a>, <input type="submit" value="Click me!" />, and <input type="button" value="Click me!" />.</p>
+<style>
+input[type="submit"],
+input[type="button"] {
+    border: solid 1px #999;
+    padding: 0.3em 0.5em;
+    border-radius: 7px;
+	background: -moz-linear-gradient(top, #eef 0%,#dde 100%);
+    background: -webkit-linear-gradient(top, #eef 0%,#dde 100%);
+    cursor: pointer;
+    font-size: 1em;
+    color: #49B;
+}
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background: -moz-linear-gradient(top, #eef 0%,#ccf 100%);
+	background: -webkit-linear-gradient(top, #eef 0%,#ccf 100%);
+    color: #279;
+}
+</style>
 
 <!-- New Preview Test -->
 <script type="text/x-jqote-template" id="tpl-pre2">
@@ -144,6 +166,35 @@ function hidePreview() {
 #ft2 li.directory {
     display: none;
 }
+
+
+#f2f {
+    text-align: left;
+    border: solid 1px #999;
+    background-color: #fff;
+    padding: 0.3em;
+}
+#f2t {
+    border-right: solid 1px #ccc;
+    width: 200px;
+    float: left;
+    padding-right: 0.3em;
+    max-height: 200px;
+    overflow: auto;
+}
+#f2t2 {
+    border-left: solid 1px #ccc;
+    margin-left: -1px;
+    width: 260px;
+    float: left;
+    display: none;
+    padding-left: 0.3em;
+    max-height: 200px;
+    overflow: auto;
+}
+#f2t2 li.directory {
+    display: none;
+}
 </style>
 <script>
 function loadF() {
@@ -163,6 +214,14 @@ function loadF() {
       $('#ft2').fadeIn();
   });
 }
+function loadF2() {
+  $('#f2t').fileTree({ multiFolder: false, script: 'lib/jqueryFileTree/connectors/jqueryFileTree.php' },
+    function(file) {
+      /*console.log('File: '+file);*/
+      $('#f2t-sel').text('File: '+file).data('file', file);
+      $('#f2t2').html('<b>Preview</b>'+file).show();
+    });
+}
 </script>
 
 
@@ -177,6 +236,21 @@ function loadF() {
     </div>
     <p style="text-align:left;" id="ft-sel">Selected</p>
     <p><a class="button" onclick="myModalClose();myAlert('You chose: '+$('#ft-sel').data('file'));">Select</a></p>
+  ]]>
+</script>
+
+
+<script type="text/x-jqote-template" id="tpl-files2">
+  <![CDATA[
+    <h3>File Select</h3>
+    <p>Choose a file.</p>
+    <div id="f2f">
+      <div id="f2t"></div>
+      <div id="f2t2"></div>
+      <div style="clear:both;"></div>
+    </div>
+    <p style="text-align:left;" id="f2t-sel">Selected</p>
+    <p><a class="button" onclick="myModalClose();myAlert('You chose: '+$('#f2t-sel').data('file'));">Select</a></p>
   ]]>
 </script>
 
