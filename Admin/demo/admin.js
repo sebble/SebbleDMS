@@ -394,6 +394,9 @@ function loadPage(group, page) {
 		  // could actually stem from <title> not supporting standard event
 		  // attributes according to W3C.
 		  // --------------------------------------------------------------------------------------------------------
+          // SM: does this fix it?
+          document.title = $.jqote($('#tpl-title'), {});
+          
 		  $('#ui-main').jqotesub(data.html, {});
           $('#ui-main').fadeIn();
           // and scrollTo top
