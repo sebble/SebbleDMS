@@ -244,8 +244,9 @@ function doLogout() {
     ajaxPost('Auth/logout',null,function(data){
         
         if(data) notify('notice','<b>Logged Out</b>: You are now logged out.', 3000);
-        $('#ui-overlay').fadeIn();
+        $('#ui-overlay').css('opacity', 1).fadeIn();
         $('#ui-head').fadeOut();
+        buildTemplate('dialog','login');
         $('#ui-overbox').fadeIn();
     });
 }
