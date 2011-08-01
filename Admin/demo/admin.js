@@ -394,7 +394,7 @@ function loadPage(group, page) {
 		  // could actually stem from <title> not supporting standard event
 		  // attributes according to W3C.
 		  // --------------------------------------------------------------------------------------------------------
-          // SM: does this fix it?
+          // SM: does this fix it? KN: Yes!
           document.title = $.jqote($('#tpl-title'), {});
           
           // SM: changing this to load html as plain so that tpls can be embedded within
