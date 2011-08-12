@@ -2,7 +2,16 @@
 
 session_start();
 
+/*
+  Notes:
+    User class updated to only use the session vars via it's singleton instance.
+    Creating a User object via new will not attempt to authenticate automatically.
+ */
+
 class User {
+    
+    // singleton
+    static $instance;
     
     // user details
     var $details;
@@ -14,9 +23,18 @@ class User {
     static $timeout = 30;
     static $dir;
     
-    function __construct() {
+    static function singleton() {
     
-        $this->_authenticate();
+        if (!isset(self::$instance)) {
+            self::$instance = new User(true);
+        }
+        return self::$instance;
+    }
+    
+    function __construct($session = false) {
+    
+        if ($session)
+            $this->_authenticate();
     }
     
     function _authenticate() {
@@ -34,18 +52,20 @@ class User {
         }
     }
     
-    function _login($u, $p) {
+    function _login($u, $p, $session=true) {
     
         if (file_exists(User::$dir.$u.'.json')) {
             $c = json_decode(file_get_contents(User::$dir.$u.'.json'), true);
             if (User::check_salt($p,$c['details']['password'])) {
             
-                $_SESSION['username'] = $u;
-                $_SESSION['logintime'] = time();
-                $_SESSION['activity'] = $_SESSION['logintime'];
+                if ($session) {
+                    $_SESSION['username'] = $u;
+                    $_SESSION['logintime'] = time();
+                    $_SESSION['activity'] = $_SESSION['logintime'];
+                }
                 #echo "Logged In";
                 $this->loggedIn = true;
-                return $this->_load($u);
+                return $this->_load($u, $session);
             } else {
                 #echo "Wrong PW";
                 $this->_logout();
@@ -58,10 +78,11 @@ class User {
         }
     }
     
-    function _load($u) { // also used to refresh session
+    function _load($u, $session=true) { // also used to refresh session
     
         if (file_exists(User::$dir.$u.'.json')) {
-            $_SESSION['activity'] = time();
+            if ($session)
+                $_SESSION['activity'] = time();
             $c = json_decode(file_get_contents(User::$dir.$u.'.json'), true);
             $this->details = $c['details'];
             $this->details['password'] = 'YES';
@@ -145,21 +166,21 @@ class User {
 }
 
 /** A class to enable similar access to the authentication functions **/
-class Data_Auth extends User {
+class Data_Auth extends Data {
 
     function login ($data) {
     
-        return $this->_login($data['username'], $data['password']);
+        return $this->user->_login($data['username'], $data['password']);
     }
 
     function logout () {
     
-        return $this->_logout();
+        return $this->user->_logout();
     }
     
     function info () {
     
-        return $this;
+        return $this->user;
     }
 }
 

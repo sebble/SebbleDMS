@@ -17,35 +17,43 @@ setReporting();
 
 /** Check for Magic Quotes and remove them **/
 
-function stripSlashesDeep($value) {
-	$value = is_array($value) ? array_map('stripSlashesDeep', $value) : stripslashes($value);
-	return $value;
-}
-
-function removeMagicQuotes() {
-    if ( get_magic_quotes_gpc() ) {
-	    $_GET    = stripSlashesDeep($_GET   );
-	    $_POST   = stripSlashesDeep($_POST  );
-	    $_COOKIE = stripSlashesDeep($_COOKIE);
+if (!defined('MQ_REMOVED')) {
+    function stripSlashesDeep($value) {
+	    $value = is_array($value) ? array_map('stripSlashesDeep', $value) : stripslashes($value);
+	    return $value;
     }
+
+    function removeMagicQuotes() {
+        if ( get_magic_quotes_gpc() ) {
+	        $_GET    = stripSlashesDeep($_GET   );
+	        $_POST   = stripSlashesDeep($_POST  );
+	        $_COOKIE = stripSlashesDeep($_COOKIE);
+        }
+    }
+    removeMagicQuotes();
+    define('MQ_REMOVED',true);
 }
-removeMagicQuotes();
 
 /** Check register globals and remove them **/
 
-function unregisterGlobals() {
-    if (ini_get('register_globals')) {
-        $array = array('_SESSION', '_POST', '_GET', '_COOKIE', '_REQUEST', '_SERVER', '_ENV', '_FILES');
-        foreach ($array as $value) {
-            foreach ($GLOBALS[$value] as $key => $var) {
-                if ($var === $GLOBALS[$key]) {
-                    unset($GLOBALS[$key]);
+if (!defined('GLOBALS_UNREGISTERED')) {
+    function unregisterGlobals() {
+        if (ini_get('register_globals')) {
+            $array = array('_SESSION', '_POST', '_GET', '_COOKIE', '_REQUEST', '_SERVER', '_ENV', '_FILES');
+            foreach ($array as $value) {
+                foreach ($GLOBALS[$value] as $key => $var) {
+                    if ($var === $GLOBALS[$key]) {
+                        unset($GLOBALS[$key]);
+                    }
                 }
             }
         }
     }
+    unregisterGlobals();
+    define('GLOBALS_UNREGISTERED',true);
 }
-unregisterGlobals();
+
+
 /** Autoload for Data types **/
 
 function __autoload_data_types($classname) {

@@ -15,10 +15,12 @@ class Data {
     static $configs;
     static $controllers;
     
-    function __construct() {
+    function __construct($User=false) {
     
-        // authenticate user
-        $this->user = new User;
+        if($User===false) {
+            // authenticate user
+            $this->user = User::singleton();
+        }
         
         // connect to DB?
         if ((int)method_exists($this, '_connect')) {
