@@ -1,0 +1,15 @@
+{
+  "name": "Gallery",
+  "pages": {
+    "galleries" : {
+      "name" : "Galleries",
+      "roles" : [],
+      "perms" : []
+    },
+    "tools" : {
+      "name" : "Tools",
+      "roles" : [],
+      "perms" : []
+    }
+  }
+}
