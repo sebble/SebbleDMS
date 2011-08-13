@@ -1,0 +1,175 @@
+/* Defaults */
+h1,h2,h3,h4,h5,h6 {
+    color: #666;
+}
+body {
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#eee 100%);
+    background: #fff;
+}
+a {
+    color: #49b;
+}
+a:hover {
+    color: #279;
+}
+h1 {
+	background-color: #fff; /* Plain white background for anything not supporting linear-gradient. */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#F2F2F2',GradientType=0); /* IE6-9 */
+/*  background: -webkit-linear-gradient(top, #eee 0%,#ddd 100%);
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+    background: -webkit-linear-gradient(top, #fff 0%,#ddd 100%);   last three lines are original code */
+	background: -ms-linear-gradient(top, #EEE 0, #FFF 16%, #FFF 87%, #EEE 93%, #D6D6D6 100%); /* For IE10+ */
+    background: -o-linear-gradient(top, #EEE 0, #FFF 16%, #FFF 87%, #EEE 93%, #D6D6D6 100%); /* For Opera 11.10+ */
+    background: -moz-linear-gradient(top, #EEE 0, #FFF 16%, #FFF 87%, #EEE 93%, #D6D6D6 100%); /* For Mozilla */
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#EEE), color-stop(0.16,#FFF), color-stop(0.87,#FFF), color-stop(0.93,#EEE), to(#D6D6D6)); /* old webkit */
+    background: -webkit-linear-gradient(top, #EEE 0, #FFF 16%, #FFF 87%, #EEE 93%, #D6D6D6 100%); /* For Webkit */
+/*	background: -webkit-linear-gradient(top,#EDF5F8 0%, #FFF 20%, #FFF 80%, #EDF5F8 93%, #C8E6F3 100%); /* Alternative blue version but may look too strong. */
+	background: linear-gradient(top, #EEE 0, #FFF 16%, #FFF 87%, #EEE 93%, #D6D6D6 100%); /* W3C */
+	border-bottom: solid 2px #999;
+    border-bottom: solid 2px #999;
+    color: #666;
+    box-shadow: 0 0 5px #999;
+}
+h1 em {
+    color: #333;
+}
+.ui-sidebox {
+    border: solid 1px #999;
+    border-radius: 7px 0;
+    background-color: #FFF;
+/*	background: -webkit-linear-gradient(top, #fff 0, #f6f6f6 100%);  Original code */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FCFCFC', endColorstr='#F6F6F6',GradientType=0); /* IE6-9 */
+	background: -moz-linear-gradient(top, #EEE 0, #FFF 8%, #FFF 94%, #D6D6D6 100%);
+	background: -webkit-linear-gradient(top, #EEE 0, #FFF 8%, #FFF 94%, #D6D6D6 100%);
+}
+body {
+    background-color: #FCFCFC;
+	background: -moz-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+	background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+}
+
+#ui-side h3 {
+    color: #666;
+    /*border: solid 1px #999;
+    border-radius: 7px 0;
+    background: -webkit-linear-gradient(top, #eef 0%,#dde 100%);
+    background: #fff;*/
+}
+#ui-side h3:hover {
+    color: #333;
+    /*cbackground: -webkit-linear-gradient(top, #eef 0%,#ccf 100%);*/
+}
+#ui-side a {
+    color: #333;
+}
+#ui-side li:hover {
+    color: #000;
+    background-color: #eef;
+}
+
+#ui-side hr {
+    border: dotted 1px #999;
+    border-color: #49B;
+}
+
+#ui-main {
+    border: solid 1px #999;
+    border-width: 0 0 1px 1px;
+    border-radius: 0 0 0 15px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+}
+#ui-sub {
+    border: solid 1px #999;
+    border-width: 1px 0 1px 1px;
+    border-radius: 15px 0 0 15px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+}
+
+h2 {
+    margin: 0 0 1em 0;
+    padding: 0 0 0 0;
+    color: #333;
+    border-bottom: solid 3px #279;
+}
+
+h3 {
+    color: #333;
+    border-bottom: solid 2px #49b;
+}
+
+h4 {
+    color: #333;
+    border-bottom: solid 1px #49b;
+}
+
+h3 span,
+h4 span {
+    color: #666;
+}
+
+/* Overlay */
+#ui-overlay {
+    background-color: #fff;
+}
+#ui-dialog {
+    border: solid 1px #999;
+    border-radius: 15px 0;
+    box-shadow: 0 0 10px #666;
+	background: #FFF; /* Stop basic browsers showing transparent background. */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FCFCFC', endColorstr='#F6F6F6',GradientType=0); /* IE6-9 */
+    background: -moz-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+	background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+}
+#ui-dialog h3 {
+    /*background-color: #eef;
+    background: -webkit-linear-gradient(top, #eef 0%,#dde 100%);
+    border-radius: 15px 0 0 0;*/
+    border-bottom: solid 2px #279;
+    color: #666;
+}
+a.button {
+    border: solid 1px #999;
+    border-radius: 7px;
+	background: -moz-linear-gradient(top, #eef 0%,#dde 100%);
+    background: -webkit-linear-gradient(top, #eef 0%,#dde 100%);
+}
+a.button:hover {
+    background: -moz-linear-gradient(top, #eef 0%,#ccf 100%);
+	background: -webkit-linear-gradient(top, #eef 0%,#ccf 100%);
+}
+#ui-dialog em {
+    color: #666;
+}
+
+/* Created new <a> tag id here for the login box that clears all button styling from ui-login above.
+Had to use !important which didn't want to and wasn't expecting to need. Doesn't appear to affect anything else on website. 
+#login-non-button-link {
+	border: none !important;
+	background: none !important;
+}*/
+/* Silly Keith, there was no need to style all 'a' as buttons (like I did), do
+ it the other way around.. see I added a button class above..*/
+
+/* Corners */
+.rounded {
+    rounded-corner: 7px;
+}
+
+/* Shadow */
+.shadow {
+    box-shadow: 0 0 10px #333;
+}
+
+/* Gradients */
+.gradient {
+    background: #ff9900; /* Old browsers */
+    background: -moz-linear-gradient(top, #ff9900 0%, #ffcc00 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff9900), color-stop(100%,#ffcc00)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ff9900 0%,#ffcc00 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ff9900 0%,#ffcc00 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #ff9900 0%,#ffcc00 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff9900', endColorstr='#ffcc00',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, #ff9900 0%,#ffcc00 100%); /* W3C */
+}

@@ -38,6 +38,8 @@ function buildTemplate (uiName, tpName) {
     if (tpName===undefined) tpName = uiName;
     $('#ui-'+uiName).jqotesub($('#tpl-'+tpName), {});
     // maybe we could work out how to control the scope here?
+    
+    ajaxifyForms('#ui-'+uiName);
 }
 function fetchTemplate (tpName) {
 
@@ -71,6 +73,26 @@ function showDialog() {
 /* -- Forms and Actions -- */
 /*-------------------------*/
 // 
+
+
+function ajaxifyForms(element) {
+
+    $(element).children('form').submit(function(e){
+        e.preventDefault();
+        var formAction = $(this).attr('action');
+        var formData = $(this).serializeArray();
+        ajaxPost(formAction, formData, function(data){
+            console.log(data);
+            notify('','Possible success or failure.');
+            updateState();
+            myModalClose();
+        });
+    });
+    $(element).find('.form-cancel').click(function(e){
+        // hide this dialog
+        myModalClose();
+    });
+}
 
 /*------------------*/
 /* -- UI Dialogs -- */
@@ -175,6 +197,7 @@ function myModal (template, callback, delay) { // this callback is for fancy tem
     buildTemplate('dialog', template);
     if (callback!==undefined) callback();
     showDialog();
+    
     $('#ui-dialog .focus').focus(); // optional focus element
     
     // delay before bind to avoid accidental keypress

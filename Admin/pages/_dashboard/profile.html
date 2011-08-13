@@ -1,13 +1,18 @@
-<h2>Dashboard :: Profile</h2>
+<h2>Your Profile</h2>
 
+
+<div id="ui-details"></div>
+
+<script type="text/x-jqote-template" id="tpl-details">
+  <![CDATA[
 <% loadData("Auth/info"); %>
+<h3>Basic Details - [<a onclick="myModal('edit-basics')">Edit</a>]</h3>
 
-<h3>Basic Details</h3>
-
-<p><b>Full Name</b>: <%= window.data.Auth_info.details.fullname %> <a class="button" onclick="myInput('Enter full name',function(input){myAlert('new name: '+input)})">Edit</a></p>
+<p><b>Full Name</b>: <%= window.data.Auth_info.details.fullname %></p>
 <p><b>Username</b>: <%= window.data.Auth_info.details.username %></p>
+<p><b>Date of Birth</b>: <%= window.data.Auth_info.details.dob %></p>
 
-<h3>Roles</h3>
+<h3>Roles & Permissions</h3>
 
 <% if (window.data.Auth_info.roles.length > 0) { %>
 <ul>
@@ -19,8 +24,6 @@
 <p>You have no roles.</p>
 <% } %>
 
-<h3>Other Permissions</h3>
-
 <% if (window.data.Auth_info.permissions.length > 0) { %>
 <ul>
 <% for (k in window.data.Auth_info.permissions) { %>
@@ -30,3 +33,22 @@
 <% } else { %>
 <p>You have no other permissions.</p>
 <% } %>
+
+  ]]>
+</script>
+
+<style>a{cursor:pointer;}</style>
+
+<!-- Popup Forms -->
+<script type="text/x-jqote-template" id="tpl-edit-basics">
+  <![CDATA[
+    <h3>Basic Info</h3>
+    <form action="User/setDetails" data-autoclose="true" data-refresh="true" data-table="null">
+    <p><label>Full Name: </label><input name="fullname" autofocus value="<%= window.data.Auth_info.details.fullname %>" /></p>
+    <p><label>Username: </label><input disabled value="<%= window.data.Auth_info.details.username %>" /></p>
+    <p><label>Date of Birth: </label><input name='dob' value="<%= window.data.Auth_info.details.dob %>" /></p>
+    <p><input type="submit" value="Okay" />
+    <input type="button" class="form-cancel" value="Cancel" /></p>
+    </form>
+  ]]>
+</script>
