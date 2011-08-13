@@ -57,7 +57,8 @@ class Data_Admin extends Data {
                         unset($js['pages'][$k]['perms']);
                     }
                 }
-                $userPages[$grp] = $js;
+                if (count($js['pages'])>0)
+                    $userPages[$grp] = $js;
             }
         }
         return $userPages;

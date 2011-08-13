@@ -328,3 +328,80 @@ Had to use !important which didn't want to and wasn't expecting to need. Doesn't
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff9900', endColorstr='#ffcc00',GradientType=0 ); /* IE6-9 */
     background: linear-gradient(top, #ff9900 0%,#ffcc00 100%); /* W3C */
 }
+
+
+
+/* Table Stuff */
+
+
+thead th {
+  border-bottom: solid 2px #279;
+  padding: 0 0.5em;
+}
+tbody td {
+  /*border-left: solid 1px #999;*/
+  padding: 0.2em 0.5em;
+}
+/*#control-ui-main tbody td:first-child {
+  border-left: none;
+}*/
+/*#control-ui-main tr:nth-child(even) {
+  background-color: #eef;
+}*/
+tr.even {
+  background-color: #eef;
+}
+tbody tr:hover,
+tbody tr:hover td {
+  background-color: #ecdcdc;
+  cursor: pointer;
+}
+/*#control-ui-main tbody tr:nth-child(even):hover {
+  background-color: #dcdcec;
+}*//*
+tr.odd td.sorting_1 {
+	background-color: #ececfc;
+}
+tr.even td.sorting_1 {
+	background-color: #dcdcec;
+}*/
+table {
+  /*margin: 1em;*/
+  width: 100%;
+  margin: 0;
+  padding: 0.5em 0;
+}
+
+/*
+  DataTable
+*/
+.dataTables_wrapper {
+    clear: none;
+}
+.dataTables_filter input {
+    width: 10em;
+    display: inline;
+}
+.paginate_enabled_next,
+.paginate_enabled_previous,
+.paginate_disabled_next,
+.paginate_disabled_previous {
+    font-weight: bold;
+    color: #279;
+    cursor: pointer;
+    background: none !important;
+}
+.paginate_disabled_next,
+.paginate_disabled_previous {
+    color: #ccc;
+    cursor: default;
+}
+.paginate_enabled_next:before,
+.paginate_disabled_next:before {
+    content: "\2192";
+}
+.paginate_enabled_previous:before,
+.paginate_disabled_previous:before {
+    content: "\2190";
+}
+

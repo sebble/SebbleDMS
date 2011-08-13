@@ -22,6 +22,23 @@ class Data_User extends Data {
         
         return $us;
     }
+    function lsl() {
+    
+        if (!$this->user->hasRole('user_admin')) return false;
+        
+        $us = $this->ls();
+        
+        $long = array();
+        foreach ($us as $u) {
+            if (file_exists(User::$dir.$u.'.json')) {
+                $data = json_decode(file_get_contents(User::$dir.$u.'.json'),true);
+                unset($data['details']['password']);
+                $long[$u] = $data['details'];
+            }
+        }
+        
+        return $long;
+    }
     
     function info($data, $keeppw = false) {
     

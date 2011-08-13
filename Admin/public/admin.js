@@ -40,6 +40,7 @@ function buildTemplate (uiName, tpName) {
     // maybe we could work out how to control the scope here?
     
     ajaxifyForms('#ui-'+uiName);
+    ajaxifyTables('#ui-'+uiName);
 }
 function fetchTemplate (tpName) {
 
@@ -51,6 +52,47 @@ function fetchTemplate (tpName) {
 /* -- Bind Events -- */
 /*-------------------*/
 // not sure..
+function ajaxifyTables(element) {
+
+    
+    $(element).find('table').dataTable();
+    
+    $(element).find('table tr').live('click', function () {
+    
+		  var nTds = $('td', this);
+		  var sId = $(nTds[0]).text();
+		  
+		  var nTable = $(this).parent().parent();
+		  var nRow = $(this);
+		  var popup = nTable.data('popup');
+		  
+		  if (popup !== undefined) {
+		      var src = nTable.data('popup-src');
+		      var datastr = nRow.data('popup-data');
+		      console.log(datastr);
+		      loadData(src, datastr);
+		      myModal(popup);
+		  }
+      //notify('',"You clicked "+sId);
+      
+      return;
+      
+      
+		  var sTitle;
+		  var sGrade = $(nTds[4]).text();
+		
+		  if ( sGrade == "A" )
+			  sTitle =  sBrowser+' will provide a first class (A) level of CSS support.';
+		  else if ( sGrade == "C" )
+			  sTitle = sBrowser+' will provide a core (C) level of CSS support.';
+		  else if ( sGrade == "X" )
+			  sTitle = sBrowser+' does not provide CSS support or has a broken implementation. Block CSS.';
+		  else
+			  sTitle = sBrowser+' will provide an undefined level of CSS support.';
+		
+		  alert( sTitle )
+	  });
+}
 
 /*------------------*/
 /* -- Animations -- */
@@ -441,7 +483,8 @@ function loadData(url, params) {
     if (params===undefined) params={}
     ajaxPost(url, params, function(r) {
         varName = url.replace("/", "_");
-        //console.log(r)
+        console.log(r)
+        console.log(varName)
         window.data[varName] = r;
     }, false);
 }

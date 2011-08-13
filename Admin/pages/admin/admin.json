@@ -1,0 +1,10 @@
+{
+  "name": "Admin",
+  "pages": {
+    "users" : {
+      "name" : "Users",
+      "roles" : ["user_admin"],
+      "perms" : []
+    }
+  }
+}
