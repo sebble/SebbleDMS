@@ -18,6 +18,22 @@
   ]]>
 </script>
 
+<style>
+#ui-dialog {
+  width: 750px;
+}
+#ui-dialog form {
+  overflow: auto;
+}
+</style>
+<script>
+$(window).resize(function(e){
+  var wh = $(window).height();
+  wh = wh - 150;
+  $('#ui-dialog form').height(wh);
+});
+</script>
+
 <script type="text/x-jqote-template" id="tpl-edit-user">
   <![CDATA[
     <h3>Edit User</h3>
