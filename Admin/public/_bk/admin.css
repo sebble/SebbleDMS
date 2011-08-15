@@ -1,3 +1,23 @@
+/*
+  This CSS file will be broken into the following sections (files (then combined again))
+
+  * Basic + Reset
+      with this style only, an HTML page should look nice
+  * Layout + Default Style
+      with this style and Reset the page should have correct layout
+  * Custom Style
+      with this file corners, gradients, shadows, colours, fonts can be overriden
+
+*/
+
+
+
+
+
+
+
+
+
 /* Defaults */
 h1,h2,h3,h4,h5,h6 {
     margin: 0;

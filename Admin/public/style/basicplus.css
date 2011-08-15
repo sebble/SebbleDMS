@@ -1,0 +1,159 @@
+/* Defaults */
+/*
+  Basic style definitions and tweaks.
+ */
+
+h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+    font-family: georgia, serif;
+    color: #666;
+    font-weight: normal
+}
+body {
+    font-family: verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#eee 100%);
+    background: #fff;
+    /*font-size: 0.8em;*/
+}
+input {
+    font-family: verdana;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+    color: #49b;
+}
+a:hover {
+    color: #279;
+}
+
+html {
+    min-height: 101%;
+}
+
+/* Reset Styles */
+h1 {
+  font-size: 2em; /*important for layout sizing*/
+}
+
+/* Fancy Heading Styles */
+
+h2 {
+    margin: 0 0 1em 0;
+    padding: 0 0 0 0;
+    color: #333;
+    border-bottom: solid 3px #279;
+}
+
+h3 {
+    margin: 0 0 1em 0;
+    padding: 0.5em 0 0 0;
+    color: #333;
+    border-bottom: solid 2px #49b;
+}
+
+h4 {
+    margin: 0 0 1em 0;
+    padding: 1em 0 0 0em;
+    color: #333;
+    border-bottom: solid 1px #49b;
+}
+
+h3 span,
+h4 span {
+    color: #666;
+    font-size: 0.9em;
+}
+h3 span:before,
+h4 span:before {
+    content: " - ";
+}
+
+/* Fancy Table Styles */
+/*
+  Note: Tables also require `cellspacing="0"` in the HTML.
+*/
+thead th {
+  border-bottom: solid 2px #279;
+  padding: 0 0.5em;
+}
+tbody td {
+  padding: 0.2em 0.5em;
+}
+tr.even {
+  background-color: #eef;
+}
+tbody tr:hover,
+tbody tr:hover td {
+  background-color: #ecdcdc;
+  cursor: pointer;
+}
+table {
+  width: 100%;
+  margin: 0;
+  padding: 0.5em 0;
+}
+
+/* DataTables */
+.dataTables_wrapper {
+    /*clear: none;*//*fix may not be needed now*/
+}
+.dataTables_filter input {
+    width: 10em;
+    display: inline;
+}
+.paginate_enabled_next,
+.paginate_enabled_previous,
+.paginate_disabled_next,
+.paginate_disabled_previous {
+    font-weight: bold;
+    color: #279;
+    cursor: pointer;
+    background: none !important;
+}
+.paginate_disabled_next,
+.paginate_disabled_previous {
+    color: #ccc;
+    cursor: default;
+}
+/* The following may not work with IE */
+.paginate_enabled_next:before,
+.paginate_disabled_next:before {
+    content: "\2192";
+}
+.paginate_enabled_previous:before,
+.paginate_disabled_previous:before {
+    content: "\2190";
+}
+/* Sorting */
+/*#control-ui-main tbody td:first-child {
+  border-left: none;
+}*/
+/*#control-ui-main tr:nth-child(even) {
+  background-color: #eef;
+}*/
+/*#control-ui-main tbody tr:nth-child(even):hover {
+  background-color: #dcdcec;
+}*//*
+tr.odd td.sorting_1 {
+	background-color: #ececfc;
+}
+tr.even td.sorting_1 {
+	background-color: #dcdcec;
+}*/
+/* if showing sorted column, also need hover colours*/
+
+
+/* Fancy Buttons */
+a.button {
+    border: solid 1px #999;
+    padding: 0.3em 0.5em;
+    border-radius: 7px;
+    background: linear-gradient(top, #eef 0%,#dde 100%);
+    cursor: pointer;
+}
+a.button:hover {
+    background: linear-gradient(top, #eef 0%,#ccf 100%);
+}

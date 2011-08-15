@@ -1,1 +1,1 @@
-{"details":{"username":"sebble","password":"salted:1423de37c0c1b63c3687f8f1651ce1bf","fullname":"Sebastian Mellor","dob":"1990-02-25","user":"sebble"},"options":{"age":21},"permissions":[],"roles":["sample_baker","user_admin"]}
+{"details":{"username":"sebble","password":"salted:1423de37c0c1b63c3687f8f1651ce1bf","fullname":"Sebastian Mellor","dob":"1990-02-25","user":"sebble"},"options":{"age":21},"permissions":[],"roles":["sample_baker","user_admin","new_role","new_role2"]}
