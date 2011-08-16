@@ -1,36 +1,36 @@
 <h2>Your Profile</h2>
 
-
 <div id="ui-details"></div>
 
+<!-- This is not in the div already because we want some dynamic variables. -->
 <script type="text/x-jqote-template" id="tpl-details">
   <![CDATA[
 <% loadData("Auth/info"); %>
-<h3>Basic Details - [<a onclick="myModal('edit-basics')">Edit</a>]</h3>
+<h3>Basic Details - [<a href="javascript:showDialog('edit-basics')">Edit</a>]</h3>
 
-<p><b>Full Name</b>: <%= window.data.Auth_info.details.fullname %></p>
-<p><b>Username</b>: <%= window.data.Auth_info.details.username %></p>
-<p><b>Date of Birth</b>: <%= window.data.Auth_info.details.dob %></p>
+<p><b>Full Name</b>: <%= this.Auth_info.details.fullname %></p>
+<p><b>Username</b>: <%= this.Auth_info.details.username %></p>
+<p><b>Date of Birth</b>: <%= this.Auth_info.details.dob %></p>
 
 <h3>Roles & Permissions</h3>
 
-<% if (window.data.Auth_info.roles.length > 0) { %>
+<% if (this.Auth_info.roles.length > 0) { %>
 <h4>Roles</h4>
 <ul>
-<% for (k in window.data.Auth_info.roles) { %>
-  <li><%= window.data.Auth_info.roles[k] %></li>
+<% for (k in this.Auth_info.roles) { %>
+  <li><%= this.Auth_info.roles[k] %></li>
 <% } %>
 </ul>
 <% } else { %>
 <p>You have no roles.</p>
 <% } %>
 
-<% if (window.data.Auth_info.permissions.length > 0) { %>
+<% if (this.Auth_info.permissions.length > 0) { %>
 
 <h4>Permissions</h4>
 <ul>
-<% for (k in window.data.Auth_info.permissions) { %>
-  <li><%= window.data.Auth_info.permissions[k] %></li>
+<% for (k in this.Auth_info.permissions) { %>
+  <li><%= this.Auth_info.permissions[k] %></li>
 <% } %>
 </ul>
 <% } else { %>
@@ -40,18 +40,16 @@
   ]]>
 </script>
 
-<style>a{cursor:pointer;}</style>
-
 <!-- Popup Forms -->
 <script type="text/x-jqote-template" id="tpl-edit-basics">
   <![CDATA[
     <h3>Basic Info</h3>
     <form action="User/setDetails" data-autoclose="true" data-refresh="true" data-table="null">
-    <p><label>Full Name: </label><input name="fullname" autofocus value="<%= window.data.Auth_info.details.fullname %>" /></p>
-    <p><label>Username: </label><input disabled value="<%= window.data.Auth_info.details.username %>" /></p>
-    <p><label>Date of Birth: </label><input name='dob' value="<%= window.data.Auth_info.details.dob %>" /></p>
+    <p><label>Full Name: </label><input name="fullname" autofocus value="<%= this.Auth_info.details.fullname %>" /></p>
+    <p><label>Username: </label><input disabled value="<%= this.Auth_info.details.username %>" /></p>
+    <p><label>Date of Birth: </label><input name='dob' value="<%= this.Auth_info.details.dob %>" /></p>
     <p><input type="submit" value="Okay" />
-    <input type="button" class="form-cancel" value="Cancel" /></p>
+    <input type="button" class="dialog-close" onclick="hideDialog()" value="Cancel" /></p>
     </form>
   ]]>
 </script>

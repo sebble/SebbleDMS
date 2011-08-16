@@ -4,7 +4,6 @@ var user = {'details':{'username':'username'}};
 var data = {};
 var app  = {'homePage':'homePage','appName':'appName','loginMsg':'loginMsg',
             'curPage':'curPage','curSection':'curSection'};
-var ui   = {};
 
 /* Actions */
 
@@ -56,20 +55,20 @@ function showCP() {
 function showPopup(template) {
 
     // check for other popup
+    $('#ui-overlay').show();
     // build popup
     buildTemplate('popup', template);
     // show popup
-    $('#ui-overlay').show();
     $('#ui-overlay2').show();
     $('#ui-popup').show();
 }
 function showDialog(template) {
 
     // check for other dialogs
+    $('#ui-overlay').show();
     // build dialog
     buildTemplate('dialog', template);
     // show dialog
-    $('#ui-overlay').show();
     $('#ui-dialog').show();
 }
 function hidePopup() {
@@ -120,7 +119,7 @@ function buildCP() {
 function buildTemplate (uiName, tpName) {
     
     if (tpName===undefined) tpName = uiName;
-    $('#ui-'+uiName).jqotesub($('#tpl-'+tpName), {});
+    $('#ui-'+uiName).jqotesub($('#tpl-'+tpName), window.data);
     // maybe we could work out how to control the scope here?
     // maybe also need different names (for the user popups)
     
@@ -169,7 +168,7 @@ function loadData(url, params) {
 
 function ajaxifyAll(uiName) {
 
-    //ajaxifyDialog('#ui-'+uiName);
+    ajaxifyDialog('#ui-'+uiName);
     ajaxifyForms('#ui-'+uiName);
     ajaxifyTables('#ui-'+uiName);
 }
@@ -216,9 +215,15 @@ function ajaxifyForms(element) {
             if (typeof fn === 'function') fn(data);
         });
     });
-    $(element).find('.hide-dialog').click(function(e){
-        // hide this dialog
+}
+
+function ajaxifyDialog(element) {
+
+    $(element).find('.dialog-close').click(function(e){
         hideDialog();
+    });
+    $(element).find('.popup-close').click(function(e){
+        hidePopup();
     });
 }
 
@@ -283,7 +288,15 @@ function doLogout() {
     
     window.data = {};
     ajaxPost('Admin/authLogout',null,function(data){
+        setTitle('SebbleDMS');
         showLogin();
+        $("ui-head").html(' ');
+        $("ui-side").html(' ');
+        $("ui-main").html(' ');
+        $("ui-popup").html(' ');
+        $("ui-dialog").html(' ');
+        window.data = {};
+        window.user = {};
     });
 }
 
