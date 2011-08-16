@@ -1,9 +1,9 @@
 /* Globals */
 
-var user = {'details':{'username':'username'}};
-var data = {};
-var app  = {'homePage':'homePage','appName':'appName','loginMsg':'loginMsg',
-            'curPage':'curPage','curSection':'curSection'};
+var Sebble = {'User':{'details':{'username':'username'}},'App':{
+    'homePage':'homePage','appName':'appName','loginMsg':'loginMsg',
+    'curPage':'curPage','curSection':'curSection'
+}}
 
 /* Actions */
 
@@ -117,9 +117,11 @@ function buildCP() {
 }
 
 function buildTemplate (uiName, tpName) {
-    
     if (tpName===undefined) tpName = uiName;
-    $('#ui-'+uiName).jqotesub($('#tpl-'+tpName), window.data);
+    console.log('building: '+tpName);
+    var data = $.extend({}, window.Sebble.Data, {'User':window.Sebble.User,'App':window.Sebble.App});
+    console.log(data);
+    $('#ui-'+uiName).jqotesub($('#tpl-'+tpName), window.Sebble);
     // maybe we could work out how to control the scope here?
     // maybe also need different names (for the user popups)
     
@@ -160,7 +162,7 @@ function loadData(url, params) {
         varName = url.replace("/", "_");
         //console.log(r)
         //console.log(varName)
-        window.data[varName] = r;
+        window.Sebble[varName] = r;
     }, false);
 }
 
@@ -261,13 +263,13 @@ function loadPage(group, page) {
     ajaxPost('Admin/fetchPage/'+group+'/'+page,null,function(data){
       
       if (!data) {
-          notify('error','<b>Error</b>: Error loading page.', 3000);
+          //notify('error','<b>Error</b>: Error loading page.', 3000);
       } else {
-          app.curSection = data.group;
-          app.curPage = data.title;
+          window.Sebble.App.curSection = data.group;
+          window.Sebble.App.curPage = data.title;
           //$('#ui-head').jqotesub($('#tpl-head'), {});
           buildTemplate('head');
-          setTitle($.jqote($('#tpl-title'), {}))
+          setTitle($.jqote($('#tpl-title'), window.Sebble));
           
           $('#ui-main').html(data.html);
           $('#ui-main [id|="ui"]').each(function(i) {
@@ -309,4 +311,9 @@ function setDefault(value, dfault) {
 function setTitle(value) {
 
     document.title = value;
+}
+
+function loadConfig(config) {
+
+     $.extend(window.Sebble.App, config);
 }

@@ -31,10 +31,10 @@
   <!-- jQote2 Template [Login (dialog)] -->
   <script type="text/x-jqote-template" id="tpl-login">
     <![CDATA[
-      <h3>Sign In - <a href="<%= app.homePage %>">[<%= app.appName %>]</a></h3>
+      <h3>Sign In - <a href="<%= this.App.homePage %>">[<%= this.App.appName %>]</a></h3>
       <form action="Admin/authLogin" method="post" id="form-login" data-oncomplete="buildCP">
       <!--<form action="User/setDetails" data-autoclose="true" data-refresh="true">-->
-      <p><em><%= app.loginMsg %></em></p>
+      <p><em><%= this.App.loginMsg %></em></p>
       <p class="right"><label for="username">Username</label>
       <input type="text" id="username" name="username" autofocus /></p>
       <p class="right"><label for="password">Password</label>
@@ -47,14 +47,14 @@
   <!-- jQote2 Template [Title] -->
   <script type="text/x-jqote-template" id="tpl-title">
     <![CDATA[
-      <%= app.curPage %> - [<%= app.appName %>]
+      <%= this.App.curPage %> - [<%= this.App.appName %>]
     ]]>
   </script>
   
   <!-- jQote2 Template [Head] -->
   <script type="text/x-jqote-template" id="tpl-head">
     <![CDATA[
-      <h1>[<em><a href="<%= app.homePage %>"><%= app.appName %></a></em>] - <%= app.curSection %> :: <%= app.curPage %><span><%= user.details.username %> - [<a href="javascript:doLogout()">Sign out</a>]</span></h1>
+      <h1>[<em><a href="<%= this.App.homePage %>"><%= this.App.appName %></a></em>] - <%= this.App.curSection %> :: <%= this.App.curPage %><span><%= this.User.details.username %> - [<a href="javascript:doLogout()">Sign out</a>]</span></h1>
     ]]>
   </script>
   
@@ -65,19 +65,19 @@
       <div class="ui-sidebox">
         <h3>Dashboard</h3>
         <ul>
-          <% for (key in window.data.Admin_userPages._dashboard.pages) { %>
-          <li><a href="#!/_dashboard/<%= key %>"><%= window.data.Admin_userPages._dashboard.pages[key].name %></a></li>
+          <% for (key in this.Admin_userPages._dashboard.pages) { %>
+          <li><a href="#!/_dashboard/<%= key %>"><%= this.Admin_userPages._dashboard.pages[key].name %></a></li>
           <% } %>
         </ul>
       </div>
       <hr />
-      <% for (group in window.data.Admin_userPages) { 
+      <% for (group in this.Admin_userPages) { 
            if (group.substr(0,1)=='_') continue; %>
         <div class="ui-sidebox">
-          <h3><%= window.data.Admin_userPages[group].name %></h3>
+          <h3><%= this.Admin_userPages[group].name %></h3>
           <ul>
-            <% for (key in window.data.Admin_userPages[group].pages) { %>
-            <li><a href="#!/<%= group %>/<%= key %>"><%= window.data.Admin_userPages[group].pages[key].name %></a></li>
+            <% for (key in this.Admin_userPages[group].pages) { %>
+            <li><a href="#!/<%= group %>/<%= key %>"><%= this.Admin_userPages[group].pages[key].name %></a></li>
             <% } %>
           </ul>
         </div>
@@ -86,8 +86,8 @@
       <div class="ui-sidebox">
       <h3>Help</h3>
       <ul>
-        <% for (key in window.data.Admin_userPages._help.pages) { %>
-        <li><a href="#!/_help/<%= key %>"><%= window.data.Admin_userPages._help.pages[key].name %></a></li>
+        <% for (key in this.Admin_userPages._help.pages) { %>
+        <li><a href="#!/_help/<%= key %>"><%= this.Admin_userPages._help.pages[key].name %></a></li>
         <% } %>
       </ul>
       </div>
