@@ -17,14 +17,19 @@ class Data_Admin extends Data {
         // fetch cp-page template
     }
     
-    function authLogin() {
+    function authLogin($data) {
     
         // wrapper for built in login?
+        $q = $this->user->_login($data['username'], $data['password']);
+        if ($q) return array('notification'=>array('status'=>'success','msg'=>'Successful login.'));
+        else return array('notification'=>array('status'=>'error','msg'=>'Login failed.'));
     }
     
     function authLogout() {
     
         // wrapper for built in logout?
+        $this->user->_logout();
+        return array('notification'=>array('status'=>'success','msg'=>'Logged out.'));
     }
     
     function userInfo() {
