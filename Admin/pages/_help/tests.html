@@ -256,6 +256,83 @@ function loadF2() {
 
 
 
+<!-- New dialogs -->
+
+<h3>New Dialogs</h3>
+
+<ul>
+<li><a href="javascript:showDialog('small')">Normal (small)</a></li>
+<li><a href="javascript:showDialog('medium')">Normal (medium)</a></li>
+<li><a href="javascript:showDialog('large')">Normal (large)</a></li>
+</ul>
+<ul>
+<li><a href="javascript:showPopup('small')">Double (small)</a></li>
+<li><a href="javascript:showPopup('medium')">Double (medium)</a></li>
+<li><a href="javascript:showPopup('large')">Double (large)</a></li>
+</ul>
+
+
+<script type="text/x-jqote-template" id="tpl-small">
+  <![CDATA[
+    <h3>Small Dialog Box</h3>
+    <p>This is a sample small box.</p>
+    <form class="fancy">
+        <p><label>Input: </label><input /></p>
+    </form>
+    <p><input type="button" onclick="javascript:hideDialog();hidePopup();" value="Close" /></p>
+  ]]>
+</script>
+<script type="text/x-jqote-template" id="tpl-medium">
+  <![CDATA[
+    <h3>Medium Dialog Box</h3>
+    <div class="overflow">
+    <p>This is a sample medium box.</p>
+    <form class="fancy">
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+    </form>
+    </div>
+    <p><input type="button" onclick="javascript:hideDialog();hidePopup();" value="Close" /></p>
+  ]]>
+</script>
+<script type="text/x-jqote-template" id="tpl-large">
+  <![CDATA[
+    <h3>Large Dialog Box</h3>
+    <div class="overflow">
+    <p>This is a sample large box.</p>
+    <form class="fancy">
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+    </form>
+    <p>This is a sample large box.</p>
+    <form class="fancy">
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+    </form>
+    <p>This is a sample large box.</p>
+    <form class="fancy">
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+    </form></div>
+    <p><input type="button" onclick="javascript:hideDialog();hidePopup();" value="Close" /></p>
+    
+  ]]>
+</script>
+
+
+
 
 
 

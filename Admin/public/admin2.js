@@ -225,6 +225,14 @@ function ajaxifyDialog(element) {
     $(element).find('.popup-close').click(function(e){
         hidePopup();
     });
+    
+    //resizing issues?
+    $(window).resize(function(){
+        $('#ui-dialog .overflow').css({maxHeight:($(window).height()-300)});
+        $('#ui-popup .overflow').css({maxHeight:($(window).height()-300)});
+    });
+    $('#ui-dialog .overflow').css({maxHeight:($(window).height()-300)});
+    $('#ui-popup .overflow').css({maxHeight:($(window).height()-300)});
 }
 
 
