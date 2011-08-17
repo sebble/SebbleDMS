@@ -266,9 +266,9 @@ function loadF2() {
 <li><a href="javascript:showDialog('large')">Normal (large)</a></li>
 </ul>
 <ul>
-<li><a href="javascript:showPopup('small')">Double (small)</a></li>
-<li><a href="javascript:showPopup('medium')">Double (medium)</a></li>
-<li><a href="javascript:showPopup('large')">Double (large)</a></li>
+<li><a href="javascript:showDialog('small','double')">Double (small)</a></li>
+<li><a href="javascript:showDialog('medium','double')">Double (medium)</a></li>
+<li><a href="javascript:showDialog('large','double')">Double (large)</a></li>
 </ul>
 
 
@@ -279,7 +279,7 @@ function loadF2() {
     <form class="fancy">
         <p><label>Input: </label><input /></p>
     </form>
-    <p><input type="button" onclick="javascript:hideDialog();hidePopup();" value="Close" /></p>
+    <p><input type="button" class="dialog-close" value="Close" /></p>
   ]]>
 </script>
 <script type="text/x-jqote-template" id="tpl-medium">
@@ -294,8 +294,9 @@ function loadF2() {
         <p><label>Input: </label><input /></p>
         <p><label>Input: </label><input /></p>
     </form>
+    <p>Open another <a href="javascript:showDialog('medium')">medium box</a> or <a href="javascript:showDialog('small')">small box</a>.</p>
     </div>
-    <p><input type="button" onclick="javascript:hideDialog();hidePopup();" value="Close" /></p>
+    <p><input type="button" class="dialog-close" value="Close" /></p>
   ]]>
 </script>
 <script type="text/x-jqote-template" id="tpl-large">
@@ -326,7 +327,7 @@ function loadF2() {
         <p><label>Input: </label><input /></p>
         <p><label>Input: </label><input /></p>
     </form></div>
-    <p><input type="button" onclick="javascript:hideDialog();hidePopup();" value="Close" /></p>
+    <p><input type="button" class="dialog-close" value="Close" /></p>
     
   ]]>
 </script>

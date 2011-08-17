@@ -20,8 +20,7 @@ $(function(){
     
     $(window).bind('hashchange', function() {
         updateState(location.hash);
-    })
-    
+    });
 });
 
 /* Display */
@@ -43,45 +42,23 @@ function showLogin() {
     showDialog('login');
 }
 
-/* Not Used *
-function showCP() {
+function showDialog(template, class) {
 
-    $('#ui-head').fadeIn();
-    $('#ui-side').fadeIn();
-    $('#ui-main').fadeIn();
+    class = setDefault(class, '');
+    
+    // create new element
+    var idnum = Math.floor(Math.random()*10000); // 1/10000 possibility of trouble
+    $('<div id="ui-overlay'+idnum+'" class="ui-overlay"></div>').appendTo('body');
+    $('<div id="ui-dialog'+idnum+'" class="ui-dialog '+class+'"></div>').appendTo('body');
+
+    $('#ui-overlay'+idnum).show();
+    buildTemplate('dialog'+idnum, template);
+    $('#ui-dialog'+idnum).show();
 }
-* /Not Used */
+function hideDialog(idnum) {
 
-function showPopup(template) {
-
-    // check for other popup
-    $('#ui-overlay').show();
-    // build popup
-    buildTemplate('popup', template);
-    // show popup
-    $('#ui-overlay2').show();
-    $('#ui-popup').show();
-}
-function showDialog(template) {
-
-    // check for other dialogs
-    $('#ui-overlay').show();
-    // build dialog
-    buildTemplate('dialog', template);
-    // show dialog
-    $('#ui-dialog').show();
-}
-function hidePopup() {
-
-    $('#ui-dialog').hide();
-    $('#ui-overlay2').hide();
-    $('#ui-popup').hide();
-    $('#ui-overlay').hide();
-}
-function hideDialog() {
-
-    $('#ui-overlay').hide();
-    $('#ui-dialog').hide();
+    $('#ui-overlay'+idnum).hide();
+    $('#ui-dialog'+idnum).hide();
 }
 
 function notify (className, msg, timeout) { /* showNotification() */
@@ -104,7 +81,6 @@ function buildCP() {
 
     checkLogin(function(loggedIn){
         if (loggedIn) {
-            hidePopup();
             buildTemplate('head');
             $('#ui-head').fadeIn();
             buildTemplate('side');
@@ -220,20 +196,17 @@ function ajaxifyForms(element) {
 function ajaxifyDialog(element) {
 
     $(element).find('.dialog-close').click(function(e){
-        hideDialog();
-    });
-    $(element).find('.popup-close').click(function(e){
-        hidePopup();
+        var idnum = $(element).attr('id').substr(9)
+        hideDialog(idnum);
     });
     
-    //resizing issues?
-    $(window).resize(function(){
-        $('#ui-dialog .overflow').css({maxHeight:($(window).height()-300)});
-        $('#ui-popup .overflow').css({maxHeight:($(window).height()-300)});
-    });
-    $('#ui-dialog .overflow').css({maxHeight:($(window).height()-300)});
-    $('#ui-popup .overflow').css({maxHeight:($(window).height()-300)});
+    $('.ui-dialog .overflow').css({maxHeight:($(window).height()-300)});
 }
+$(function(){
+    $(window).resize(function(){
+        $('.ui-dialog .overflow').css({maxHeight:($(window).height()-300)});
+    });
+});
 
 
 /* Other */
