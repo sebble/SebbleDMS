@@ -9,9 +9,9 @@
 <table cellspacing=0 cellpadding=0 data-popup="edit-user" data-popup-src="User/info">
 <thead><th>id</th><th>Full Name</th></thead>
 <tbody>
-<% for (u in window.data.User_lsl) { %>
-  <tr data-popup-data='{"user":"<%= window.data.User_lsl[u].username %>"}'><td><%= window.data.User_lsl[u].username %></td>
-      <td><%= window.data.User_lsl[u].fullname %></td></tr>
+<% for (u in this.User_lsl) { %>
+  <tr data-popup-data='{"user":"<%= this.User_lsl[u].username %>"}'><td><%= this.User_lsl[u].username %></td>
+      <td><%= this.User_lsl[u].fullname %></td></tr>
 <% } %>
 </tbody>
 </table>
@@ -38,10 +38,10 @@ $(window).resize(function(e){
   <![CDATA[
     <h3>Edit User</h3>
     <form action="User/setDetails" data-autoclose="true" data-refresh="true">
-    <input type="hidden" name="user" value="<%= window.data.User_info.details.username %>" />
-    <p><label>Full Name: </label><input name="fullname" autofocus value="<%= window.data.User_info.details.fullname %>" /></p>
-    <p><label>Username: </label><input disabled value="<%= window.data.User_info.details.username %>" /></p>
-    <p><label>Date of Birth: </label><input name='dob' value="<%= window.data.User_info.details.dob %>" /></p>
+    <input type="hidden" name="user" value="<%= this.User_info.details.username %>" />
+    <p><label>Full Name: </label><input name="fullname" autofocus value="<%= this.User_info.details.fullname %>" /></p>
+    <p><label>Username: </label><input disabled value="<%= this.User_info.details.username %>" /></p>
+    <p><label>Date of Birth: </label><input name='dob' value="<%= this.User_info.details.dob %>" /></p>
     <p><input type="submit" value="Okay" />
     <input type="button" class="form-cancel" value="Cancel" /></p>
     </form>

@@ -10,6 +10,11 @@
       "name" : "Tests",
       "roles" : [],
       "perms" : []
+    },
+    "api" : {
+      "name" : "API",
+      "roles" : [],
+      "perms" : []
     }
   }
 }

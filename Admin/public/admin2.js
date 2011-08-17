@@ -117,12 +117,9 @@ function buildCP() {
 }
 
 function buildTemplate (uiName, tpName) {
+
     if (tpName===undefined) tpName = uiName;
-    console.log('building: '+tpName);
-    var data = $.extend({}, window.Sebble.Data, {'User':window.Sebble.User,'App':window.Sebble.App});
-    console.log(data);
     $('#ui-'+uiName).jqotesub($('#tpl-'+tpName), window.Sebble);
-    // maybe we could work out how to control the scope here?
     // maybe also need different names (for the user popups)
     
     ajaxifyAll(uiName);
@@ -208,10 +205,6 @@ function ajaxifyForms(element) {
         var formData   = $(this).serializeArray();
         var fn = window[$(this).data('oncomplete')];
         ajaxPost(formAction, formData, function(data){
-            console.log(data);
-            //notify('','Possible success or failure.');
-            /* We need some standard response type to determine success/failure vs data */
-            /* Automatic notifications have been implemented via data callback. */
             if (refresh) updateState();
             if (autoClose) hideDialog();
             if (typeof fn === 'function') fn(data);
