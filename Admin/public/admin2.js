@@ -86,7 +86,7 @@ function hideDialog() {
 
 function notify (className, msg, timeout) { /* showNotification() */
     
-    if (timeout===undefined) timeout = 3000;
+    if (timeout===undefined) timeout = 2000;
     
     // pseudo-queue
     if ($('#ui-notify').is(":visible")) {

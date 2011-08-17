@@ -48,7 +48,7 @@
 <script type="text/x-jqote-template" id="tpl-edit-basics">
   <![CDATA[
     <h3>Basic Info</h3>
-    <form action="User/setDetails" data-autoclose="true" data-refresh="true" data-table="null">
+    <form action="User/setDetails" class="fancy">
     <p><label>Full Name: </label><input name="fullname" autofocus value="<%= this.Auth_info.details.fullname %>" /></p>
     <p><label>Username: </label><input disabled value="<%= this.Auth_info.details.username %>" /></p>
     <p><label>Date of Birth: </label><input name='dob' value="<%= this.Auth_info.details.dob %>" /></p>

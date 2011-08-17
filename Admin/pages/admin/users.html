@@ -2,6 +2,11 @@
 
 <div id="ui-usertable"></div>
 
+<h3>Management</h3>
+
+<ul><li><a href="javascript:showDialog('new-user')">New User</a></li></ul>
+
+
 <script type="text/x-jqote-template" id="tpl-usertable">
   <![CDATA[
 <% loadData("User/lsl"); %>
@@ -18,6 +23,7 @@
   ]]>
 </script>
 
+<!--
 <style>
 #ui-dialog {
   width: 750px;
@@ -33,6 +39,7 @@ $(window).resize(function(e){
   $('#ui-dialog form').height(wh);
 });
 </script>
+-->
 
 <script type="text/x-jqote-template" id="tpl-edit-user">
   <![CDATA[
@@ -44,6 +51,19 @@ $(window).resize(function(e){
     <p><label>Date of Birth: </label><input name='dob' value="<%= this.User_info.details.dob %>" /></p>
     <p><input type="submit" value="Okay" />
     <input type="button" class="form-cancel" value="Cancel" /></p>
+    </form>
+  ]]>
+</script>
+
+<script type="text/x-jqote-template" id="tpl-new-user">
+  <![CDATA[
+    <h3>Edit User</h3>
+    <form action="User/addUser" class="fancy">
+    <p><label>Full Name: </label><input name="fullname" autofocus /></p>
+    <p><label>Username: </label><input name="username" /></p>
+    <p><label>Date of Birth: </label><input name='dob' value="" /></p>
+    <p><input type="submit" value="Create" />
+    <input type="button" onclick="hideDialog()" value="Cancel" /></p>
     </form>
   ]]>
 </script>
