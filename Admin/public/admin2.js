@@ -141,8 +141,7 @@ function ajaxPost(action, data, callback, async) {
             // check for notifications
             if (data.notification !== undefined) {
                 notify(data.notification.status, data.notification.msg);
-                // should data be double wrapped in this case?
-                callback(data.data);
+                if (data.notification.status!='error') callback(data.data);
             } else
                 callback(data);
         },

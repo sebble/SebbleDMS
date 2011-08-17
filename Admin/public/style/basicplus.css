@@ -164,3 +164,35 @@ a.button {
 a.button:hover {
     background: linear-gradient(top, #eef 0%,#ccf 100%);
 }
+
+/* Fancy Forms */
+form.fancy label,
+form.fancy input {
+    width: 13em;
+    margin:0 0.5em;
+    float: left;
+}
+form.fancy label {
+    text-align: right;
+}
+form.fancy input[type="button"],
+form.fancy input[type="submit"] {
+    float: none;
+}
+form.fancy hr {
+    border: none;
+    border-top: dashed 1px #49b;
+}
+/*form.fancy p,
+form.fancy hr {
+    clear: both;
+    margin:0.5em;
+    text-align: center;
+}*/
+form.fancy p:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
