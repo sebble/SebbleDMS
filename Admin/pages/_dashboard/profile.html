@@ -2,6 +2,10 @@
 
 <div id="ui-details"></div>
 
+<h3>Security</h3>
+
+<ul><li><a href="javascript:showDialog('change-password')">Change Password</a></li></ul>
+
 <!-- This is not in the div already because we want some dynamic variables. -->
 <script type="text/x-jqote-template" id="tpl-details">
   <![CDATA[
@@ -49,6 +53,21 @@
     <p><label>Username: </label><input disabled value="<%= this.Auth_info.details.username %>" /></p>
     <p><label>Date of Birth: </label><input name='dob' value="<%= this.Auth_info.details.dob %>" /></p>
     <p><input type="submit" value="Okay" />
+    <input type="button" class="dialog-close" onclick="hideDialog()" value="Cancel" /></p>
+    </form>
+  ]]>
+</script>
+
+<!-- Popup Forms -->
+<script type="text/x-jqote-template" id="tpl-change-password">
+  <![CDATA[
+    <h3>Change Password</h3>
+    <form action="User/setPassword" data-autoclose="true" data-refresh="false" data-table="null">
+    <p><label>Current Password: </label><input name="current_password" autofocus type="password" /></p>
+    <hr />
+    <p><label>New Password: </label><input name="new_password" type="password" /></p>
+    <p><label>Again: </label><input name='new_password2' type="password" /></p>
+    <p><input type="submit" value="Change" />
     <input type="button" class="dialog-close" onclick="hideDialog()" value="Cancel" /></p>
     </form>
   ]]>

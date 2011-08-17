@@ -89,18 +89,34 @@ class Data_User extends Data {
         }
         return false;
     }
-    function setPass($data) {
+    function setPassword($data) {
     
         $u = (isset($data['user'])) ? $data['user'] : $this->user->details['username'];
-        $p = $data['password'];
+        $o = $data['current_password'];
+        $p = $data['new_password'];
+        $q = $data['new_password2'];
         
-        if ($old = $this->info(array('user'=>$u))) {
+        if ($old = $this->info(array('user'=>$u),true)) {
         
+            // check current password
+            if (!User::check_salt($o,$old['details']['password']))
+                return array('notification'=>array('status'=>'error',
+                    'msg'=>'Incorrect password.'));
+            // check valid password
+            if (strlen($p)<4)
+                return array('notification'=>array('status'=>'error',
+                    'msg'=>'New password too short.'));
+            // check both match
+            if ($p!=$q)
+                return array('notification'=>array('status'=>'error',
+                    'msg'=>'New passwords do not match.'));
             // salty pass
             $salt = substr(md5(time()), -6);
             $string = $salt.':'.md5($salt.$p);
             $old['details']['password'] = $string;
             $this->_saveUser($u, $old);
+            return array('notification'=>array('status'=>'success',
+                'msg'=>'Password changed.'));
             return $old;
             return true; ### Return new value or return true?
         }

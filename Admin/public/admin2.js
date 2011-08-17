@@ -146,6 +146,12 @@ function ajaxPost(action, data, callback, async) {
             } else
                 callback(data);
         },
+        error: function(jqXHR, textStatus, errorThrown){
+                notify('error', 'An error occured.');
+                //console.log(jqXHR);
+                //console.log(textStatus);
+                console.log(errorThrown);
+        },
         dataType: 'json',
         async: async,
         cache: false
@@ -199,8 +205,8 @@ function ajaxifyForms(element) {
 
     $(element).children('form').submit(function(e){
         e.preventDefault();
-        var autoClose  = setDefault(true, $(this).data('autoclose'));
-        var refresh    = setDefault(true, $(this).data('refresh'));
+        var autoClose  = setDefault($(this).data('autoclose'), true);
+        var refresh    = setDefault($(this).data('refresh'), true);
         var formAction = $(this).attr('action');
         var formData   = $(this).serializeArray();
         var fn = window[$(this).data('oncomplete')];
