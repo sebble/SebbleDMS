@@ -23,7 +23,7 @@ $(function(){
     });
 
     //showGCFPrompt();
-    CFInstall.check({preventPrompt: true, onmissing: showGCFPrompt, oninstall: refreshGCF});
+    //CFInstall.check({preventPrompt: true, onmissing: showGCFPrompt, oninstall: refreshGCF});
 });
 
 /* Display */
@@ -174,7 +174,7 @@ function ajaxifyTables(element) {
 
     $(element).find('table').dataTable();
     
-    $(element).find('table tr').live('click', function () {
+    $(element).find('table tbody tr').live('click', function () {
     
 		  var nTds = $('td', this);
 		  var sId = $(nTds[0]).text();
@@ -186,9 +186,9 @@ function ajaxifyTables(element) {
 		  if (popup !== undefined) {
 		      var src = nTable.data('popup-src');
 		      var datastr = nRow.data('popup-data');
-		      console.log(datastr);
+		      //console.log(datastr);
 		      loadData(src, datastr);
-		      myModal(popup);
+		      showDialog(popup);
 		  }
 	  });
 }

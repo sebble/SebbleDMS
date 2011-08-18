@@ -84,7 +84,7 @@
 	margin-left: 3px;
 	float: left;
 }
-
+/*
 .paginate_disabled_previous {
 	background-image: url('images/back_disabled.jpg');
 }
@@ -100,7 +100,7 @@
 .paginate_enabled_next {
 	background-image: url('images/forward_enabled.jpg');
 }
-
+*/
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -156,7 +156,7 @@ table.display td.center {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables sorting
  */
-
+/*
 .sorting_asc {
 	background: url('images/sort_asc.png') no-repeat center right;
 }
@@ -176,7 +176,7 @@ table.display td.center {
 .sorting_desc_disabled {
 	background: url('images/sort_desc_disabled.png') no-repeat center right;
 }
-
+*/
 
 
 
