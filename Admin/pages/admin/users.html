@@ -43,23 +43,67 @@ $(window).resize(function(e){
 
 <script type="text/x-jqote-template" id="tpl-edit-user">
   <![CDATA[
+    <% loadData("User/info",{user:this.DataTables.mytable.selectedRow}); %>
     
     <h3>Edit User</h3>
-    <form action="User/setDetails" data-autoclose="true" data-refresh="true" class="fancy">
+    <form action="User/setDetails" data-autoclose="false" data-refresh="true" class="fancy">
     <input type="hidden" name="user" value="<%= this.User_info.details.username %>" />
     <p><label>Full Name: </label><input name="fullname" autofocus value="<%= this.User_info.details.fullname %>" /></p>
     <p><label>Username: </label><input disabled value="<%= this.User_info.details.username %>" /></p>
     <p><label>Date of Birth: </label><input name='dob' value="<%= this.User_info.details.dob %>" /></p>
-    <hr />
-    <p><label>Roles: </label><input name="fullname" disabled value="role_1" /> <a href="#" style="float:left;width:16px;height:16px;background:url('lib/icons/delete.png');">&nbsp;</a><br />
-       <label>&nbsp;</label><input name="fullname" disabled value="role_2" /> <a href="#" style="float:left;width:16px;height:16px;background:url('lib/icons/delete.png');">&nbsp;</a><br />
-       <label>&nbsp;</label><input name="fullname" disabled value="role_3" /> <a href="#" style="float:left;width:16px;height:16px;background:url('lib/icons/delete.png');">&nbsp;</a><br />
-       <label>&nbsp;</label><input name="fullname" value="" /> <a href="#" style="float:left;width:16px;height:16px;background:url('lib/icons/add.png');">&nbsp;</a></p>
-    <p><label>Permissions: </label><input name="fullname" value="<%= this.User_info.details.fullname %>" /></p>
-    <p><input type="submit" value="Okay" />
-    <input type="button" class="dialog-close" value="Cancel" /></p>
+    <p><input type='submit' value="Update" /></p>
     </form>
+    <hr />
+    <p><label>Roles: </label></p>
+    
+    <!-- Add Role -->
+    <% for (r in this.User_info.roles) { %>
+    <form action="User/setRole" data-autoclose="false" class="fancy" data-refresh="dialog">
+        <p><label>&nbsp;</label><input disabled value="<%= this.User_info.roles[r] %>" /> <a href="#" class="rm form-submit">&nbsp;</a></p>
+        <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="role" value="<%= this.User_info.roles[r] %>" /><input type="hidden" name="status" value="false" />
+    </form>
+    <% } %>
+    <!---->
+    
+    <!-- Remove Role -->
+    <form action="User/setRole" data-autoclose="false" data-refresh="dialog" class="fancy">
+        <p><label>&nbsp;</label><input name="role" /> <a href="#" class="add form-submit">&nbsp;</a></p>
+        <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="status" value="true" />
+    </form>
+    <!---->
+    
+    
+    <p><label>Permissions: </label><input name="fullname" disabled value="permission_1" /> <a href="#" style="">&nbsp;</a><br />
+       <label>&nbsp;</label><input name="fullname" value="" /> <a href="#" class="add">&nbsp;</a></p>
+    <hr />
+    <form data-autoclose="false">
+    <p><label>Password: </label><input name="force_password" /></p>
+    <p><input type="submit" value="Reset" /></p>
+    </form>
+    <hr />
+    <p><input type="button" class="dialog-close" value="Done" /></p>
+    <style>
+      a.rm{float:left;width:16px;height:16px;background:url('lib/icons/delete.png');}
+      a.add{float:left;width:16px;height:16px;background:url('lib/icons/add.png');}
+    </style>
   ]]>
+</script>
+
+<script>
+function rmRole(role) {
+    
+    var nI = $('input.'+role);
+    var nR = nI.nextUntil('input');
+    nI.add(nR).remove();
+    showDialog('edit-user');
+}
+function addRole() {
+    
+    var role = $('#addrole').val();
+    var html = "<input class=\""+role+"\" disabled value=\""+role+"\" /> <a href=\"javascript:rmRole('"+role+"');\" style=\"float:left;width:16px;height:16px;background:url('lib/icons/delete.png');\">&nbsp;</a><br /><label>&nbsp;</label>";
+    $(html).insertBefore('#addrole');
+    $('#addrole').val('');
+}
 </script>
 
 <script type="text/x-jqote-template" id="tpl-new-user">

@@ -52,7 +52,7 @@ function showDialog(template, aclass) {
     // create new element
     var idnum = Math.floor(Math.random()*10000); // 1/10000 possibility of trouble
     $('<div id="ui-overlay'+idnum+'" class="ui-overlay"></div>').appendTo('body');
-    $('<div id="ui-dialog'+idnum+'" class="ui-dialog '+aclass+'"></div>').appendTo('body');
+    $('<div id="ui-dialog'+idnum+'" class="ui-dialog '+aclass+'" data-src="'+template+'"></div>').appendTo('body');
 
     $('#ui-overlay'+idnum).show();
     buildTemplate('dialog'+idnum, template);
@@ -242,15 +242,23 @@ function ajaxifyForms(element) {
     $(element).children('form').submit(function(e){
         e.preventDefault();
         var autoClose  = setDefault($(this).data('autoclose'), true);
-        var refresh    = setDefault($(this).data('refresh'), true);
+        var refresh    = setDefault($(this).data('refresh'), 'page');
         var formAction = $(this).attr('action');
         var formData   = $(this).serializeArray();
         var fn = window[$(this).data('oncomplete')];
         ajaxPost(formAction, formData, function(data){
-            if (refresh) updateState();
+            if (refresh=='page') updateState();
+            if (refresh=='dialog') {
+                var dialog = $('.ui-dialog').last().attr('id').substr(3);
+                var template = $('.ui-dialog').last().data('src');
+                buildTemplate(dialog, template);
+            }
             if (autoClose) hideDialog(idnum);
             if (typeof fn === 'function') fn(data);
         });
+    }).find('.form-submit').click(function(e){
+        e.preventDefault();
+        $(this).closest('form').submit();
     });
 }
 

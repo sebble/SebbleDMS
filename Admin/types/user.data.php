@@ -131,9 +131,9 @@ class Data_User extends Data {
         if ($this->user->hasRole('user_admin')) { ### note here users cannot modify own roles
         
             $old = $this->info(array('user'=>$u), true);
-            if ($s==false && ($k = array_search($r, $old['roles'])))
+            if ($this->_false($s) && ($k = array_search($r, $old['roles'])))
                 unset($old['roles'][$k]);
-            else if ($s==true && !in_array($r, $old['roles']))
+            else if ($this->_true($s) && !in_array($r, $old['roles']))
                 $old['roles'][] = $r;
             $this->_saveUser($u, $old);
             return $old;
