@@ -22,7 +22,8 @@ $(function(){
         updateState(location.hash);
     });
 
-    CFInstall.check({mode: "overlay"});
+    //showGCFPrompt();
+    CFInstall.check({preventPrompt: true, onmissing: showGCFPrompt, oninstall: refreshGCF});
 });
 
 /* Display */
@@ -101,6 +102,15 @@ function buildTemplate (uiName, tpName) {
     // maybe also need different names (for the user popups)
     
     ajaxifyAll(uiName);
+}
+
+function showGCFPrompt() {
+
+    showDialog('gcfprompt');
+}
+function refreshGCF() {
+
+    window.location.reload(false)
 }
 
 /* Ajax */
