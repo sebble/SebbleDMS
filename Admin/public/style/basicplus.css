@@ -13,8 +13,8 @@ body {
     font-family: verdana, sans-serif;
     padding: 0;
     margin: 0;
-    background: -webkit-linear-gradient(top, #fcfcfc 0%,#eee 100%);
-    background: #fff;
+    background-color: #fcfcfc;
+
     /*font-size: 0.8em;*/
 }
 input {
