@@ -1,6 +1,6 @@
 <h2>Users</h2>
 
-<div id="ui-usertable"></div>
+<div id="ui-usertable" class="fancy-table"></div>
 
 <h3>Management</h3>
 
@@ -11,7 +11,7 @@
   <![CDATA[
 <% loadData("User/lsl"); %>
 
-<table cellspacing=0 cellpadding=0 data-popup="edit-user" data-popup-src="User/info">
+<table cellspacing=0 cellpadding=0 data-popup="edit-user" data-popup-src="User/info" data-action="more" data-more="more-user" class="xhide-id-col fancy" id="mytable">
 <thead><th>id</th><th>Full Name</th></thead>
 <tbody>
 <% for (u in this.User_lsl) { %>
@@ -43,14 +43,21 @@ $(window).resize(function(e){
 
 <script type="text/x-jqote-template" id="tpl-edit-user">
   <![CDATA[
+    
     <h3>Edit User</h3>
-    <form action="User/setDetails" data-autoclose="true" data-refresh="true">
+    <form action="User/setDetails" data-autoclose="true" data-refresh="true" class="fancy">
     <input type="hidden" name="user" value="<%= this.User_info.details.username %>" />
     <p><label>Full Name: </label><input name="fullname" autofocus value="<%= this.User_info.details.fullname %>" /></p>
     <p><label>Username: </label><input disabled value="<%= this.User_info.details.username %>" /></p>
     <p><label>Date of Birth: </label><input name='dob' value="<%= this.User_info.details.dob %>" /></p>
+    <hr />
+    <p><label>Roles: </label><input name="fullname" disabled value="role_1" /> <a href="#" style="float:left;width:16px;height:16px;background:url('lib/icons/delete.png');">&nbsp;</a><br />
+       <label>&nbsp;</label><input name="fullname" disabled value="role_2" /> <a href="#" style="float:left;width:16px;height:16px;background:url('lib/icons/delete.png');">&nbsp;</a><br />
+       <label>&nbsp;</label><input name="fullname" disabled value="role_3" /> <a href="#" style="float:left;width:16px;height:16px;background:url('lib/icons/delete.png');">&nbsp;</a><br />
+       <label>&nbsp;</label><input name="fullname" value="" /> <a href="#" style="float:left;width:16px;height:16px;background:url('lib/icons/add.png');">&nbsp;</a></p>
+    <p><label>Permissions: </label><input name="fullname" value="<%= this.User_info.details.fullname %>" /></p>
     <p><input type="submit" value="Okay" />
-    <input type="button" class="form-cancel" value="Cancel" /></p>
+    <input type="button" class="dialog-close" value="Cancel" /></p>
     </form>
   ]]>
 </script>
@@ -63,7 +70,14 @@ $(window).resize(function(e){
     <p><label>Username: </label><input name="username" /></p>
     <p><label>Date of Birth: </label><input name='dob' value="" /></p>
     <p><input type="submit" value="Create" />
-    <input type="button" onclick="hideDialog()" value="Cancel" /></p>
+    <input type="button" class="dialog-close" value="Cancel" /></p>
     </form>
+  ]]>
+</script>
+
+<script type="text/x-jqote-template" id="tpl-more-user">
+  <![CDATA[
+    <% loadData("User/info",{user:this.DataTables.mytable.selectedRow}); %>
+    <p>Date of Birth: <%= this.User_info.details.dob %> <a class="button" href="javascript:showDialog('edit-user');console.log(window.Sebble.DataTables)">Edit</a></p>
   ]]>
 </script>

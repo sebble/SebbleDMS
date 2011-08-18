@@ -172,8 +172,43 @@ function ajaxifyAll(uiName) {
 
 function ajaxifyTables(element) {
 
-    $(element).find('table').dataTable();
+    window.Sebble.oTable = $(element).find('table').dataTable();
+    // change above to something like
     
+    $(element).find('table.fancy').each(function(i,el){
+    
+        var TID = $(el).attr('id');
+        window.Sebble.DataTables[TID] = $(el).dataTable();
+        
+        $(el).find('tbody tr').live('click', function () {
+            
+            // make sure this isn't a 'more' row
+            if ($(this).children().first().hasClass('more')) return;
+            
+		        var RID = $('td', this).first().text();
+		        window.Sebble.DataTables[TID].selectedRow = RID;
+            
+            var tplMore = $(el).data('more');
+            var tplPopup = $(el).data('popup');
+            
+            if (tplMore !== undefined) {
+                if ($(this).next().children().first().hasClass('more')) {
+                    window.Sebble.DataTables[TID].fnClose(this);
+                } else {
+                    // close others first
+                    $(this).siblings().each(function(i,el){
+                        window.Sebble.DataTables[TID].fnClose(el);
+                    });
+                    window.Sebble.DataTables[TID].fnOpen(this, $.jqote($('#tpl-'+tplMore), window.Sebble), 'more');
+                }
+            }
+            if ($(el).data('action') == 'dialog') {
+                console.log('show dialog');
+            }
+        });
+    });
+    
+    /*
     $(element).find('table tbody tr').live('click', function () {
     
 		  var nTds = $('td', this);
@@ -183,14 +218,22 @@ function ajaxifyTables(element) {
 		  var nRow = $(this);
 		  var popup = nTable.data('popup');
 		  
+		  if (nTable.data('action') == 'more') {
+		      
+		      //window.Sebble.oTable.fnOpen(nRow,function(){return"oops"},'more');
+		  }
+		  
 		  if (popup !== undefined) {
-		      var src = nTable.data('popup-src');
-		      var datastr = nRow.data('popup-data');
+		      //var src = nTable.data('popup-src');
+		      //var datastr = nRow.data('popup-data');
+		      //var aData = window.Sebble.oTable.fnGetData( this.parentNode.parentNode );
+		      //console.log(aData);
+		      window.Sebble.TableRowId = sId;
 		      //console.log(datastr);
-		      loadData(src, datastr);
+		      //loadData(src, datastr);
 		      showDialog(popup);
 		  }
-	  });
+	  });*/
 }
 
 function ajaxifyForms(element) {
@@ -264,6 +307,7 @@ function loadPage(group, page) {
       } else {
           window.Sebble.App.curSection = data.group;
           window.Sebble.App.curPage = data.title;
+          window.Sebble.DataTables = {};
           //$('#ui-head').jqotesub($('#tpl-head'), {});
           buildTemplate('head');
           setTitle($.jqote($('#tpl-title'), window.Sebble));
