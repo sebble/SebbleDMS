@@ -21,6 +21,8 @@ $(function(){
     $(window).bind('hashchange', function() {
         updateState(location.hash);
     });
+
+    CFInstall.check({mode: "overlay"});
 });
 
 /* Display */
