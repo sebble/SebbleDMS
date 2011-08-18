@@ -19,7 +19,13 @@ body {
     top: 0;
     left: 0;
     z-index: 1;
-    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%) #f6f6f6;
+
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+    background: -moz-linear-gradient(top, #fcfcfc 0%, #f6f6f6 100%);
+    background: -ms-linear-gradient(top, #fcfcfc 0%, #f6f6f6 100%);
+    background: -o-linear-gradient(top, #fcfcfc 0%, #f6f6f6 100%);
+    background: linear-gradient(top, #fcfcfc 0%, #f6f6f6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#f6f6f6',GradientType=0 );
     
     display: none;
 }
