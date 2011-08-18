@@ -42,14 +42,14 @@ function showLogin() {
     showDialog('login');
 }
 
-function showDialog(template, class) {
+function showDialog(template, aclass) {
 
-    class = setDefault(class, '');
+    aclass = setDefault(aclass, '');
     
     // create new element
     var idnum = Math.floor(Math.random()*10000); // 1/10000 possibility of trouble
     $('<div id="ui-overlay'+idnum+'" class="ui-overlay"></div>').appendTo('body');
-    $('<div id="ui-dialog'+idnum+'" class="ui-dialog '+class+'"></div>').appendTo('body');
+    $('<div id="ui-dialog'+idnum+'" class="ui-dialog '+aclass+'"></div>').appendTo('body');
 
     $('#ui-overlay'+idnum).show();
     buildTemplate('dialog'+idnum, template);
