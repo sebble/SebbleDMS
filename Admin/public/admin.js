@@ -178,6 +178,7 @@ function ajaxifyTables(element) {
 
 function ajaxifyForms(element) {
 
+    var idnum = $(element).attr('id').substr(9);
     $(element).children('form').submit(function(e){
         e.preventDefault();
         var autoClose  = setDefault($(this).data('autoclose'), true);
@@ -187,7 +188,7 @@ function ajaxifyForms(element) {
         var fn = window[$(this).data('oncomplete')];
         ajaxPost(formAction, formData, function(data){
             if (refresh) updateState();
-            if (autoClose) hideDialog();
+            if (autoClose) hideDialog(idnum);
             if (typeof fn === 'function') fn(data);
         });
     });
@@ -195,8 +196,8 @@ function ajaxifyForms(element) {
 
 function ajaxifyDialog(element) {
 
+    var idnum = $(element).attr('id').substr(9);
     $(element).find('.dialog-close').click(function(e){
-        var idnum = $(element).attr('id').substr(9)
         hideDialog(idnum);
     });
     

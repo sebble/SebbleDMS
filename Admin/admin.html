@@ -31,7 +31,7 @@
   <script type="text/x-jqote-template" id="tpl-login">
     <![CDATA[
       <h3>Sign In - <a href="<%= this.App.homePage %>">[<%= this.App.appName %>]</a></h3>
-      <form action="Admin/authLogin" method="post" id="form-login" data-oncomplete="buildCP">
+      <form action="Admin/authLogin" method="post" id="form-login" data-oncomplete="buildCP" class="fancy">
       <!--<form action="User/setDetails" data-autoclose="true" data-refresh="true">-->
       <p><em><%= this.App.loginMsg %></em></p>
       <p class="right"><label for="username">Username</label>

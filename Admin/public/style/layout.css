@@ -182,10 +182,32 @@ body {
 .ui-dialog .overflow {
     overflow: auto;
 }
+.ui-dialog .splitleft {
+    border-right: solid 2px #279;
+    width: 30em;
+    float: left;
+}
+.ui-dialog .overflow.splitleft,
+.ui-dialog .overflow.splitright {
+    overflow: hidden;
+}
+.ui-dialog .overflow.splitleft:hover,
+.ui-dialog .overflow.splitright:hover {
+    overflow: auto;
+}
+.ui-dialog .splitright {
+    border-left: solid 2px #279;
+    margin-left: -2px;
+    width: 29em;
+    float: left;
+}
 .ui-dialog h3 {
     border-bottom: solid 2px #279;
     text-align: right;
     color: #666;
+}
+.ui-dialog p {
+    clear: both;
 }
 /*
 .ui-dialog em {

@@ -270,6 +270,9 @@ function loadF2() {
 <li><a href="javascript:showDialog('medium','double')">Double (medium)</a></li>
 <li><a href="javascript:showDialog('large','double')">Double (large)</a></li>
 </ul>
+<ul>
+<li><a href="javascript:showDialog('split','double')">Double splitbox</a></li>
+</ul>
 
 
 <script type="text/x-jqote-template" id="tpl-small">
@@ -327,6 +330,52 @@ function loadF2() {
         <p><label>Input: </label><input /></p>
         <p><label>Input: </label><input /></p>
     </form></div>
+    <p><input type="button" class="dialog-close" value="Close" /></p>
+    
+  ]]>
+</script>
+<script type="text/x-jqote-template" id="tpl-split">
+  <![CDATA[
+    <h3>Large Split Box</h3>
+    <div class="overflow splitleft">
+    <p>This is a sample large box.</p>
+    <form class="fancy">
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+    </form>
+    <p>This is a sample large box.</p>
+    <form class="fancy">
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+    </form>
+    <p>This is a sample large box.</p>
+    <form class="fancy">
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+        <p><label>Input: </label><input /></p>
+    </form></div>
+    <div class="overflow splitright">
+    <p>This is a sample large box.</p>
+    <p>This is a sample large box.</p>
+    <p>This is a sample large box.</p><br /><br />
+    <p>This is a sample large box.</p>
+    <p>This is a sample large box.</p>
+    <p>This is a sample large box.</p><br /><br />
+    <p>This is a sample large box.</p>
+    <p>This is a sample large box.</p>
+    <p>This is a sample large box.</p><br /><br />
+    <p>This is a sample large box.</p>
+    <p>This is a sample large box.</p>
+    <p>This is a sample large box.</p><br /><br />
+    </div>
     <p><input type="button" class="dialog-close" value="Close" /></p>
     
   ]]>
