@@ -112,6 +112,11 @@ function refreshGCF() {
 
     window.location.reload(false)
 }
+function installGCF() {
+
+    //$('<iframe src="http://www.google.com/chromeframe" width="100%" height="100%" style="position:fixed;top:0;left:0;width:100%;height:100%;border:none;margin:0;padding:0;z-index:99999;"></iframe>').appendTo('body');
+    window.open('http://www.google.com/chromeframe','_blank');
+}
 
 /* Ajax */
 
