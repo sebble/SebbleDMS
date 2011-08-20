@@ -59,7 +59,7 @@
   <!-- jQote2 Template [Head] -->
   <script type="text/x-jqote-template" id="tpl-head">
     <![CDATA[
-      <h1>[<em><a href="<%= this.App.homePage %>"><%= this.App.appName %></a></em>] - <%= this.App.curSection %> :: <%= this.App.curPage %><span><%= this.User.details.username %> - [<a href="javascript:doLogout()">Sign out</a>]</span></h1>
+      <h1><span><%= this.User.details.username %> - [<a href="javascript:doLogout()">Sign out</a>]</span>[<em><a href="<%= this.App.homePage %>"><%= this.App.appName %></a></em>] - <%= this.App.curSection %> :: <%= this.App.curPage %></h1>
     ]]>
   </script>
   
