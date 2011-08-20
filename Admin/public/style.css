@@ -1,5 +1,5 @@
 /* Defaults */
-h1,h2,h3,h4,h5,h6 {
+h1,h2,h3,h4,h5,h6 { /* h2, h3, h4 made obsolete by lines 93, 98, 103. */
     color: #666;
 }
 body {
@@ -142,15 +142,6 @@ a.button:hover {
 #ui-dialog em {
     color: #666;
 }
-
-/* Created new <a> tag id here for the login box that clears all button styling from ui-login above.
-Had to use !important which didn't want to and wasn't expecting to need. Doesn't appear to affect anything else on website. 
-#login-non-button-link {
-	border: none !important;
-	background: none !important;
-}*/
-/* Silly Keith, there was no need to style all 'a' as buttons (like I did), do
- it the other way around.. see I added a button class above..*/
 
 /* Corners */
 .rounded {
