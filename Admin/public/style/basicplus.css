@@ -243,6 +243,13 @@ p:after {
 .fancy-table .hide-id-col th:first-child {
     display:none;
 }
+.fancy-table .more {
+    border: solid 1px #999;
+    border-width: 0 1px 1px 1px;
+    background-color: #f6f6f6;
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+    cursor: default;
+}
 
 /* Fancy Icons */
 .icon {
