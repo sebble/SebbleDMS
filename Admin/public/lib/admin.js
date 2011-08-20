@@ -58,14 +58,18 @@ function showDialog(template, aclass) {
     buildTemplate('dialog'+idnum, template);
     $('#ui-dialog'+idnum).show();
 }
-function hideDialog(idnum) {
+function hideDialog() {
 
     /*
     $('#ui-overlay'+idnum).hide(); // memory hog!
     $('#ui-dialog'+idnum).hide();
     */
-    $('#ui-overlay'+idnum).remove();
+    /*
+    $('#ui-overlay'+idnum).remove(); // requires idnum -- pfft!
     $('#ui-dialog'+idnum).remove();
+    */
+    $('.ui-dialog').last().remove();
+    $('.ui-overlay').last().remove();
 }
 
 function notify (className, msg, timeout) { /* showNotification() */

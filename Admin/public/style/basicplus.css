@@ -154,15 +154,19 @@ tr.even td.sorting_1 {
 
 
 /* Fancy Buttons */
-a.button {
+a.button,
+input[type="button"],
+input[type="submit"] {
     border: solid 1px #999;
     padding: 0.3em 0.5em;
     border-radius: 7px;
-    background: linear-gradient(top, #eef 0%,#dde 100%);
+    background: -webkit-linear-gradient(top, #eef 0%,#dde 100%);
     cursor: pointer;
 }
-a.button:hover {
-    background: linear-gradient(top, #eef 0%,#ccf 100%);
+a.button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover  {
+    background: -webkit-linear-gradient(top, #eef 0%,#ccf 100%);
 }
 
 /* Fancy Forms */
@@ -208,6 +212,10 @@ input[type="button"],
 input[type="submit"] {
     float: none;
 }
+input[type="button"],
+input[type="submit"] {
+    float: none;
+}
 hr {
     border: none;
     border-top: dashed 1px #49b;
@@ -236,5 +244,30 @@ p:after {
     display:none;
 }
 
+/* Fancy Icons */
+.icon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    float: left;
+    display: block;
+}
+.icon.add {
+    background:url('./../lib/icons/add.png');
+}
+.icon.rm {
+    background:url('./../lib/icons/delete.png');
+}
 
+
+/* Helpful Classes */
+.right {
+    float: right;
+}
+.right.button {
+    margin: 0.5em;
+}
+.no-margin {
+    margin:0;
+}
 

@@ -58,23 +58,12 @@ class Data_User extends Data {
         return false;
     }
     
-    function setName($data) {
-    
-        $u = (isset($data['user'])) ? $data['user'] : $this->user->details['username'];
-        $n = $data['fullname'];
-        
-        if ($old = $this->info(array('user'=>$u), true)) {
-        
-            $old['details']['fullname'] = $n;
-            $this->_saveUser($u, $old);
-            return $old;
-            return true; ### Return new value or return true?
-        }
-        return false;
-    }
     function setDetails($data) {
     
         $u = (isset($data['user'])) ? $data['user'] : $this->user->details['username'];
+        
+        if ($this->_locked($u))
+            return Controller_Admin::Notify('notice','Your account is locked.');
         
         if ($old = $this->info(array('user'=>$u), true)) {
         
@@ -84,9 +73,12 @@ class Data_User extends Data {
             }
             
             $this->_saveUser($u, $old);
+            
+            return Controller_Admin::Notify('success','Details updated.');
             return $old;
             return true; ### Return new value or return true?
         }
+        return Controller_Admin::Notify('error','Permission Denied.');
         return false;
     }
     function setPassword($data) {
@@ -151,7 +143,10 @@ class Data_User extends Data {
         $r = $data['role'];
         $s = $data['status'];
         
-        if ($this->user->hasRole('user_admin')) { ### note here users cannot modify own roles
+        if ($this->_locked($u))
+            return Controller_Admin::Notify('notice','Your account is locked.');
+        
+        if ($this->user->hasRole('user_admin')) {
         
             $old = $this->info(array('user'=>$u), true);
             if ($this->_false($s) && ($k = array_search($r, $old['roles'])))
@@ -173,7 +168,10 @@ class Data_User extends Data {
         $p = $data['permission'];
         $s = $data['status'];
         
-        if ($this->user->hasRole('user_admin')) { ### note here users cannot modify own roles
+        if ($this->_locked($u))
+            return Controller_Admin::Notify('notice','Your account is locked.');
+        
+        if ($this->user->hasRole('user_admin')) {
         
             $old = $this->info(array('user'=>$u), true);
             if ($this->_false($s) && ($k = array_search($p, $old['permissions']))!==false)
@@ -212,6 +210,14 @@ class Data_User extends Data {
     function _editable($user) {
         
         
+    }
+    function _locked($user) {
+      
+        // _locked() will return true only if authenticated user == $user and
+        // authenticated user has a locked account
+        if ($this->user->details['username'] == $user &&
+            $this->user->hasPermission('account_locked')) return true;
+        return false;
     }
     
     function _false($var) {

@@ -23,23 +23,6 @@
   ]]>
 </script>
 
-<!--
-<style>
-#ui-dialog {
-  width: 750px;
-}
-#ui-dialog form {
-  overflow: auto;
-}
-</style>
-<script>
-$(window).resize(function(e){
-  var wh = $(window).height();
-  wh = wh - 150;
-  $('#ui-dialog form').height(wh);
-});
-</script>
--->
 
 <script type="text/x-jqote-template" id="tpl-edit-user">
   <![CDATA[
@@ -63,7 +46,7 @@ $(window).resize(function(e){
     <!-- Remove Role -->
     <% for (r in this.User_info.roles) { %>
     <form action="User/setRole" data-autoclose="false" class="fancy" data-refresh="dialog" data-confirm="Delete this role?">
-        <p style="margin:0;"><label>&nbsp;</label><input disabled value="<%= this.User_info.roles[r] %>" /> <a href="#" class="rm form-submit">&nbsp;</a></p>
+        <p style="margin:0;"><label>&nbsp;</label><input disabled value="<%= this.User_info.roles[r] %>" /> <a class="icon rm form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="role" value="<%= this.User_info.roles[r] %>" /><input type="hidden" name="status" value="false" />
     </form>
     <% } %>
@@ -71,7 +54,7 @@ $(window).resize(function(e){
     
     <!-- Add Role -->
     <form action="User/setRole" data-autoclose="false" data-refresh="dialog" class="fancy">
-        <p style="margin:0;"><label>&nbsp;</label><input name="role" /> <a href="#" class="add form-submit">&nbsp;</a></p>
+        <p style="margin:0;"><label>&nbsp;</label><input name="role" /> <a class="icon add form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="status" value="true" />
     </form>
     <!---->
@@ -82,15 +65,18 @@ $(window).resize(function(e){
     <!-- Remove Permission -->
     <% for (r in this.User_info.permissions) { %>
     <form action="User/setPermission" data-autoclose="false" class="fancy" data-refresh="dialog">
-        <p style="margin:0;"><label>&nbsp;</label><input disabled value="<%= this.User_info.permissions[r] %>" /> <a href="#" class="rm form-submit">&nbsp;</a></p>
+        <p style="margin:0;"><label>&nbsp;</label><input disabled value="<%= this.User_info.permissions[r] %>" /> <a class="icon rm form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="permission" value="<%= this.User_info.permissions[r] %>" /><input type="hidden" name="status" value="false" />
     </form>
     <% } %>
+    <!-- alternative --
+    <p class="no-margin"><label>&nbsp;</label><input disabled value="<%%>" />
+    <a class="icon add do-action" data-action="rm_perm" data-data="{user:'<%= this.User_info.details.username %>',permission: '<%= this.User_info.permissions[r] %>'}">&nbsp;</a></p>-->
     <!---->
     
     <!-- Add Permissions -->
     <form action="User/setPermission" data-autoclose="false" data-refresh="dialog" class="fancy">
-        <p style="margin:0;"><label>&nbsp;</label><input name="permission" /> <a href="#" class="add form-submit">&nbsp;</a></p>
+        <p style="margin:0;"><label>&nbsp;</label><input name="permission" /> <a class="icon add form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="status" value="true" />
     </form>
     <!---->
@@ -107,29 +93,21 @@ $(window).resize(function(e){
     
     <hr />
     <p><input type="button" class="dialog-close" value="Done" /></p>
-    <style>
-      a.rm{float:left;width:16px;height:16px;background:url('lib/icons/delete.png');}
-      a.add{float:left;width:16px;height:16px;background:url('lib/icons/add.png');}
-    </style>
   ]]>
 </script>
 
 <script>
-function rmRole(role) {
-    
-    var nI = $('input.'+role);
-    var nR = nI.nextUntil('input');
-    nI.add(nR).remove();
-    showDialog('edit-user');
-}
-function addRole() {
-    
-    var role = $('#addrole').val();
-    var html = "<input class=\""+role+"\" disabled value=\""+role+"\" /> <a href=\"javascript:rmRole('"+role+"');\" style=\"float:left;width:16px;height:16px;background:url('lib/icons/delete.png');\">&nbsp;</a><br /><label>&nbsp;</label>";
-    $(html).insertBefore('#addrole');
-    $('#addrole').val('');
-}
+
+registerAction('rm_perm', {autoclose:false,
+                           refresh:'dialog',
+                           data:{status:false},
+                           success:function(){
+                              // nothing
+                           }});
+
+function registerAction(){}
 </script>
+
 
 <script type="text/x-jqote-template" id="tpl-new-user">
   <![CDATA[
@@ -147,6 +125,6 @@ function addRole() {
 <script type="text/x-jqote-template" id="tpl-more-user">
   <![CDATA[
     <% loadData("User/info",{user:this.DataTables.mytable.selectedRow}); %>
-    <p>Date of Birth: <%= this.User_info.details.dob %> <a class="button" href="javascript:showDialog('edit-user');console.log(window.Sebble.DataTables)">Edit</a></p>
+    <p>Date of Birth: <%= this.User_info.details.dob %> <a class="button right" href="javascript:showDialog('edit-user');">Edit</a> <a class="button right" href="javascript:showDialog('edit-user');">Delete</a></p>
   ]]>
 </script>
