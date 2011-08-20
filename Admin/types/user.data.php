@@ -115,12 +115,35 @@ class Data_User extends Data {
             $string = $salt.':'.md5($salt.$p);
             $old['details']['password'] = $string;
             $this->_saveUser($u, $old);
+            
+            return Controller_Admin::Notify('success','Password changed.');
             return array('notification'=>array('status'=>'success',
                 'msg'=>'Password changed.'));
             return $old;
             return true; ### Return new value or return true?
         }
         return false;
+    }
+    function forcePassword($data) {
+    
+        $u = $data['user'];
+        $p = $data['force_password'];
+        
+        if ($old = $this->info(array('user'=>$u),true)) {
+        
+            // check valid password
+            if (strlen($p)<4)
+                return array('notification'=>array('status'=>'error',
+                    'msg'=>'New password too short.'));
+            // salty pass
+            $salt = substr(md5(time()), -6);
+            $string = $salt.':'.md5($salt.$p);
+            $old['details']['password'] = $string;
+            $this->_saveUser($u, $old);
+            
+            return Controller_Admin::Notify('success','Password changed.');
+        }
+        return Controller_Admin::Notify('error','You cannot do this.');
     }
     function setRole($data) { ### a blank checkbox will not submit it's name
     
@@ -141,6 +164,7 @@ class Data_User extends Data {
             return $old;
             return true; ### Return new value or return true?
         }
+        return Controller_Admin::Notify('error','You are not allowed to do this.');
         return false;
     }
     function setPermission($data) {
@@ -157,9 +181,12 @@ class Data_User extends Data {
             else if ($this->_true($s) && !in_array($p, $old['permissions']))
                 $old['permissions'][] = $p;
             $this->_saveUser($u, $old);
+            
+            return Controller_Admin::Notify('success','Permissions updated.');
             return $old;
             return true; ### Return new value or return true?
         }
+        return Controller_Admin::Notify('error','You are not allowed to do this.');
         return false;
     }
     

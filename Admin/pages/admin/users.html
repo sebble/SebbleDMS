@@ -97,9 +97,10 @@ $(window).resize(function(e){
     
  
     <hr />
-    <form data-autoclose="false">
+    <form action="User/forcePassword" data-autoclose="false" data-refresh="dialog" class="fancy" data-confirm="Reset this password?">
     <p><label>Password: </label><input name="force_password" /></p>
     <p><input type="submit" value="Reset" /></p>
+    <input type="hidden" name="user" value="<%= this.User_info.details.username %>" />
     </form>
     
     </div>
