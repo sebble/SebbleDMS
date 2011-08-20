@@ -115,10 +115,10 @@
   <!-- jQote2 Template [Confirm (dialog)] -->
   <script type="text/x-jqote-template" id="tpl-confirm">
     <![CDATA[
-      <h3>Confirm - [<%= app.appName %>]</h3>
-      <p><%= ui.confirm %></p>
-      <p><a id="ui-yes" class="button">Yes</a>
-      <a id="ui-no" class="button">No</a></p>
+      <h3>Confirm - [<%= this.App.appName %>]</h3>
+      <p><%= this.App.confirmMsg %></p>
+      <p><input type="submit" value="Yes" />
+      <input type="button" value="No" class="dialog-close" /></p>
       </form>
     ]]>
   </script>

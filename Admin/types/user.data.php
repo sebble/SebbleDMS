@@ -136,6 +136,8 @@ class Data_User extends Data {
             else if ($this->_true($s) && !in_array($r, $old['roles']))
                 $old['roles'][] = $r;
             $this->_saveUser($u, $old);
+            
+            return Controller_Admin::Notify('success','Roles updated.');
             return $old;
             return true; ### Return new value or return true?
         }

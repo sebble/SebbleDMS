@@ -2,7 +2,7 @@
 
 var Sebble = {'User':{'details':{'username':'username'}},'App':{
     'homePage':'homePage','appName':'appName','loginMsg':'loginMsg',
-    'curPage':'curPage','curSection':'curSection'
+    'curPage':'curPage','curSection':'curSection','confirmMsg':'Are you sure?'
 }}
 
 /* Actions */
@@ -60,8 +60,12 @@ function showDialog(template, aclass) {
 }
 function hideDialog(idnum) {
 
-    $('#ui-overlay'+idnum).hide();
+    /*
+    $('#ui-overlay'+idnum).hide(); // memory hog!
     $('#ui-dialog'+idnum).hide();
+    */
+    $('#ui-overlay'+idnum).remove();
+    $('#ui-dialog'+idnum).remove();
 }
 
 function notify (className, msg, timeout) { /* showNotification() */
@@ -207,55 +211,46 @@ function ajaxifyTables(element) {
             }
         });
     });
-    
-    /*
-    $(element).find('table tbody tr').live('click', function () {
-    
-		  var nTds = $('td', this);
-		  var sId = $(nTds[0]).text();
-		  
-		  var nTable = $(this).parent().parent();
-		  var nRow = $(this);
-		  var popup = nTable.data('popup');
-		  
-		  if (nTable.data('action') == 'more') {
-		      
-		      //window.Sebble.oTable.fnOpen(nRow,function(){return"oops"},'more');
-		  }
-		  
-		  if (popup !== undefined) {
-		      //var src = nTable.data('popup-src');
-		      //var datastr = nRow.data('popup-data');
-		      //var aData = window.Sebble.oTable.fnGetData( this.parentNode.parentNode );
-		      //console.log(aData);
-		      window.Sebble.TableRowId = sId;
-		      //console.log(datastr);
-		      //loadData(src, datastr);
-		      showDialog(popup);
-		  }
-	  });*/
 }
 
 function ajaxifyForms(element) {
 
     var idnum = $(element).attr('id').substr(9);
-    $(element).children('form').submit(function(e){
+    $(element).find('form').submit(function(e){
         e.preventDefault();
         var autoClose  = setDefault($(this).data('autoclose'), true);
         var refresh    = setDefault($(this).data('refresh'), 'page');
+        var confirm    = setDefault($(this).data('confirm'), false);
         var formAction = $(this).attr('action');
         var formData   = $(this).serializeArray();
         var fn = window[$(this).data('oncomplete')];
-        ajaxPost(formAction, formData, function(data){
-            if (refresh=='page') updateState();
-            if (refresh=='dialog') {
-                var dialog = $('.ui-dialog').last().attr('id').substr(3);
-                var template = $('.ui-dialog').last().data('src');
-                buildTemplate(dialog, template);
-            }
-            if (autoClose) hideDialog(idnum);
-            if (typeof fn === 'function') fn(data);
-        });
+        
+        function formSubmit() {
+        
+            ajaxPost(formAction, formData, function(data){
+                if (refresh=='page') updateState();
+                if (refresh=='dialog') {
+                    var dialog = $('.ui-dialog').last().attr('id').substr(3);
+                    var template = $('.ui-dialog').last().data('src');
+                    buildTemplate(dialog, template);
+                }
+                if (autoClose) hideDialog(idnum);
+                if (typeof fn === 'function') fn(data);
+            });
+        }
+        
+        if (confirm==false) {
+            formSubmit();
+        } else {
+            if (confirm!==true) window.Sebble.App.confirmMsg = confirm;
+            else window.Sebble.App.confirmMsg = 'Are you sure?';
+            showDialog('confirm');
+            var idnum = $('.ui-dialog').last().attr('id').substr(9);
+            $('.ui-dialog').last().find('input[type="submit"]').click(function(){
+                hideDialog(idnum);
+                formSubmit();
+            });
+        }
     }).find('.form-submit').click(function(e){
         e.preventDefault();
         $(this).closest('form').submit();

@@ -44,4 +44,13 @@ class Controller_Admin {
             echo file_get_contents(self::$template);
         }
     }
+    
+    
+    static function Notify($status, $msg) {
+        // this could be a class with languages and things...
+        return array('notification'=>array('status'=>$status,
+                    'msg'=>$msg));
+    }
 }
+
+

@@ -46,6 +46,9 @@ $(window).resize(function(e){
     <% loadData("User/info",{user:this.DataTables.mytable.selectedRow}); %>
     
     <h3>Edit User</h3>
+    
+    <div class="overflow">
+    
     <form action="User/setDetails" data-autoclose="false" class="fancy">
     <input type="hidden" name="user" value="<%= this.User_info.details.username %>" />
     <p><label>Full Name: </label><input name="fullname" autofocus value="<%= this.User_info.details.fullname %>" /></p>
@@ -57,16 +60,16 @@ $(window).resize(function(e){
     
     <p><label>Roles: </label></p>
     
-    <!-- Add Role -->
+    <!-- Remove Role -->
     <% for (r in this.User_info.roles) { %>
-    <form action="User/setRole" data-autoclose="false" class="fancy" data-refresh="dialog">
+    <form action="User/setRole" data-autoclose="false" class="fancy" data-refresh="dialog" data-confirm="Delete this role?">
         <p style="margin:0;"><label>&nbsp;</label><input disabled value="<%= this.User_info.roles[r] %>" /> <a href="#" class="rm form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="role" value="<%= this.User_info.roles[r] %>" /><input type="hidden" name="status" value="false" />
     </form>
     <% } %>
     <!---->
     
-    <!-- Remove Role -->
+    <!-- Add Role -->
     <form action="User/setRole" data-autoclose="false" data-refresh="dialog" class="fancy">
         <p style="margin:0;"><label>&nbsp;</label><input name="role" /> <a href="#" class="add form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="status" value="true" />
@@ -76,7 +79,7 @@ $(window).resize(function(e){
     
     <p><label>Permissions: </label></p>
     
-    <!-- Add Permission -->
+    <!-- Remove Permission -->
     <% for (r in this.User_info.permissions) { %>
     <form action="User/setPermission" data-autoclose="false" class="fancy" data-refresh="dialog">
         <p style="margin:0;"><label>&nbsp;</label><input disabled value="<%= this.User_info.permissions[r] %>" /> <a href="#" class="rm form-submit">&nbsp;</a></p>
@@ -85,7 +88,7 @@ $(window).resize(function(e){
     <% } %>
     <!---->
     
-    <!-- Remove Permissions -->
+    <!-- Add Permissions -->
     <form action="User/setPermission" data-autoclose="false" data-refresh="dialog" class="fancy">
         <p style="margin:0;"><label>&nbsp;</label><input name="permission" /> <a href="#" class="add form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="status" value="true" />
@@ -98,6 +101,9 @@ $(window).resize(function(e){
     <p><label>Password: </label><input name="force_password" /></p>
     <p><input type="submit" value="Reset" /></p>
     </form>
+    
+    </div>
+    
     <hr />
     <p><input type="button" class="dialog-close" value="Done" /></p>
     <style>
