@@ -1,5 +1,5 @@
 loadConfig({
-  "appName": "NCL MathSoc",
-  "homePage": "http://www.nclmathsoc.com",
+  "appName": "appName",
+  "homePage": "http://localhost/",
   "loginMsg": "Please enter your username and password"
 });
