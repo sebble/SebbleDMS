@@ -176,6 +176,7 @@ function ajaxifyAll(uiName) {
     ajaxifyDialog('#ui-'+uiName);
     ajaxifyForms('#ui-'+uiName);
     ajaxifyTables('#ui-'+uiName);
+    ajaxifyActions('#ui-'+uiName);
 }
 
 function ajaxifyTables(element) {
@@ -207,7 +208,11 @@ function ajaxifyTables(element) {
                     $(this).siblings().each(function(i,el){
                         window.Sebble.DataTables[TID].fnClose(el);
                     });
-                    window.Sebble.DataTables[TID].fnOpen(this, $.jqote($('#tpl-'+tplMore), window.Sebble), 'more');
+                    var html = '<div id="ui-more">'
+                             + $.jqote($('#tpl-'+tplMore), window.Sebble)
+                             + '</div>';
+                    window.Sebble.DataTables[TID].fnOpen(this, html, 'more');
+                    ajaxifyAll('more');
                 }
             }
             if ($(el).data('action') == 'dialog') {
@@ -276,6 +281,48 @@ $(function(){
     });
 });
 
+function ajaxifyActions(element) {
+
+    $(element).find('.action').click(function(e){
+        e.preventDefault();
+        
+        var autoClose  = setDefault($(this).data('autoclose'), true);
+        var refresh    = setDefault($(this).data('refresh'), 'page');
+        var confirm    = setDefault($(this).data('confirm'), false);
+        var formAction = $(this).data('action');
+        var formData   = $(this).data('data');
+        console.log(formData);
+        var fn = window[$(this).data('oncomplete')];
+        
+        
+        function formSubmit() {
+        
+            ajaxPost(formAction, formData, function(data){
+                if (refresh=='page') updateState();
+                if (refresh=='dialog') {
+                    var dialog = $('.ui-dialog').last().attr('id').substr(3);
+                    var template = $('.ui-dialog').last().data('src');
+                    buildTemplate(dialog, template);
+                }
+                if (autoClose) hideDialog(idnum);
+                if (typeof fn === 'function') fn(data);
+            });
+        }
+        
+        if (confirm==false) {
+            formSubmit();
+        } else {
+            if (confirm!==true) window.Sebble.App.confirmMsg = confirm;
+            else window.Sebble.App.confirmMsg = 'Are you sure?';
+            showDialog('confirm');
+            var idnum = $('.ui-dialog').last().attr('id').substr(9);
+            $('.ui-dialog').last().find('input[type="submit"]').click(function(){
+                hideDialog(idnum);
+                formSubmit();
+            });
+        }
+    });
+}
 
 /* Other */
 
@@ -329,7 +376,7 @@ function loadPage(group, page) {
           // ..scrollTo top
           $.scrollTo(0, 0);
           
-          ajaxifyAll();
+          //ajaxifyAll();
       }
     });
 }

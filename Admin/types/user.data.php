@@ -187,6 +187,39 @@ class Data_User extends Data {
         return Controller_Admin::Notify('error','You are not allowed to do this.');
         return false;
     }
+    function addUser($data) {
+    
+        $u = $data['username'];
+        
+        if ($this->user->hasRole('user_admin')) {
+        
+            $new_user = array('details'=>array(
+                   'username'=>$u,
+                   'password'=>'salted:password',
+                   'fullname'=>'New User'
+                ),
+                'options'=>array(),'roles'=>array(),'permissions'=>array());
+            
+            if ($this->_saveUser($u, $new_user, true))
+                return Controller_Admin::Notify('success','User '.$u.' created.');
+            return Controller_Admin::Notify('error','Unknown error.');
+        }
+        return Controller_Admin::Notify('error','Permission Denied.');
+    }
+    function rmUser($data) {
+    
+        $u = $data['username'];
+        
+        if ($this->user->hasRole('user_admin')) {
+        
+            if (file_exists(User::$dir.$u.'.json')) {
+                unlink(User::$dir.$u.'.json');
+                return Controller_Admin::Notify('success','User '.$u.' removed.');
+            }
+            return Controller_Admin::Notify('error','Unknown user '.$u.'.');
+        }
+        return Controller_Admin::Notify('error','Permission Denied.');
+    }
     
     function setOption($data) {
     
@@ -196,13 +229,10 @@ class Data_User extends Data {
     }
     
     
-    function _saveUser($user, $data) {
+    function _saveUser($user, $data, $create = false) {
     
-        if (file_exists(User::$dir.$user.'.json')) {
+        if (file_exists(User::$dir.$user.'.json') || $create) {
             file_put_contents(User::$dir.$user.'.json', json_encode($data));
-            #$data = json_decode(file_get_contents(User::$dir.$user.'.json'),true);
-            #if (!$keeppw)
-            #    $data['details']['password'] = 'YES';
             return true;
         }
         return false;

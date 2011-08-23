@@ -200,23 +200,25 @@ form.fancy p:after {
     clear: both;
     visibility: hidden;
 }
-label, input {
+/* Protect some other things.. */
+.ui-dialog label,
+.ui-dialog input {
     width: 13em;
     margin:0 0.5em;
     float: left;
 }
-label {
+.ui-dialog label {
     text-align: right;
 }
-input[type="button"],
-input[type="submit"] {
+.ui-dialog input[type="button"],
+.ui-dialog input[type="submit"] {
     float: none;
 }
-input[type="button"],
-input[type="submit"] {
+.ui-dialog input[type="button"],
+.ui-dialog input[type="submit"] {
     float: none;
 }
-hr {
+.ui-dialog hr {
     border: none;
     border-top: dashed 1px #49b;
 }
@@ -226,7 +228,7 @@ form.fancy hr {
     margin:0.5em;
     text-align: center;
 }*/
-p:after {
+.ui-dialog p:after {
     content: ".";
     display: block;
     height: 0;
@@ -250,6 +252,15 @@ p:after {
     background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
     cursor: default;
 }
+/* I don't think this works! *
+#mytable_paginate:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+*/
 
 /* Fancy Icons */
 .icon {

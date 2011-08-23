@@ -111,11 +111,9 @@ function registerAction(){}
 
 <script type="text/x-jqote-template" id="tpl-new-user">
   <![CDATA[
-    <h3>Edit User</h3>
+    <h3>New User</h3>
     <form action="User/addUser" class="fancy">
-    <p><label>Full Name: </label><input name="fullname" autofocus /></p>
-    <p><label>Username: </label><input name="username" /></p>
-    <p><label>Date of Birth: </label><input name='dob' value="" /></p>
+    <p><label>Username: </label><input name="username" autofocus /></p>
     <p><input type="submit" value="Create" />
     <input type="button" class="dialog-close" value="Cancel" /></p>
     </form>
@@ -125,6 +123,6 @@ function registerAction(){}
 <script type="text/x-jqote-template" id="tpl-more-user">
   <![CDATA[
     <% loadData("User/info",{user:this.DataTables.mytable.selectedRow}); %>
-    <p>Date of Birth: <%= this.User_info.details.dob %> <a class="button right" href="javascript:showDialog('edit-user');">Edit</a> <a class="button right" href="javascript:showDialog('edit-user');">Delete</a></p>
+    <p>Date of Birth: <%= this.User_info.details.dob %> <a class="button right" href="javascript:showDialog('edit-user');">Edit</a> <a class="button right action" data-action="User/rmUser" data-data='{"username":"<%= this.User_info.details.username %>"}' onclick="console.log($('#testes').data())" id="testes">Delete</a></p>
   ]]>
 </script>
