@@ -53,7 +53,7 @@
     <!---->
     
     <!-- Add Role -->
-    <form action="User/setRole" data-autoclose="false" data-refresh="dialog" class="fancy" data-confirm="true">
+    <form action="User/setRole" data-autoclose="false" data-refresh="dialog" class="fancy">
         <p style="margin:0;"><label>&nbsp;</label><input name="role" /> <a class="icon add form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="status" value="true" />
     </form>
@@ -75,7 +75,7 @@
     <!---->
     
     <!-- Add Permissions -->
-    <form action="User/setPermission" data-autoclose="false" data-refresh="dialog" class="fancy" data-confirm="true">
+    <form action="User/setPermission" data-autoclose="false" data-refresh="dialog" class="fancy">
         <p style="margin:0;"><label>&nbsp;</label><input name="permission" /> <a class="icon add form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="status" value="true" />
     </form>
