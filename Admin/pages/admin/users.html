@@ -53,7 +53,7 @@
     <!---->
     
     <!-- Add Role -->
-    <form action="User/setRole" data-autoclose="false" data-refresh="dialog" class="fancy">
+    <form action="User/setRole" data-autoclose="false" data-refresh="dialog" class="fancy" data-confirm="true">
         <p style="margin:0;"><label>&nbsp;</label><input name="role" /> <a class="icon add form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="status" value="true" />
     </form>
@@ -64,7 +64,7 @@
     
     <!-- Remove Permission -->
     <% for (r in this.User_info.permissions) { %>
-    <form action="User/setPermission" data-autoclose="false" class="fancy" data-refresh="dialog">
+    <form action="User/setPermission" data-autoclose="false" class="fancy" data-refresh="dialog" data-confirm="Delete this permission?">
         <p style="margin:0;"><label>&nbsp;</label><input disabled value="<%= this.User_info.permissions[r] %>" /> <a class="icon rm form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="permission" value="<%= this.User_info.permissions[r] %>" /><input type="hidden" name="status" value="false" />
     </form>
@@ -75,7 +75,7 @@
     <!---->
     
     <!-- Add Permissions -->
-    <form action="User/setPermission" data-autoclose="false" data-refresh="dialog" class="fancy">
+    <form action="User/setPermission" data-autoclose="false" data-refresh="dialog" class="fancy" data-confirm="true">
         <p style="margin:0;"><label>&nbsp;</label><input name="permission" /> <a class="icon add form-submit">&nbsp;</a></p>
         <input type="hidden" name="user" value="<%= this.User_info.details.username %>" /><input type="hidden" name="status" value="true" />
     </form>
