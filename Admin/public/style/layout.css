@@ -39,6 +39,7 @@ body {
     -webkit-box-shadow: 0 0 5px #999;
     -moz-box-shadow: 0 0 5px #999;
     box-shadow: 0 0 5px #999;
+    text-shadow: 2px 2px 0 #ccc;
 }
 #ui-head h1 em {
     font-weight: bold;
@@ -46,6 +47,7 @@ body {
 #ui-head h1 span {
     float:right;
     font-size: 0.6em;
+    text-shadow: none;
 }
 
 
