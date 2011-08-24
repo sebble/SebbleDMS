@@ -1,1 +1,8 @@
 *.swp
+
+## custom implementations
+Admin/pages/*
+Admin/users/*
+Admin/types/*
+Admin/configs/*
+Admin/controllers/*
