@@ -15,6 +15,11 @@
       "name" : "API",
       "roles" : [],
       "perms" : []
+    },
+    "syntax" : {
+      "name" : "Syntax",
+      "roles" : [],
+      "perms" : []
     }
   }
 }

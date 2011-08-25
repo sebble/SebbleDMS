@@ -1,0 +1,175 @@
+<h1>Sen-sebble Markup Syntax</h1>
+
+<p>Custom markup syntax is used in for some website content.  Multiple configurations exist, below is the basic implementation.</p>
+
+<style>
+pre {
+  border: solid 1px #999;
+  background-color: #fcfcfc;
+}
+div.preview {
+  border: solid 1px #999;
+  background-color: #fcfcff;
+  padding: 1em;
+}
+blockquote {
+  border: 1px solid #49B;
+  padding: 1em;
+  background-color: #f6f6ff;
+  font-style: italic;
+}
+</style>
+
+<h2>Basic Syntax</h2>
+
+<h3>Headings &amp; paragraphs</h3>
+
+<pre>
+ === Third Level Heading
+
+Paragraphs are automatically created when a blank line is encountered.  You may
+have new-lines in your paragraphs and they will be ignored unless immediately 
+preceeded by two backwards slashes \\
+as shown here.
+
+Multiple paragraphs are easy to make, simply leave a blank line to get a real 
+paragraph break.
+
+ ==== Fourth Level Heading
+
+Headings are simply denoted by using an equality-sign as the first non-space 
+character.  The number of repeated signs will determine the level of heading 
+displayed.
+</pre>
+
+<div class="preview">
+<h3>Third Level Heading</h3>
+<p>Paragraphs are automatically created when a blank line is encountered.  You may
+have new-lines in your paragraphs and they will be ignored unless immediately 
+preceeded by two backwards slashes <br />as shown here.</p>
+<p>Multiple paragraphs are easy to make, simply leave a blank line to get a real 
+paragraph break.</p>
+<h4>Fourth Level Heading</h4>
+<p>Headings are simply denoted by using an equality-sign as the first 
+non-space character.  The number of repeated signs will determine the level of
+heading displayed.</p>
+</div>
+
+<h3>Block level elements</h3>
+
+<pre>
+Sometimes you may wish to use block level elements such as a blockquote:
+
+>>>
+  Once upon a time...
+>>>
+
+or maybe even some pre-formatted text:
+
+```
+  Pre-formatted text may be used for code
+as white-space is preserved.
+```
+
+As you can see above, these are described by using 3 symbols at the start of a 
+line and must be preceeded and followed by a blank line.  For a full list of
+elements see your specific configuration.
+</pre>
+
+<div class="preview">
+<p>Sometimes you may wish to use block level elements such as a blockquote:</p>
+<blockquote>Once upon a time...</blockquote>
+<p>or maybe even some pre-formatted text:</p>
+<pre>
+  Pre-formatted text may be used for code
+as white-space is preserved.
+</pre>
+<p>As you can see above, these are described by using 3 symbols at the start of a 
+line and must be preceeded and followed by a blank line.  For a full list of
+elements see your specific configuration.</p>
+</div>
+
+<h3>Inline formatting &amp; Symbols</h3>
+
+<pre>
+Importantly there are also some inline elements that can be useful for 
+expressing the true meaning of some words or phrases in your block-level 
+paragraphs.
+
+These can be used for ///emphasis///, or giving a phrase a **strong --effect-- 
+++emphasis++**.
+
+In addition to these elements some symbols may also be converted for convenience
+such as the copyright (c) symbol.
+</pre>
+
+<div class="preview">
+<p>Importantly there are also some inline elements that can be useful for 
+expressing the true meaning of some words or phrases in your block-level 
+paragraphs.</p>
+These can be used for <em>emphasis</em>, or giving a phrase a <strong>strong <del>effect</del>
+<ins>emphasis</ins></strong>.</p>
+<p>In addition to these elements some symbols may also be converted for convenience
+such as the copyright &copy; symbol.</p>
+</div>
+
+<h3>Lists</h3>
+
+<p>Another important feature of documents is the list.  Creating lists should be apparent from the source-code.  The next level is reached by repeating the list symbol.</p>
+
+<pre>
+ * List item 1
+ ** Items must have at least 1
+    space before the *-symbol.
+ * Clearly you can also continue the list item
+onto another line if you need to.
+
+ * A blank line will:
+ *# end the list
+ *# while a #-symbol will
+ *## start an ordered-list
+</pre>
+
+<div class="preview">
+<ul>
+  <li>List item 1
+    <ul>
+      <li>Items must have at least 1
+    space before the *-symbol.</li>
+    </ul>
+  </li>
+  <li>Clearly you can also continue the list item
+onto another line if you need to.</li>
+</ul>
+<ul>
+  <li>A blank line will:
+    <ol>
+      <li>end the list</li>
+      <li>while a #-symbol will
+        <ol>
+          <li>start an ordered-list</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ul>
+</div>
+
+<h3>Links &amp; Images</h3>
+
+<p>Links and images are both similar by design. An opening and closing pair of symbols encloses all relevant details about the link.</p>
+
+<pre>
+A paragraph can contain a [[link:http://google.co.uk "clickable phrase"]] known 
+as a hyperlink. or it could contain an image [[img:lib/icons/images.png "images"]].
+</pre>
+
+<div class="preview">
+<p>A paragraph can contain a <a href="http://google.co.uk">clickable phrase</a> known 
+as a hyperlink. or it could contain an image <img src="lib/icons/images.png" alt="images" title="images"/>.</p>
+</div>
+
+<h2>Advanced Syntax</h2>
+
+
+
