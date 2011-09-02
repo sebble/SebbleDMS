@@ -168,8 +168,19 @@ input[type="button"]:hover,
 input[type="submit"]:hover  {
     background: -webkit-linear-gradient(top, #eef 0%,#ccf 100%);
 }
+/* Fancy Button Colours */
+a.button.cation,
+input.caution[type="button"],
+input.caution[type="submit"] {
+    border-color: #f00;
+}
+/* Automatically add caution class to submit with a confirm message? */
 
 /* Fancy Forms */
+form { display: inline; }
+form.fancy {
+    display: block;
+}
 form.fancy label,
 form.fancy input {
     width: 13em;
@@ -245,6 +256,9 @@ form.fancy hr {
 .fancy-table .hide-id-col th:first-child {
     display:none;
 }
+.fancy-table .hide-id-col td.more:first-child {
+    display: table-cell;
+}
 .fancy-table .more {
     border: solid 1px #999;
     border-width: 0 1px 1px 1px;
@@ -289,3 +303,72 @@ form.fancy hr {
     margin:0;
 }
 
+/* Code, Links, Previews */
+pre,
+code {
+  border: solid 1px #999;
+  background-color: #fcfcfc;
+  padding: 0.2em;
+}
+div.preview {
+  border: solid 1px #999;
+  background-color: #fcfcff;
+  padding: 1em;
+}
+blockquote {
+  border: 1px solid #49B;
+  padding: 1em;
+  background-color: #f6f6ff;
+  font-style: italic;
+}
+
+#ui-main a {
+  cursor: pointer;
+  /*padding-right: 18px;
+  background: url('lib/icons/page_white_world.png') right 2px no-repeat;*/
+}
+#ui-main a:before {
+    content: "[";
+    color: #666;
+    font-style: normal;
+    font-weight: normal;
+}
+#ui-main a:after {
+    content: "]";
+    color: #666;
+    font-style: normal;
+    font-weight: normal;
+}
+
+#ui-main hr {
+    border: none;
+    border-bottom: dashed 2px #49B;
+    margin: 1.5em 0;
+}
+
+/* Acronym? */
+acronym {
+  border-bottom: dashed 1px #999;
+  cursor: help;
+}
+
+
+/* Extra Styles */
+
+#ui-main .warning {
+    border: solid 1px #f00;
+    padding: 0.5em;
+    background-color: #fee;
+}
+#ui-main .warning strong {
+    color: #f00;
+}
+
+#ui-main .notice {
+    border: solid 1px #00f;
+    padding: 0.5em;
+    background-color: #eef;
+}
+#ui-main .notice strong {
+    color: #00f;
+}

@@ -163,7 +163,7 @@ function loadData(url, params) {
     if (params===undefined) params={}
     ajaxPost(url, params, function(r) {
         varName = url.replace("/", "_");
-        //console.log(r)
+        console.log(r)
         //console.log(varName)
         window.Sebble[varName] = r;
     }, false);
@@ -194,8 +194,10 @@ function ajaxifyTables(element) {
             // make sure this isn't a 'more' row
             if ($(this).children().first().hasClass('more')) return;
             
-		        var RID = $('td', this).first().text();
+		        //var RID = $('td', this).first().text();
+		        var RID = $(this).data('row');
 		        window.Sebble.DataTables[TID].selectedRow = RID;
+		        window.Sebble.selectedRow = RID;
             
             var tplMore = $(el).data('more');
             var tplPopup = $(el).data('popup');
@@ -229,10 +231,13 @@ function ajaxifyForms(element) {
         e.preventDefault();
         var autoClose  = setDefault($(this).data('autoclose'), true);
         var refresh    = setDefault($(this).data('refresh'), 'page');
+        var onSuccess  = setDefault($(this).data('onsuccess'), false);
+        if (onSuccess) { refresh = false; autoClose = false; }
         var confirm    = setDefault($(this).data('confirm'), false);
         var formAction = $(this).attr('action');
         var formData   = $(this).serializeArray();
         var fn = window[$(this).data('oncomplete')];
+        var thisForm = this;
         
         function formSubmit() {
         
@@ -245,6 +250,8 @@ function ajaxifyForms(element) {
                 }
                 if (autoClose) hideDialog(idnum);
                 if (typeof fn === 'function') fn(data);
+                if (typeof window[onSuccess] === 'function')
+                    window[onSuccess](thisForm);
             });
         }
         
@@ -340,13 +347,18 @@ function checkLogin(callback) {
 
 function updateState() {
     
-    var re_hash = /#\!\/([a-z0-9-_]+)\/([a-z0-9-_]+)/i;
+    var re_hash = /#\!\/([a-z0-9-_]+)\/([a-z0-9-_]+)(\?([\w\W]+))?/i;
     var m = location.hash.match(re_hash);
-    if (m!==null && m.length == 3) {
+    if (m!==null && m.length >= 3) {
         var group = m[1];
         var page = m[2];
         
         loadPage(group, page);
+        
+        if (m[4]) {
+            $('.dataTables_filter input').val(unescape(m[4]));
+            window.Sebble.DataTables.mytable.fnFilter(unescape(m[4]));
+        }
     }
 }
 

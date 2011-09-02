@@ -3,7 +3,12 @@
   "pages": {
     "basic" : {
       "name" : "Basic Details",
-      "roles" : [],
+      "roles" : ["website_admin"],
+      "perms" : []
+    },
+    "pages" : {
+      "name" : "Manage Pages",
+      "roles" : ["website_admin"],
       "perms" : []
     }
   }

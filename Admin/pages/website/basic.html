@@ -1,0 +1,87 @@
+<h2>Website Configuration</h2>
+
+<p>Most of the website should be set up manually by editing the controller configuration files.  See the README for more information.</p>
+
+
+
+<h3>Global Options</h3>
+
+<p class="notice"><strong>Notice:</strong> The values prefiexed with <code>site_*</code> are used to store details about the website and author, you may set your website title here.</p>
+
+<p class="warning"><strong>Warning:</strong> The values here are very important and are used for several features of this website. Values prefiexed with <code>default_*</code> are used as default values for pages; other values can be used for global options, for example Google Analytics ID, or current stylesheet - changing these values can have significant effects on the stability of the website so take care when modifying them.</p>
+
+
+
+<h4>Filters</h4>
+<ul>
+  <li><a href="#!/website/basic?site_">Site Details</a></li>
+  <li><a href="#!/website/basic?default_">Default Values</a></li>
+  <li><a href="#!/website/basic">All Options</a></li>
+</ul>
+
+
+
+<h4>Options</h4>
+<!-- Option Table -->
+<div id="ui-optiontable" class="fancy-table"></div>
+<script type="text/x-jqote-template" id="tpl-optiontable">
+  <![CDATA[
+<% loadData("SiteOption/ls"); %>
+
+<table cellspacing=0 cellpadding=0 data-action="more" data-more="more-option" class="hide-id-col fancy" id="mytable">
+<thead><th>id</th><th>Site</th><th>Option Name</th><th>Option Value</th></thead>
+<tbody>
+<% for (o in this.SiteOption_ls) { %>
+  <tr data-row="<%=o%>">
+      <td><%= this.SiteOption_ls[o].id %></td>
+      <td><%= this.SiteOption_ls[o].site %></td>
+      <td><%= this.SiteOption_ls[o].name %></td>
+      <td><%= this.SiteOption_ls[o].value %></td>
+  </tr>
+<% } %>
+</tbody>
+</table>
+  ]]>
+</script>
+<script type="text/x-jqote-template" id="tpl-more-option">
+  <![CDATA[
+    
+    <% row=this.selectedRow; %>
+    <% row=this.SiteOption_ls[row]; %>
+    
+    <p><form action="SiteOption/updateById" class="fancy-inline">
+    Edit <code><%=row.name%></code>: 
+    <input name="value" value="<%=row.value%>" />
+    <input type="submit" value="Update" />
+    <input type="hidden" value="<%=row.id%>" name="id" /></form>
+    <form action="SiteOption/rm" data-confirm="Delete this option?" 
+          class="fancy-inline"><!-- data-onsuccess="somethingelse" -->
+    <input type="submit" value="Delete" class="caution" />
+    <input type="hidden" value="<%=row.id%>" name="id" /></form></p>
+  ]]>
+</script>
+<script>
+function somethingelse(el) {
+    /* `el` is a jQuery object of either the form or action element */
+    //console.log(el);
+    //alert("onSuccess of action "+$(el).attr('action'));
+}
+</script>
+<!-- /Option Table -->
+
+
+
+<h4>New Option</h4>
+
+<div id="ui-newoption"></div>
+<script type="text/x-jqote-template" id="tpl-newoption">
+  <![CDATA[
+<form action="SiteOption/add" class="fancy">
+<p><label>Site:</label> <input name='site' value='main' /></p>
+<p><label>Option Name:</label> <input name='name' /></p>
+<p><label>Option Value:</label> <input name='value' /></p>
+<p><label>&nbsp;</label> <input type='submit' value="Create Option" /></p>
+</form>
+  ]]>
+</script>
+

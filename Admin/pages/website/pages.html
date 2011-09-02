@@ -1,0 +1,118 @@
+<h2>Website Pages</h2>
+
+<p>This website is made up of different types of pages, some have a specific HTML template, while others reuse one template with different options; some pages here represent a series of dynamic pages (these have a regular expression); and finally there are some pages which have content associated with them, these are the pages you will probably be managing most often.</p>
+
+
+
+<h4>All Pages</h4>
+<!-- Option Table -->
+<div id="ui-optiontable" class="fancy-table"></div>
+<script type="text/x-jqote-template" id="tpl-optiontable">
+  <![CDATA[
+<% loadData("SitePage/ls"); %>
+
+<table cellspacing=0 cellpadding=0 data-action="more" data-more="more" class="hide-id-col fancy" id="mytable">
+<thead><th>id</th><th>Site</th><th>Slug/URL</th><th>Title</th><th>Regex</th><th>Active</th></thead>
+<tbody>
+<% for (p in this.SitePage_ls) { %>
+  <tr data-row="<%=p%>">
+      <% active=this.SitePage_ls[p].active; %>
+      <td><%= this.SitePage_ls[p].id %></td>
+      <td><%= this.SitePage_ls[p].site %></td>
+      <td><%= this.SitePage_ls[p].slug %></td>
+      <td><%= this.SitePage_ls[p].title %></td>
+      <td><%= this.SitePage_ls[p].regex %></td>
+      <td><% if(active==1){ %>Active<% }else{ %>Inactive<% } %></td>
+  </tr>
+<% } %>
+</tbody>
+</table>
+  ]]>
+</script>
+<script type="text/x-jqote-template" id="tpl-more">
+  <![CDATA[
+    
+    <% row=this.selectedRow; %>
+    <% row=this.SitePage_ls[row]; %>
+    
+    <p><b>Description:</b> <%=row.description%></p>
+    <p><b>Keywords:</b> <%=row.keywords%></p>
+    
+    <p><form action="SitePage/setActive" data-confirm="Adjust page visibility?">
+    <% if(row.active==1){ %>
+    <input type="submit" value="Unpublish Page" class="caution" />
+    <input type="hidden" name="active" value="false" />
+    <% }else{ %>
+    <input type="submit" value="Publish Page" class="caution" />
+    <input type="hidden" name="active" value="true" />
+    <% } %>
+    <input type="hidden" value="<%=row.id%>" name="id" /></form>
+    
+    <form action="SitePage/rm" data-confirm="Delete this page?">
+    <input type="submit" value="Delete Page" class="caution" />
+    <input type="hidden" value="<%=row.id%>" name="id" /></form>
+    
+    <input type="button" onclick="showDialog('edit');" value="Edit Page Details" /></p>
+  ]]>
+</script>
+<script type="text/x-jqote-template" id="tpl-edit">
+  <![CDATA[
+    <% /*loadData("SitePage/details",{id:this.SitePage_ls[this.selectedRow].id});*/ %>
+    <% /*page=this.SitePage_details;*/ %>
+    <% page=this.SitePage_ls[this.selectedRow]; %>
+    
+    <h3>Edit Page <span><%=page.id%></span></h3>
+    
+        <form class="fancy">
+        
+    <div class="overflow">
+        
+        <p><label>Title: </label><input name="title" value="<%=page.title%>" /></p>
+        <p><label>Description: </label><input name="title" value="<%=page.description%>" /></p>
+        <p><label>Keywords: </label><input name="title" value="<%=page.keywords%>" /></p>
+        
+        <hr />
+        
+        <p><label>Slug: </label><input name="title" value="<%=page.slug%>" /></p>
+        <p><label>Template: </label><input name="title" value="<%=page.template%>" /></p>
+        <p><input type="button" value="Configure Template" /></p>
+        
+        <hr />
+        
+        <p><label>Site: </label><input name="title" value="<%=page.site%>" /></p>
+        <p><label>Regex: </label><input name="title" value="<%=page.regex%>" /></p>
+        
+        
+    </div>
+    
+    <p><input type="submit" value="Save Changes" />
+       <input type="button" class="dialog-close" value="Cancel" /></p>
+       
+        </form>
+  ]]>
+</script>
+<!-- /Option Table -->
+
+
+
+<h4>New Page</h4>
+
+<div id="ui-new"></div>
+<script type="text/x-jqote-template" id="tpl-new">
+  <![CDATA[
+<form action="SitePage/add" class="fancy">
+<p><label>Site:</label> <input name='site' value='main' /></p>
+<p><label>Slug:</label> <input name='slug' value='/' /></p>
+<p><label>Title:</label> <input name='title' /></p>
+<p><label>&nbsp;</label> <input type='submit' value="Create Page" /></p>
+</form>
+  ]]>
+</script>
+
+
+
+
+
+<h3>Notes</h3>
+
+<p>Most pages on the website belong to site "main".  The pages marked "post" are special pages that can be accessed with a different name (e.g., <code>/post.php/page/slug</code> instead of <code>/page/slug</code>), this is due to a problematic 'feature' of <acronym title="Microsoft Internet Information Services">IIS</acronym> used on some servers.</p>

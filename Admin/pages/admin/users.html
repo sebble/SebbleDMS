@@ -15,7 +15,7 @@
 <thead><th>id</th><th>Full Name</th></thead>
 <tbody>
 <% for (u in this.User_lsl) { %>
-  <tr data-popup-data='{"user":"<%= this.User_lsl[u].username %>"}'><td><%= this.User_lsl[u].username %></td>
+  <tr data-popup-data='{"user":"<%= this.User_lsl[u].username %>"}' data-row="<%= u %>"><td><%= this.User_lsl[u].username %></td>
       <td><%= this.User_lsl[u].fullname %></td></tr>
 <% } %>
 </tbody>
@@ -122,7 +122,7 @@ function registerAction(){}
 
 <script type="text/x-jqote-template" id="tpl-more-user">
   <![CDATA[
-    <% loadData("User/info",{user:this.DataTables.mytable.selectedRow}); %>
+    <% loadData("User/info",{user:this.User_lsl[this.DataTables.mytable.selectedRow].username}); %>
     <p>Date of Birth: <%= this.User_info.details.dob %> <a class="button right" href="javascript:showDialog('edit-user');">Edit</a> <a class="button right action" data-action="User/rmUser" data-data='{"username":"<%= this.User_info.details.username %>"}' onclick="console.log($('#testes').data())" id="testes">Delete</a></p>
   ]]>
 </script>

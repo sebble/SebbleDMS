@@ -8,17 +8,17 @@
     },
     "tests" : {
       "name" : "Tests",
-      "roles" : [],
+      "roles" : ["example_user"],
       "perms" : []
     },
     "api" : {
       "name" : "API",
-      "roles" : [],
+      "roles" : ["example_user"],
       "perms" : []
     },
     "syntax" : {
       "name" : "Syntax",
-      "roles" : [],
+      "roles" : ["example_user"],
       "perms" : []
     }
   }

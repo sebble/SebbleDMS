@@ -3,12 +3,12 @@
   "pages": {
     "galleries" : {
       "name" : "Galleries",
-      "roles" : [],
+      "roles" : ["example_user"],
       "perms" : []
     },
     "tools" : {
       "name" : "Tools",
-      "roles" : [],
+      "roles" : ["example_user"],
       "perms" : []
     }
   }
