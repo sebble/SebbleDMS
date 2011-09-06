@@ -92,26 +92,20 @@ class Data_User extends Data {
         
             // check current password
             if (!User::check_salt($o,$old['details']['password']))
-                return array('notification'=>array('status'=>'error',
-                    'msg'=>'Incorrect password.'));
+                return Controller_Admin::Notify('error','Incorrect password.');
             // check valid password
             if (strlen($p)<4)
-                return array('notification'=>array('status'=>'error',
-                    'msg'=>'New password too short.'));
+                returnController_Admin::Notify('error','New password too short.');
             // check both match
             if ($p!=$q)
-                return array('notification'=>array('status'=>'error',
-                    'msg'=>'New passwords do not match.'));
+                return Controller_Admin::Notify('error','New passwords do not match.');
             // salty pass
             $salt = substr(md5(time()), -6);
             $string = $salt.':'.md5($salt.$p);
             $old['details']['password'] = $string;
             $this->_saveUser($u, $old);
             
-            return Controller_Admin::Notify('success','Password changed.');
-            return array('notification'=>array('status'=>'success',
-                'msg'=>'Password changed.'));
-            return $old;
+            Controller_Admin::Notify('success','Password changed.');
             return true; ### Return new value or return true?
         }
         return false;
@@ -125,8 +119,7 @@ class Data_User extends Data {
         
             // check valid password
             if (strlen($p)<4)
-                return array('notification'=>array('status'=>'error',
-                    'msg'=>'New password too short.'));
+                return Controller_Admin::Notify('error','New password too short.');
             // salty pass
             $salt = substr(md5(time()), -6);
             $string = $salt.':'.md5($salt.$p);

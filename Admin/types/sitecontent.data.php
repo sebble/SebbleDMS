@@ -24,16 +24,19 @@ class Data_SiteContent extends Data {
         $sql = "CREATE TABLE IF NOT EXISTS `$table` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
                 `site` text NOT NULL,
+                `modified` date NOT NULL,
+                `content` text NOT NULL,
+                `name` text NOT NULL,
+                `type` text NOT NULL,
+                PRIMARY KEY (`id`));";
+                /*
                 `author` text NOT NULL,
                 `created` date NOT NULL,
-                `modified` date NOT NULL,
                 `title` text NOT NULL,
-                `content` text NOT NULL,
                 `description` text NOT NULL,
-                `name` text NOT NULL,
                 `status` int(2) NOT NULL DEFAULT '0',
                 `meta_details` text,
-                PRIMARY KEY (`id`));";
+                */
         # execute query
     }
 }

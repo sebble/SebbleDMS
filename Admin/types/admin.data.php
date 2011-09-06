@@ -21,15 +21,15 @@ class Data_Admin extends Data {
     
         // wrapper for built in login?
         $q = $this->user->_login($data['username'], $data['password']);
-        if ($q) return array('notification'=>array('status'=>'success','msg'=>'Successful login.'));
-        else return array('notification'=>array('status'=>'error','msg'=>'Login failed.'));
+        if ($q) return Controller_Admin::Notify('success','Successful login.');
+        else return Controller_Admin::Notify('error','Login failed.');
     }
     
     function authLogout() {
     
         // wrapper for built in logout?
         $this->user->_logout();
-        return array('notification'=>array('status'=>'success','msg'=>'Logged out.'));
+        return Controller_Admin::Notify('success','Logged out.');
     }
     
     function userInfo() {
@@ -89,11 +89,11 @@ class Data_Admin extends Data {
                              'group'=>$this->pages[$group]['name'],
                              'title'=>$this->pages[$group]['pages'][$page]['name'],);
             } else {
-                return array('notification'=>array('status'=>'error','msg'=>'<b>404:</b> Page is missing.'));
+                return Controller_Admin::Notify('error','<b>404:</b> Page is missing.');
                 return false;
             }
         } else {
-            return array('notification'=>array('status'=>'error','msg'=>'<b>403:</b> You cannot access this page.'));
+            return Controller_Admin::Notify('error','<b>403:</b> You cannot access this page.');
             return false;
         }
     }

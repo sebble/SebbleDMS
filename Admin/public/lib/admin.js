@@ -138,11 +138,13 @@ function ajaxPost(action, data, callback, async) {
         type: 'POST',
         url: "index.php/"+action,
         data: data,
-        success: function(data){
+        success: function(data, status, XHR){
             // check for notifications
-            if (data.notification !== undefined) {
-                notify(data.notification.status, data.notification.msg);
-                if (data.notification.status!='error') callback(data.data);
+            var status = XHR.getResponseHeader("X-Admin-Status")
+            var msg    = XHR.getResponseHeader("X-Admin-Message")
+            if (status !== null) {
+                notify(status, msg);
+                if (status!='error') callback(data);
             } else
                 callback(data);
         },

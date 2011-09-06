@@ -4,6 +4,7 @@
 class Controller_Admin {
 
     static $template;
+    static $response;
     
     function __construct() {
     
@@ -48,8 +49,11 @@ class Controller_Admin {
     
     static function Notify($status, $msg) {
         // this could be a class with languages and things...
-        return array('notification'=>array('status'=>$status,
-                    'msg'=>$msg));
+        // this is now a header response
+        header("X-Admin-Status: ".$status);
+        header("X-Admin-Message: ".$msg);
+        self::$response = array('notification'=>
+            array('status'=>$status, 'msg'=>$msg));
     }
 }
 
