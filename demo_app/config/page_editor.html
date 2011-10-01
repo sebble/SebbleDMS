@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HTML5</title>
+  
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="Sebastian Mellor &lt;sebble@sebble.com&gt;" />
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(function(){
+    $('form.enhanced').submit(function(e){
+        //e.preventDefault();
+        //console.log("Form submitted");
+        //console.log($(this).find('.changed'));
+        //console.log(e.target);
+    });
+    // modified fields
+    $('.form').delegate('input,select,textarea','change',function(e){
+        //console.log(e);
+        $(this).removeClass('warning error saved').addClass('changed');
+    });
+    $('.form input[type="submit"]')
+      .add('.form button[type="submit"]').click(function(e){
+        e.preventDefault();
+        var $this = $(this);
+        
+        var $form = $this.closest('.form');
+        var $data = $form.find('input,textarea,select')
+                .not(':disabled,.key,input[type="hidden"],input[type="submit"]');
+        var $keys = $form.find('.key');
+        $data.removeClass('changed error warning').addClass('saved');
+        
+        var data = {};
+        $data.each(function(){
+            var $this = $(this);
+            //console.log([$this.attr('name'),$this.val()]);
+            data[$this.attr('name')] = $this.val();
+        });
+        
+        var keys = {};
+        $keys.each(function(){
+            var $this = $(this);
+            //console.log([$this.attr('name'),$this.val()]);
+            keys[$this.attr('name')] = $this.val();
+        });
+        
+        console.log([$this.attr('name'),keys,data]);
+    });
+    window.onbeforeunload = function() {
+        $save = $('.changed, .error, .warning');
+        if ($save.length > 0) {
+            $('.saved').removeClass('saved');
+            $save.removeClass('changed').addClass('warning');
+            return "If you leave this page, unsaved changes will be lost.";
+        }
+    };
+});
+  </script>
+</head>
+<body>
+
+<form class="enhanced">
+<textarea></textarea>
+<input type="text" /><input type="password" />
+<input type="submit" /><input />
+<select><option>one</option><option>two</option></select>
+<input type="radio" />
+<input type="checkbox" />
+</form>
+
+<style>
+body {
+    font-family: verdana;
+}
+.changed {
+    /*outline: solid 2px #090;
+    background-color: #efe;*/
+    outline: solid 2px #009;
+    outline: solid 2px rgba(0,0,255,0.5);
+}
+.saved {
+    outline: solid 2px rgba(0,255,0,0.5);
+}
+.warning {
+    outline: solid 2px rgba(255,127,0,0.5);
+}
+table thead td {
+    border-bottom: solid 2px #999;
+}
+table td {
+    padding: 0.3em 0.5em;
+}
+table tbody td {
+    color: #999;
+}
+table tbody td input,
+table tbody td input[type="text"] {
+    border: none;
+    border: dashed 1px #ddd;
+    cursor: pointer;
+    width: 7em;
+    color: #333;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+}
+table tr.new input,
+table tr.new input[type="text"] {
+    border: dashed 1px #009;
+}
+table tbody td input[type="image"] {
+    border: none;
+    width: 16px;
+}
+table button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+</style>
+<table cellspacing=0 class="form">
+<thead>
+<tr><td>Domain</td><td>Group</td><td>Title</td><td>Slug</td><td>Require</td><td>Actions</td></tr>
+</thead>
+<tbody>
+<tr><td>ADMIN</td><td></td><td></td><td>dash.overview</td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button></td></tr>
+<tr><td></td><td><input name="ADMIN_dash_title" value="Dashboard" /></td><td></td><td>dash</td><td><input name="ADMIN_dash_require" /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button></td></tr>
+<tr><td></td><td></td><td><input name="ADMIN_dash_overview_title" value="Overview" /></td><td>dash.<input name="ADMIN_dash_overview_slug" value="overview" /></td><td><input name="ADMIN_dash_overview_require" /></td><td class="form"><input type="hidden" class="key" name="id" value="3" /><button type="submit" name="CpPage/delete"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr class="form" class="new"><td></td><td></td><td><input placeholder="Page Title" /></td><td>dash.<input placeholder="pageslug" /></td><td><input /></td><td><button type="submit"><img src="../public/icons/add.png" /></button></td></tr>
+<tr><td></td><td><input value="Website" /></td><td></td><td>website</td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Configure" /></td><td>website.<input value="config" /></td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Options" /></td><td>website.<input value="options" /></td><td><input /></td><td><button type="submit" data-form="tr"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr class="form" class="new"><td></td><td></td><td><input placeholder="Page Title" /></td><td>website.<input placeholder="pageslug" /></td><td><input /></td><td><button type="submit"><img src="../public/icons/add.png" /></button></td></tr>
+<tr><td></td><td><input value="Pages" /></td><td></td><td>pages</td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Manage" /></td><td>pages.<input value="manage" /></td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Content" /></td><td>pages.<input value="content" /></td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr class="form" class="new"><td></td><td></td><td><input placeholder="Page Title" /></td><td>pages.<input placeholder="pageslug" /></td><td><input /></td><td><button type="submit"><img src="../public/icons/add.png" /></button></td></tr>
+<tr class="form" class="new"><td></td><td><input placeholder="Group Title" /></td><td></td><td><input placeholder="groupslug" /></td><td><input /></td><td><button type="submit"><img src="../public/icons/add.png" /></button></td></tr>
+
+
+<tr><td>USER</td><td></td><td></td><td>dash.profile</td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button></td></tr>
+<tr><td></td><td><input value="Dashboard" /></td><td></td><td>dash</td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Profile" /></td><td>dash.<input value="profile" /></td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr class="form" class="new"><td></td><td></td><td><input placeholder="Page Title" /></td><td>dash.<input placeholder="pageslug" /></td><td><input /></td><td><button type="submit"><img src="../public/icons/add.png" /></button></td></tr>
+<tr><td></td><td><input value="News" /></td><td></td><td>news</td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Manage" /></td><td>news.<input value="manage" /></td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Options" /></td><td>news.<input value="options" /></td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr class="form" class="new"><td></td><td></td><td><input placeholder="Page Title" /></td><td>news.<input placeholder="pageslug" /></td><td><input /></td><td><button type="submit"><img src="../public/icons/add.png" /></button></td></tr>
+<tr><td></td><td><input value="Articles" /></td><td></td><td>articles</td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Manage" /></td><td>articles.<input value="manage" /></td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Publish" /></td><td>articles.<input value="publish" /></td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Moderate" /></td><td>articles.<input value="moderate" /></td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr class="form" class="new"><td></td><td></td><td><input placeholder="Page Title" /></td><td>articles.<input placeholder="pageslug" /></td><td><input /></td><td><button type="submit"><img src="../public/icons/add.png" /></button></td></tr>
+<tr class="form" class="new"><td></td><td><input placeholder="Group Title" /></td><td></td><td><input placeholder="groupslug" /></td><td><input /></td><td><button type="submit"><img src="../public/icons/add.png" /></button></td></tr>
+
+
+<tr><td>GUEST</td><td></td><td></td><td>help.dotmarkup</td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button></td></tr>
+<tr><td></td><td><input value="Articles" /></td><td></td><td>articles</td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Submit" /></td><td>articles.<input value="submit" /></td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr class="form" class="new"><td></td><td></td><td><input placeholder="Page Title" /></td><td>articles.<input placeholder="pageslug" /></td><td><input /></td><td><button type="submit"><img src="../public/icons/add.png" /></button></td></tr>
+<tr><td></td><td><input value="Help" /></td><td></td><td>help</td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Dot Markup" /></td><td>help.<input value="dotmarkup" /><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr><td></td><td></td><td><input value="Contact" /></td><td>help.<input value="contact" /></td><td><input /></td><td class="form"><button type="submit"><img src="../public/icons/delete.png" /></button> <button type="submit"><img src="../public/icons/arrow_up.png" /></button> <button type="submit"><img src="../public/icons/arrow_down.png" /></button> <button type="submit"><img src="../public/icons/star.png" /></button></td></tr>
+<tr class="form" class="new"><td></td><td></td><td><input placeholder="Page Title" /></td><td>help.<input placeholder="pageslug" /></td><td><input /></td><td><button type="submit"><img src="../public/icons/add.png" /></button></td></tr>
+<tr class="form" class="new"><td></td><td><input placeholder="Group Title" /></td><td></td><td><input placeholder="groupslug" /></td><td><input /></td><td><button type="submit"><img src="../public/icons/add.png" /></button></td></tr>
+</tbody>
+</table>
+
+</body>
+</html>

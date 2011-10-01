@@ -1,0 +1,27 @@
+{
+  "admin":{
+    "default":"admin.home",
+    "groups":{
+      "website":{
+        "title":"Website",
+        "pages":{
+          "settings":{
+            "title":"Settings",
+            "requires":[]
+          },
+          "options":{
+            "title":"Options",
+            "requires":[]
+          }
+        },
+        "requires":["admin"]
+      }
+    }
+  },
+  "user":{
+    "default":"dash.profile"
+  },
+  "guest":{
+    "default":"dash.profile"
+  }
+}

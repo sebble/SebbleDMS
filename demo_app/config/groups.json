@@ -1,0 +1,22 @@
+{
+  "public":{
+    "description":"Public access group",
+    "access":["*.public"]
+  },
+  "admin":{
+    "description":"Administrator",
+    "access":["*.*"]
+  },
+  "user":{
+    "description":"Administrator",
+    "access":["*.user"]
+  },
+  "moderator":{
+    "description":"Article moderator",
+    "access":["article.moderator"]
+  },
+  "guestauthor":{
+    "description":"Guest author",
+    "access":["article.guest"]
+  }
+}

@@ -1,0 +1,3 @@
+<?php
+
+touch('pages.json');

@@ -1,0 +1,17 @@
+{
+  "guestauthor":{
+    "password":"e0d7f1:2dc5dc11f36d5f700b6e2b9498364beb",
+    "fullname":"Guest",
+    "groups":["guestauthor"]
+  },
+  "admin":{
+    "password":"e0d7f1:2dc5dc11f36d5f700b6e2b9498364beb",
+    "fullname":"Administrator",
+    "groups":["admin"]
+  },
+  "keith":{
+    "password":"e0d7f1:2dc5dc11f36d5f700b6e2b9498364beb",
+    "fullname":"Keith Newman",
+    "groups":["user","moderator"]
+  }
+}
