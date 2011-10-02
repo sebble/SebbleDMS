@@ -36,7 +36,7 @@ var Admin = {
     
     enhance: function() {
     
-        console.log("Improving document");
+        //console.log("Improving document");
     }
     
 }
