@@ -11,17 +11,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
   <script type="text/javascript">
 $(function(){
-    $('form.enhanced').submit(function(e){
-        //e.preventDefault();
-        //console.log("Form submitted");
-        //console.log($(this).find('.changed'));
-        //console.log(e.target);
-    });
-    // modified fields
+    
+    // watch all fields
     $('.form').delegate('input,select,textarea','change',function(e){
-        //console.log(e);
         $(this).removeClass('warning error saved').addClass('changed');
     });
+    
+    // listen for submit
     $('.form input[type="submit"]')
       .add('.form button[type="submit"]').click(function(e){
         e.preventDefault();
@@ -36,14 +32,12 @@ $(function(){
         var data = {};
         $data.each(function(){
             var $this = $(this);
-            //console.log([$this.attr('name'),$this.val()]);
             data[$this.attr('name')] = $this.val();
         });
         
         var keys = {};
         $keys.each(function(){
             var $this = $(this);
-            //console.log([$this.attr('name'),$this.val()]);
             keys[$this.attr('name')] = $this.val();
         });
         
@@ -57,6 +51,7 @@ $(function(){
             return "If you leave this page, unsaved changes will be lost.";
         }
     };
+    
 });
   </script>
 </head>
