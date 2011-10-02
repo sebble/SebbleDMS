@@ -28,9 +28,14 @@ echo "Hello World";
 echo "<pre>";
 print_r($_GET);
 print_r($_SERVER['PATH_INFO']);
+print_r($_FILES);
 echo "</pre>";
 
 ?>
+<form enctype="multipart/form-data" action="admin.php" method="POST">
+Choose a file to upload: <input name="myuploadedfile" type="file" /><br />
+<input type="submit" value="Upload File" />
+</form>
 <br /><br /><br /><br /><br /><br /><br /><br />
 <a href="one?one">one</a>
 <a href="two?two=2">two</a>
