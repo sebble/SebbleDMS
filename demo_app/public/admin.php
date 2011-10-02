@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <title>workies? <?= $_SERVER['PATH_INFO']; ?></title>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+<script>
+$(function(){
+    Admin.enhance();
+});
+</script>
 </head>
 <body>
 <?php
@@ -24,5 +31,6 @@ echo "</pre>";
 <a href="three?3=three&yes">three</a>
 
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
 </body>
 </html>

@@ -1,13 +1,27 @@
+/*** Admin Enhancement Styles ***/
+
+/* Iframe */
+
+iframe.admin-iframe {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+}
+
 /* Notifications */
 
-.ui-notify {
+.admin-notify {
 
     position:fixed;
     top: 1em;
     left: 50%;
-    width: 30em;
-    margin-left: -15em;
-    z-index: 999;
+    width: 450px;
+    margin-left: -227px;
+    /*z-index: 999;*/
     
     border: solid 2px #000;
     background-color: #eee;
@@ -15,10 +29,10 @@
     text-align: center;
     padding: 0.5em;
     
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 
-.ui-notify p {
+.admin-notify p {
 
     padding: 0;
     margin: 0;
