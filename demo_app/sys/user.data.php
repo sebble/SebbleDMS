@@ -32,11 +32,16 @@ class SebbleDMS_User_Storage {
             $users[$u]['username'] = $u;
             // merge groups
             if ($groups = $this->_fetchGroups()) {
+                $filters = array();
                 foreach ($users[$u]['groups'] as $gp) {
                     if (isset($groups[$gp])) {
-                        
+                        foreach ($groups[$gp]['filters'] as $f) {
+                            $f = explode('.', $f);
+                            $filters[$f[0]][]=$f[1];
+                        }
                     }
                 }
+                $users[$u]['filters'] = $filters;
             }
             return $users[$u];
         }
@@ -64,5 +69,5 @@ class SebbleDMS_User_Storage {
 
 class SebbleDMS_Data_User {
 
-    
+    // functions for updating user details...
 }
