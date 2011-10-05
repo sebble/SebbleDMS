@@ -56,7 +56,7 @@ class SebbleDMS_User_Storage {
     }
     
     // Utility function
-    function checkSalt($password, $salt_md5) {
+    static function checkSalt($password, $salt_md5) {
     
         $salt_md5 = explode(':',$salt_md5);
         if (md5($salt_md5[0].$password) == $salt_md5[1]) {
