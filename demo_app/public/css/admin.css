@@ -12,6 +12,21 @@ iframe.admin-iframe {
     display: none;
 }
 
+/* Forms */
+
+.changed {
+    outline: solid 2px rgba(0,0,255,0.5);
+}
+.saved {
+    outline: solid 2px rgba(0,255,0,0.5);
+}
+.warning {
+    outline: solid 2px rgba(255,127,0,0.5);
+}
+.error {
+    outline: solid 2px rgba(255,0,0,0.5);
+}
+
 /* Notifications */
 
 .admin-notify {
@@ -21,19 +36,39 @@ iframe.admin-iframe {
     left: 50%;
     width: 450px;
     margin-left: -227px;
-    /*z-index: 999;*/
+    z-index: 999;
     
     border: solid 2px #000;
     background-color: #eee;
     
     text-align: center;
     padding: 0.5em;
-    
-    /*cursor: pointer;*/
 }
 
 .admin-notify p {
 
     padding: 0;
     margin: 0;
+}
+
+.admin-notify.notice {
+    border-color: #00f;
+    background-color: #eef;
+}
+.admin-notify.notice b {
+    color: #009;
+}
+.admin-notify.success {
+    border-color: #0f0;
+    background-color: #efe;
+}
+.admin-notify.success b {
+    color: #090;
+}
+.admin-notify.error {
+    border-color: #f00;
+    background-color: #fee;
+}
+.admin-notify.error b {
+    color: #900;
 }

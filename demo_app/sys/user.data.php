@@ -1,34 +1,22 @@
 <?php
 
-class SebbleDMS_User_Data {
+class SebbleDMS_User_Storage {
 
-    static $users = '../users/';
-    static $groups = '../groups/';
+    static $users = '../config/users.json';
+    static $groups = '../config/groups.json';
     
     // User data access functions
-    function checkUser($u) {
-    
-        return file_exists(DMS_User_Data::$users.$u.'.json');
-    }
     function checkPassword($u, $p) {
     
-        if ($c = $this->fetchUser($u)) {
+        if ($c = $this->_fetchUser($u)) {
             return $this->checkSalt($p,$c['details']['password']);
         }
         return false;
     }
     function fetchUser($u) {
     
-        if ($c = $this->fetchUser($u)) {
-            ## space here to authenticate again if desired
-            $c['details']['password'] = 'YES';
-            ## parse groups
-            foreach ($c['groups'] as $g) {
-                if ($gp = $this->_fetchGroup($g)) {
-                    $c['options'] = array_merge($gp['options'], $c['options']);
-                    $c['permissions'] = array_merge($gp['permissions'], $c['permissions']);
-                }
-            }
+        if ($c = $this->_fetchUser($u)) {
+            unset($c['details']['password']);
             return $c;
         }
         return false;
@@ -37,15 +25,27 @@ class SebbleDMS_User_Data {
     // Other functions
     function _fetchUser($u) {
         
-        if (file_exists(DMS_User_Data::$users.$u.'.json')) {
-            return json_decode(file_get_contents(DMS_User_Data::$users.$u.'.json'), true);
+        if (file_exists(DMS_User_Data::$users)) {
+            $users = json_decode(file_get_contents(DMS_User_Data::$users), true);
+            // check user
+            if (!isset($users[$u])) return false;
+            $users[$u]['username'] = $u;
+            // merge groups
+            if ($groups = $this->_fetchGroups()) {
+                foreach ($users[$u]['groups'] as $gp) {
+                    if (isset($groups[$gp])) {
+                        
+                    }
+                }
+            }
+            return $users[$u];
         }
         return false;
     }
-    function _fetchGroup($g) {
+    function _fetchGroups() {
         
-        if (file_exists(DMS_User_Data::$groups.$g.'.json')) {
-            return json_decode(file_get_contents(DMS_User_Data::$groups.$g.'.json'), true);
+        if (file_exists(DMS_User_Data::$groups)) {
+            return json_decode(file_get_contents(DMS_User_Data::$groups), true);
         }
         return false;
     }

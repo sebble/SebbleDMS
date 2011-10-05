@@ -1,10 +1,15 @@
 <?php
 
 
+if (count($_POST)>0) {
+    
+    require '../admin.controller.php';
+    new Controller_Admin();
+    exit;
+}
 
 
-
-exit;
+#exit;
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +19,7 @@ exit;
 <title>workies? <?= $_SERVER['PATH_INFO']; ?></title>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/admin.js"></script>
+  <link rel="stylesheet" href="../css/admin.css" />
 <script>
 $(function(){
     Admin.enhance();
@@ -43,6 +49,14 @@ Choose a file to upload: <input name="myuploadedfile" type="file" /><br />
 <a href="mailto:sebble@sebble.com">mail</a>
 <a href="http://www.google.com">external</a>
 <a href="three?3=three&yes">three</a>
+
+
+<div class="form">
+<input type="hidden" name="key1" value="one" />
+<input type="text" name="data1" value="done" />
+<input type="text" name="data2" value="" />
+<input type="submit" name="Object_filter_anAction" value="An Action" />
+</div>
 
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 

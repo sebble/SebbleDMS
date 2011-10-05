@@ -1,7 +1,13 @@
 <?php
 
-class DMS_Data_Auth extends DMS_Data {
+class SebbleDMS_Data_Auth extends SebbleDMS_Data {
 
+    static $filters = array(
+            'login'     => 'public',
+            'logout'    => 'public',
+            'info'      => 'public'
+        );
+    
     function login($data) {
     
         if ($this->User->_login($data['username'], $data['password'])) {

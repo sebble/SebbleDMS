@@ -1,5 +1,14 @@
 <?php
 
+/*
+
+    Object/filter/actionName
+    Object/actionName
+    
+    Object/filter/actionName/key1/key2
+
+*/
+
 if (count($_POST)>0) {
     
     // testing the naming scheme
@@ -64,7 +73,8 @@ $(function(){
         var $form = $this.closest('.form');
         var $not  = $form.find('.form input,.form textarea,.form select');
         var $data = $form.find('input,textarea,select')
-                .not(':disabled,input.key,input[type="hidden"],input[type="submit"]')
+                .not(':disabled,input.key')
+                .not('input[type="hidden"],input[type="submit"],input[type="reset"]')
                 .not($not);
                 //.not('.form .form input,.form .form textarea,.form .form select');
         var $keys = $form.find('input.key').not($not);

@@ -56,7 +56,9 @@ if (!defined('GLOBALS_UNREGISTERED')) {
 
 /** Default Configuration -- clone below for custom config **/
 
-Data::$dataTypeDir = dirname(__FILE__).'/../types/';
-Data::$controllerDir = dirname(__FILE__).'/../controllers/';
-Data::$dataTypeConfDir = dirname(__FILE__).'/../types/';
-Data::$controllerConfDir = dirname(__FILE__).'/../controllers/';
+SebbleDMS::$dataTypeDir = dirname(__FILE__).'/../types/';
+SebbleDMS::$controllerDir = dirname(__FILE__).'/../controllers/';
+SebbleDMS::$dataTypeConfDir = dirname(__FILE__).'/../types/';
+SebbleDMS::$controllerConfDir = dirname(__FILE__).'/../controllers/';
+SebbleDMS_User_Storage::$users = dirname(__FILE__).'../config/users.json';
+SebbleDMS_User_Storage::$groups = dirname(__FILE__).'../config/groups.json';

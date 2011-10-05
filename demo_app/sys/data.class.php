@@ -7,6 +7,7 @@ class SebbleDMS_Data {
     static $keyOrder = array();
     static $defaultFilter = 'public';
     static $object;
+    static $filters;
     
     // Constructor
     function __construct($User=false) {
@@ -68,11 +69,30 @@ class SebbleDMS_Data {
         $object = strtolower($object[2]);
         
         // check user perm for this object and filter
-        $filters = $this->User->objectFilters($object);
+        if (!$this->User->hasFilter($object, $filter)) {
+            $this->Error("Invalid filter '$filter' for object '$object'");
+            return false;
+        }
         
-        if ($filters == '*') return true;
-        if ($filters == false) return false;
-        if (is_array($filters) && in_array($filter, $filters)) return true;
+        // check action has this filter
+        if (!$this->hasFilter($action, $filter)) {
+            $this->Error("Invalid filter '$filter' for action '$action'");
+            return false;
+        }
+        
+        return true;
+    }
+    
+    static function hasFilter($action, $filter) {
+    
+        if (!isset(self::$filters[$action])) {
+            $this->Error("No filters defined for this action '$action'");
+            return false;
+        }
+        if (self::$filters[$action] == $filter) return true;
+        else if (is_array(self::$filters[$action])) {
+            if (in_array($filter, self::$filters[$action])) return true;
+        }
         return false;
     }
     
@@ -83,7 +103,9 @@ class SebbleDMS_Data {
         $this->resetResponse();
         
         // verify action & permission
-        if (!self::verifyAction($action, $filter))
+        if (!self::verifyAction($action, $filter)) {
+            $this->Error("Invalid filter '$filter' for '$action'");
+        }
         
         // unnamed id key
         if (isset($keys[0]) && count(self::keyOrder)>0) {

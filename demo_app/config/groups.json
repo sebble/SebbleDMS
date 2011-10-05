@@ -1,22 +1,22 @@
 {
   "public":{
     "description":"Public access group",
-    "access":["*.public"]
+    "filters":[]
   },
   "admin":{
     "description":"Administrator",
-    "access":["*.*"]
+    "filters":["*.*"]
   },
   "user":{
-    "description":"Administrator",
-    "access":["*.user"]
+    "description":"Standard user",
+    "filters":["article.user"]
   },
   "moderator":{
     "description":"Article moderator",
-    "access":["article.moderator"]
+    "filters":["article.moderator"]
   },
   "guestauthor":{
     "description":"Guest author",
-    "access":["article.guest"]
+    "filters":["article.guest"]
   }
 }
