@@ -1,0 +1,44 @@
+
+.form label {
+    display: block;
+    text-align: left;
+    color: #666;
+}
+.form p:hover label {
+    color: #000;
+}
+.form input,
+.form select {
+    display: block;
+    line-height: 1em;
+    font-size: inherit;
+    font-family: inherit;
+    padding: 0.3em 0;
+    width: 100%;
+    max-width: 500px;
+    border: solid 1px #999;
+    background-color: #fcfcfc;
+}
+.form p:hover input,
+.form p:hover select {
+    border: solid 1px #333;
+}
+.form select {
+    cursor: pointer;
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#eee 100%);
+}
+.form input[type="submit"] {
+    padding: 0.4em 1em;
+    min-width: 150px;
+    width: auto;
+    display: inline;
+    border-radius: 3px;
+    cursor: pointer;
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#eee 100%);
+}
+.form p {
+    text-align: right;
+}
+.form [disabled] {
+    cursor:help;
+}

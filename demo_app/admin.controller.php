@@ -1,11 +1,12 @@
 <?php
 
-class Controller_Admin {
+class SebbleDMS_Controller_Admin {
 
     static $response;
     
     function __construct() {
     
+        
         if (count($_POST)>0) {
             // process control action
             
@@ -14,17 +15,33 @@ class Controller_Admin {
             $filter = $action[1];
             $action = $action[2];
             $keys   = isset($_POST['keys']) ? $_POST['keys'] : array() ;
-            $data   = $_POST['data'];
+            $data   = isset($_POST['data']) ? $_POST['data'] : array() ;
             if (!isset($_FILES)) $_FILES = array();
             
-            echo "\$X = new $object;";
-            echo "\$result = \$X->callAction($action, $filter, $keys, $data, $_FILES);";
+            $X = new $object;
+            $result = $X->callAction($action, $filter, $keys, $data, $_FILES);
             
-        } else {
+            header("X-Admin-Status: {$X->Response['code']}");
+            header("X-Admin-Message: {$X->Response['message']}");
+            echo json_encode($X->Response['data']);
+            
+        } else if (isset($_SERVER['PATH_INFO'])) {
             // display control page
             
-            $_SERVER['PATH_INFO'];
+            $keys = array('slug'=>substr($_SERVER['PATH_INFO'], 1));
             
+            $A = new SebbleDMS_Data_AdminPage;
+            $A->filter = 'public';
+            $A->getPageBySlug($keys);
+            
+            header("X-Admin-Status", $A->Response['code']);
+            header("X-Admin-Message", $A->Response['message']);
+            echo $A->Response['data'];
+            
+        } else {
+            // display admin template
+            
+            echo file_get_contents('admin.html');
         }
     }
     

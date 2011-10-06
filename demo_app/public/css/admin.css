@@ -1,5 +1,9 @@
 /*** Admin Enhancement Styles ***/
 
+body {
+    font-family: verdana;
+}
+
 /* Iframe */
 
 iframe.admin-iframe {
@@ -51,24 +55,28 @@ iframe.admin-iframe {
     margin: 0;
 }
 
-.admin-notify.notice {
+.admin-notify.status100 {
     border-color: #00f;
     background-color: #eef;
 }
-.admin-notify.notice b {
+.admin-notify.status100 b {
     color: #009;
 }
-.admin-notify.success {
+.admin-notify.status200 {
     border-color: #0f0;
     background-color: #efe;
 }
-.admin-notify.success b {
+.admin-notify.status200 b {
     color: #090;
 }
-.admin-notify.error {
+.admin-notify.status300,
+.admin-notify.status400,
+.admin-notify.status500 {
     border-color: #f00;
     background-color: #fee;
 }
-.admin-notify.error b {
+.admin-notify.status300 b,
+.admin-notify.status400 b,
+.admin-notify.status500 b {
     color: #900;
 }

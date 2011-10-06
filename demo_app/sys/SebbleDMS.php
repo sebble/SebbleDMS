@@ -9,7 +9,7 @@ class SebbleDMS {
     
     static function Controller ($controller) {
     
-        $class = 'DMS_Controller_'.$controller;
+        $class = 'SebbleDMS_Controller_'.$controller;
         $X = new $class;
     }
 }

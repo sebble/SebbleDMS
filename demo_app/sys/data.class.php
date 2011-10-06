@@ -4,18 +4,19 @@ class SebbleDMS_Data {
 
     var $User;
     var $Response;
+    var $filter;
     static $keyOrder = array();
     static $defaultFilter = 'public';
     static $object;
-    static $filters;
+    static $filters = array();
     
     // Constructor
     function __construct($User=false) {
-        
+    
         $this->resetResponse();
         
         if($User===false) {
-            $this->User = DMS_User::singleton();
+            $this->User = SebbleDMS_User::singleton();
         } else {
             $this->User = $User;
         }
@@ -69,9 +70,11 @@ class SebbleDMS_Data {
         $object = strtolower($object[2]);
         
         // check user perm for this object and filter
-        if (!$this->User->hasFilter($object, $filter)) {
-            $this->Error("Invalid filter '$filter' for object '$object'");
-            return false;
+        if ($filter != 'public') {
+            if (!$this->User->hasFilter($object, $filter)) {
+                $this->Error("Invalid filter '$filter' for object '$object'");
+                return false;
+            }
         }
         
         // check action has this filter
@@ -83,15 +86,16 @@ class SebbleDMS_Data {
         return true;
     }
     
-    static function hasFilter($action, $filter) {
+    function hasFilter($action, $filter) {
     
-        if (!isset(self::$filters[$action])) {
-            $this->Error("No filters defined for this action '$action'");
+        $obj = get_class($this);
+        if (!isset($obj::$filters[$action])) {
+            //$this->Error("No filters defined for this action '$action'");
             return false;
         }
-        if (self::$filters[$action] == $filter) return true;
-        else if (is_array(self::$filters[$action])) {
-            if (in_array($filter, self::$filters[$action])) return true;
+        if ($obj::$filters[$action] == $filter) return true;
+        else if (is_array($obj::$filters[$action])) {
+            if (in_array($filter, $obj::$filters[$action])) return true;
         }
         return false;
     }
@@ -104,18 +108,18 @@ class SebbleDMS_Data {
         
         // verify action & permission
         if (!self::verifyAction($action, $filter)) {
-            $this->Error("Invalid filter '$filter' for '$action'");
+            return;
         }
         
         // unnamed id key
         if (isset($keys[0]) && count(self::keyOrder)>0) {
             // first element of keyOrder is used as id key
-            $keys[self]::keyOrder[0]] = $value;
+            $keys[self::$keyOrder[0]] = $value;
             unset($keys[0]);
         }
         
         // reorder keys
-        if (count(self::keyOrder)>0) {
+        if (count(self::$keyOrder)>0) {
             $keys_sorted = array();
             foreach(self::keyOrder as $key) {
                 if (isset($keys[$key])) $keys_sorted[] = $key;
@@ -136,7 +140,9 @@ class SebbleDMS_Data {
         else $file = '';
         
         // form method string
-        $method = $filter.'_'.$action.$by.$file;
+        //$method = $filter.'_'.$action.$by.$file;
+        $this->filter = $filter;
+        $method = $action.$by.$file;
         
         if (!method_exists($this, $method)) {
             $class = explode('_', get_class($this));

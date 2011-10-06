@@ -9,14 +9,14 @@ class SebbleDMS_User_Storage {
     function checkPassword($u, $p) {
     
         if ($c = $this->_fetchUser($u)) {
-            return $this->checkSalt($p,$c['details']['password']);
+            return $this->checkSalt($p,$c['password']);
         }
         return false;
     }
     function fetchUser($u) {
     
         if ($c = $this->_fetchUser($u)) {
-            unset($c['details']['password']);
+            unset($c['password']);
             return $c;
         }
         return false;
@@ -24,9 +24,9 @@ class SebbleDMS_User_Storage {
     
     // Other functions
     function _fetchUser($u) {
-        
-        if (file_exists(DMS_User_Data::$users)) {
-            $users = json_decode(file_get_contents(DMS_User_Data::$users), true);
+    
+        if (file_exists(SebbleDMS_User_Storage::$users)) {
+            $users = json_decode(file_get_contents(SebbleDMS_User_Storage::$users), true);
             // check user
             if (!isset($users[$u])) return false;
             $users[$u]['username'] = $u;
@@ -49,8 +49,8 @@ class SebbleDMS_User_Storage {
     }
     function _fetchGroups() {
         
-        if (file_exists(DMS_User_Data::$groups)) {
-            return json_decode(file_get_contents(DMS_User_Data::$groups), true);
+        if (file_exists(SebbleDMS_User_Storage::$groups)) {
+            return json_decode(file_get_contents(SebbleDMS_User_Storage::$groups), true);
         }
         return false;
     }

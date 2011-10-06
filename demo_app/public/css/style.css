@@ -1,1 +1,172 @@
 /*** Application style sheet ***/
+
+body {
+    font-family: verdana;
+    margin: 0;
+    padding: 0;
+}
+
+#login div {
+    margin: 0 auto;
+    width: 500px;
+    padding: 3em 2em;
+    position: relative;
+}
+#login .changed {
+    outline: solid 2px rgba(0,0,255,0.2);
+}
+#login .saved {
+    outline: solid 2px rgba(0,255,0,0.2);
+}
+#login .warning {
+    outline: solid 2px rgba(255,127,0,0.5);
+}
+#login .error {
+    outline: solid 2px rgba(255,0,0,0.5);
+}
+
+/* Admin Style */
+
+body.admin {
+    background-color: #fcfcfc;
+    color: #333;
+}
+h1, h2, h3, h4 {
+    font-weight: normal;
+    color: #333;
+}
+
+a {
+    color: #49b;
+}
+a:hover {
+    color: #279;
+}
+
+/* Layout */
+
+#admin-head {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3em;
+    padding: 0.5em 2em;
+    overflow: hidden;
+    line-height: 3em;
+    font-family: georgia;
+    border-bottom: solid 2px #999;
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+    box-shadow: 0 0 5px #999;
+    z-index: 10;
+}
+#admin-head h1 {
+    /*text-shadow: 2px 2px 0 #ccc;*/
+}
+#admin-head span {
+    float: right;
+    font-size: 1.2em;
+    line-height: 2.5em;
+}
+#admin-head em {
+    font-weight: bold;
+    text-shadow: 2px 2px 0 #ccc;
+}
+#admin-head a:hover {
+    text-decoration: none;
+}
+
+#admin-side {
+    position: fixed;
+    top: 4em;
+    left: 0;
+    width: 15em;
+    bottom: 0;
+    overflow: hidden;
+    z-index: 5;
+}
+#admin-side:hover {
+    position: fixed;
+    top: 4em;
+    left: 0;
+    width: 15em;
+    bottom: 0;
+    overflow: auto;
+}
+#admin-side div {
+    margin: 1em;
+    padding: 1em;
+    border: solid 1px #999;
+    border-radius: 7px 0;
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+}
+#admin-side div h3 {
+    border-bottom: solid 2px #49b;
+}
+#admin-side div ul {
+    list-style: none;
+    margin: 0.5em 0;
+    padding: 0;
+}
+#admin-side div ul li {
+    margin: 0;
+    padding: 0;
+}
+#admin-side a {
+    color: inherit;
+    display: block;
+    padding: 0.2em 1em;
+}
+#admin-side a:hover {
+    background-color: #eef;
+    text-decoration: none;
+}
+
+#admin-main {
+    margin-top: 4em;
+    margin-left: 15em;
+    padding: 2em;
+    border: solid 1px #999;
+    border-width: 0 0 1px 1px;
+    border-radius: 0 0 0 15px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #999;
+}
+#admin-main h2 {
+    border-bottom: solid 3px #49b;
+}
+
+
+/*
+#login {
+    background-color: #fcfcfc;
+    margin: 0;
+    padding: 2em;
+}
+#login div {
+    margin: 0 auto;
+    width: 500px;
+    padding: 3em 2em;
+    box-shadow: inset 0px 0px 15px #999;
+    border: solid 1px #999;
+    position: relative;
+    background-color: #fff;
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#eee 100%);
+}
+#login input,
+#login select {
+    box-shadow: inset 0px 0px 5px #ddd;
+    border: solid 1px #999;
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f9f9f9 100%);
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f0f0f0 100%);
+}
+#login input:hover,
+#login select:hover {
+    box-shadow: inset 0px 0px 5px #ddd;
+    border: solid 1px #999;
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f0f0f0 100%);
+    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f9f9f9 100%);
+}
+*/
+
+

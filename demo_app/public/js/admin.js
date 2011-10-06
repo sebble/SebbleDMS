@@ -10,7 +10,8 @@ var Admin = {
         
             $ic = $iframe.contents();
             $ic.find('body').scrollTop(pxTop);
-            $iframe.fadeIn(100,function(){
+            $('.admin-iframe', window.parent.document).not($iframe).fadeOut(600);
+            $iframe.fadeIn(600,function(){
                 $('iframe', window.parent.document).not($iframe).remove();
             });
             
@@ -43,8 +44,9 @@ var Admin = {
         
         // listen for actions
         $('.form input[type="submit"]')
-          .add('.form button[type="submit"]').click(function(e){
-            
+          .add('.form button[type="submit"]')
+          .add('.form a.action').click(function(e){
+            e.preventDefault();
             Admin.submit(this);
         });
         $('.form input').keyup(function(e){
@@ -54,11 +56,24 @@ var Admin = {
                   .first().click();
             }
         });
+        
+        $('form.form').submit(function(e){
+            e.preventDefault();
+        });
     },
     
-    notify: function() {
+    notify: function(status, msg) {
     
-        
+        console.log('Status-'+status+': '+msg);
+        var $notify = $("<div>").addClass('admin-notify')
+            .html('<p>'+msg+'</p>').addClass('status'+status);
+        $('body', window.parent.document).append($notify);
+        var fadeOut = function(){
+            $notify.fadeOut(600, function(){
+                $notify.remove();
+            });
+        }
+        setTimeout(fadeOut, 1000);
     },
     
     submit: function(elem) {
@@ -66,7 +81,7 @@ var Admin = {
         var $this = $(elem);
         
         var $form = $this.closest('.form');
-        var $not  = $form.find('.form input,.form textarea,.form select');
+        var $not  = $('.form input',$form).add('.form textarea',$form).add('.form select',$form);
         var $data = $form.find('input,textarea,select')
                 .not(':disabled,input.key')
                 .not('input[type="hidden"],input[type="submit"],input[type="reset"]')
@@ -86,6 +101,40 @@ var Admin = {
         });
         
         var actn = $this.attr('name');
+        if (actn == undefined) actn = $this.attr('href');
+        
+        console.log(actn);
+        
+        var onError = function(jqXHR, textStatus, errorThrown) {
+                        window.parent.Admin.notify('500', 'An error occured.');
+                        console.log(errorThrown);
+        }
+        var onSuccess = function(data, textStatus, jqXHR) {
+                    console.log(data);
+                    var status = jqXHR.getResponseHeader("X-Admin-Status");
+                    var msg    = jqXHR.getResponseHeader("X-Admin-Message");
+                    if (msg != '') {
+                        window.parent.Admin.notify(status, msg);
+                    }
+                    var data = $.parseJSON(data);
+                    console.log(data);
+                    if (status > 299) {
+                        // error
+                        $data.removeClass('warning error saved changed').addClass('error');
+                    } else {
+                        // success
+                        $data.removeClass('warning error saved changed').addClass('saved');
+                        // check for other changed elements
+                        $save = $('.changed, .error, .warning');
+                        if ($save.length == 0) {
+                            // reload window
+                            Admin.iframe(window.location, $('body').scrollTop());
+                            console.log('reload');
+                        } else {
+                            // warn user about other fields
+                        }
+                    }
+                }
         
         $.ajax(
             'admin.php',
@@ -93,19 +142,9 @@ var Admin = {
                 async: false,
                 cache: false,
                 data: {keys: keys, data: data, action: actn},
-                //dataType: 'json',
-                success: function(data, textStatus, jqXHR) {
-                    //console.log([data, jqXHR]);
-                    console.log(data);
-                    //$save = $('.changed, .error, .warning');
-                    //if ($save.length == 0) {
-                    //    //window.location.reload(true);
-                    //    //reload();
-                    //    //done();
-                    //} else {
-                    //    //$('#reload').animate({top:0});
-                    //}
-                },
+                //dataType: 'json', // remove to see PHP errors
+                error: onError,
+                success: onSuccess,
                 type: 'POST'
             }
         );

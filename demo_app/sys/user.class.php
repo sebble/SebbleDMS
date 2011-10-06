@@ -12,6 +12,7 @@ class SebbleDMS_User extends SebbleDMS_User_Storage {
     var $filters;
     
     var $loggedIn = false;
+    var $domain;
     
     // options
     static $timeout = 30;
@@ -19,7 +20,7 @@ class SebbleDMS_User extends SebbleDMS_User_Storage {
     static function singleton() {
     
         if (!isset(self::$instance)) {
-            self::$instance = new User(true);
+            self::$instance = new SebbleDMS_User(true);
         }
         return self::$instance;
     }
@@ -36,7 +37,7 @@ class SebbleDMS_User extends SebbleDMS_User_Storage {
         if (isset($_SESSION['username']) &&
                 $_SESSION['activity'] > time() - SebbleDMS_User::$timeout*60) {
             
-            return ($this->_refresh($_SESSION['username'], true);
+            return $this->_refresh($_SESSION['username'], true);
         } else {
             $this->_logout();
             return false;
@@ -51,6 +52,7 @@ class SebbleDMS_User extends SebbleDMS_User_Storage {
                 $_SESSION['username'] = $u;
                 $_SESSION['logintime'] = time();
                 $_SESSION['activity'] = $_SESSION['logintime'];
+                $_SESSION['domain'] = $session;
             }
             
             return $this->_refresh($u, $session);
@@ -64,9 +66,11 @@ class SebbleDMS_User extends SebbleDMS_User_Storage {
     function _refresh($u, $session=true) {
     
         if ($c = $this->fetchUser($u)) {
-            if ($session)
+            if ($session) {
                 $_SESSION['activity'] = time();
-            $this->details = $c['details'];
+                $this->domain = $_SESSION['domain'];
+            }
+            $this->details = $c;
             unset($this->details['password']);
             $this->filters = $c['filters'];
             $this->loggedIn = true;
@@ -80,6 +84,7 @@ class SebbleDMS_User extends SebbleDMS_User_Storage {
         unset($_SESSION['username']);
         unset($_SESSION['activity']);
         unset($_SESSION['logintime']);
+        unset($_SESSION['domain']);
         $this->details = array();
         $this->filters = array();
         
@@ -90,8 +95,7 @@ class SebbleDMS_User extends SebbleDMS_User_Storage {
     // Data Functions
     function hasFilter($object, $filter) {
     
-        if (!isset(self::$filters[$object])) {
-            $this->Error("No filters defined for this object '$object'");
+        if (!isset($this->filters[$object])) {
             return false;
         }
         if ($this->filters[$object] == $filter) return true;
