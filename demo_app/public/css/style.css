@@ -38,9 +38,11 @@ h1, h2, h3, h4 {
 
 a {
     color: #49b;
+    color: #056;
 }
 a:hover {
     color: #279;
+    color: #068;
 }
 
 /* Layout */
@@ -56,7 +58,7 @@ a:hover {
     line-height: 3em;
     font-family: georgia;
     border-bottom: solid 2px #999;
-    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+    background: -webkit-linear-gradient(top, #fff 0%,#fcfcfc 100%);
     box-shadow: 0 0 5px #999;
     z-index: 10;
 }
@@ -98,10 +100,10 @@ a:hover {
     padding: 1em;
     border: solid 1px #999;
     border-radius: 7px 0;
-    background: -webkit-linear-gradient(top, #fcfcfc 0%,#f6f6f6 100%);
+    background: -webkit-linear-gradient(top, #fff 0%,#fcfcfc 100%);
 }
 #admin-side div h3 {
-    border-bottom: solid 2px #49b;
+    border-bottom: solid 2px #666;
 }
 #admin-side div ul {
     list-style: none;
@@ -118,7 +120,7 @@ a:hover {
     padding: 0.2em 1em;
 }
 #admin-side a:hover {
-    background-color: #eef;
+    background-color: #f6f6f6;
     text-decoration: none;
 }
 
@@ -133,7 +135,7 @@ a:hover {
     box-shadow: 0 0 5px #999;
 }
 #admin-main h2 {
-    border-bottom: solid 3px #49b;
+    border-bottom: solid 2px #ccc;
 }
 
 

@@ -24,6 +24,7 @@ class SebbleDMS_Data_AdminPage extends SebbleDMS_Data {
         self::$Smarty->setCompileDir('/var/www/repos/SebbleDMS/demo_app/admin/tpl_c');
         self::$Smarty->setConfigDir('/var/www/repos/SebbleDMS/demo_app/admin/');
         self::$Smarty->setCacheDir('/var/www/repos/SebbleDMS/demo_app/admin/cache');
+        self::$Smarty->addPluginsDir('/var/www/repos/SebbleDMS/demo_app/Smarty/sebble');
         self::$Smarty->debugging = true;
         self::$Smarty->caching = false;
         self::$Smarty->assign('user',$this->User);

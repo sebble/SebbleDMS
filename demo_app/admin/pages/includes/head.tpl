@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>{$group} :: {$page}</title>
+  <title>{$group} :: {$page}{if $subpage neq ''} - {$subpage}{/if}</title>
   
   <meta name="description" content="SebbleDMS application page missing" />
   <meta name="author" content="Sebastian Mellor &lt;sebble@sebble.com&gt;" />
@@ -51,5 +51,5 @@
     </div>
 </div>
 <div id="admin-main">
-    <h2>{$group} :: {$page}</h2>
+    <h2>{$subpage|default:$page}</h2>
 
